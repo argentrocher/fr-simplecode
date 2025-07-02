@@ -1,0 +1,167 @@
+#a[[[{print("a")}]]]
+
+#jhon[[[{print("Hello ! jhon ")}{print("momo")}]]]
+
+#deux[[[{print("la fonction2 à été appelé depuis la fonction1 !")}]]]
+
+#un[[[
+{###table_use_script_path:true###}
+{###function_text:true###}
+{print("a")}
+{use_script(text(table|frc_use_script_path|[1]))[deux]}
+]]]
+
+#affiche[[[{print("a [input] b [input] c [input] " [input]+2 "é")}]]]
+//si l'affichage ne fonctionne pas, relancer le code car la table n'a pas été actualisée avec la fonction active (fonctionnel de base)
+
+#path[[[
+{if||##state_table_use_script_path##||?=||0||{print("Erreur : la table frc_use_script_path a été désactivé !")}{exit}}
+{###table_use_script_path:true###}
+{###function_text:true###}
+{
+print("text(table|frc_use_script_path|[1]) est le chemin actuel de se fichier !")
+}
+]]]
+
+#time[[[
+{var|seconde|=0}
+{var|seconde_debut|=time(s)}
+{var|minute_debut|=time(m)}
+{###output_print:notcomma###}
+{repeat||infini||
+    {if||var|seconde|||<||time(s)||
+        {print("Il est : " time(h) " h " time(m) " et " time(s) " secondes.")}
+        {var|seconde|=time(s)}
+    }
+    {if||time(s)||?=||0||
+        {if||var|seconde|||?=||59||
+            {var|seconde|=-1}
+        }
+    }
+    {if||var|minute_debut|||!=||time(m)||
+        {if||var|seconde_debut|||<=||time(s)||
+            {print("indice")}
+            {break(1)}
+        }
+    }
+}
+{print("fin")}
+]]]
+
+
+#window_test[[[
+{var|i|=0}
+{var|angle|=0}
+{var|rayon|=500}
+{var|cx|=screen_size(x)/2}
+{var|cy|=screen_size(y)/2}
+
+{print("text(dll|frc_windows_creator|[create_window("202;520;520;-1;-1;0;0;0;circle_window")])")}
+{print("text(dll|frc_windows_creator|[window_size("202;-1;-1")])")}
+
+{repeat||500||
+
+    {var|r|=0}
+    {var|g|=0}
+    {var|b|=0}
+
+    {if||var|angle|||<=||60||
+        {var|r|=255}
+        {var|g|=num(var|angle|)/60*255}
+        {var|b|=0}
+        {if||var|g|||<||0||{var|g|=-1*var|g|}}
+    ||else||
+    {if||var|angle|||<=||120||
+        {var|r|=(1-((num(var|angle|)-60)/60))*255}
+        {var|g|=255}
+        {var|b|=0}
+        {if||var|r|||<||0||{var|r|=-1*var|r|}}
+    ||else||
+    {if||var|angle|||<=||180||
+        {var|r|=0}
+        {var|g|=255}
+        {var|b|=(num(var|angle|)-120)/60*255}
+        {if||var|b|||<||0||{var|b|=-1*var|b|}}
+    ||else||
+    {if||var|angle|||<=||240||
+        {var|r|=0}
+        {var|g|=(1-((num(var|angle|)-180)/60))*255}
+        {var|b|=255}
+        {if||var|g|||<||0||{var|g|=-1*var|g|}}
+    ||else||
+    {if||var|angle|||<=||360||
+        {var|r|=(num(var|angle|)-240)/60*255}
+        {var|g|=0}
+        {var|b|=255}
+        {if||var|r|||<||0||{var|r|=-1*var|r|}}
+    ||else||
+        {var|r|=255}
+        {var|g|=0}
+        {var|b|=(1-((num(var|angle|)-300)/60))*255}
+        {if||var|b|||<||0||{var|b|=-1*var|b|}}
+    }}}}}
+
+    {var|r|=(1+cos((var|angle|)*3.14159/180))*127.5}
+    {var|g|=(1+cos((var|angle|-120)*3.14159/180))*127.5}
+    {var|b|=(1+cos((var|angle|-240)*3.14159/180))*127.5}
+
+    {var|x2|=var|cx|+(cos(var|angle|)*var|rayon|)}
+    {var|y2|=var|cy|+(sin(var|angle|)*var|rayon|)}
+
+    {print("text(dll|frc_windows_creator|[create_line("202;num(var|cx|);num(var|cy|);num(var|x2|);num(var|y2|);num(modulo(var|r|;255));num(modulo(var|g|;255));num(modulo(var|b|;255))")])")}
+
+    {var|angle|=var|angle|+360/100}
+
+    {sleep(50)}
+}]]]
+
+#window_test2[[[
+{if||dll|frc_windows_creator|[create_window("202;1500;520;-1;-1;0;50;200;mouse position window")])||?=||-1||{exit}}
+{threading([[[{sleep(100)}{print("text(dll|frc_windows_creator|[window_on_event("202;43")])")}{if||dll|frc_windows_creator|[window_exist("202")]||?=||1||{print("text(dll|frc_windows_creator|[destroy_window("202")])")}}{free_dll()}{sleep(100)}{close_threading()}]]])}
+
+{sleep(200)}
+{dll|frc_windows_creator|[window_event("202")]}
+{print("b")}
+{var|mousex|=0}
+{var|mousey|=0}
+{print("text(dll|frc_windows_creator|[create_text_("202;100;50;50;7;255;1;1;Position de la souris sur la fenêtre :[/n]num(var|mousex|);num(var|mousey|)")])")}
+{repeat||infini||
+{sleep(10)}
+{if||dll|frc_windows_creator|[window_on_mouse_move("202")]||?=||-1||{free_dll()}{sleep(100)}{close_threading()}{break(2)}}
+{print("text(dll|frc_windows_creator|[create_text_("202;100;50;50;7;1;1;1;Position de la souris sur la fenêtre :[/n]num(var|mousex|);num(var|mousey|)")])")}
+{var|mousex|=text(dll|frc_windows_creator|[window_mouse_position("202;0")])}
+{var|mousey|=text(dll|frc_windows_creator|[window_mouse_position("202;1")])}
+{print("text(dll|frc_windows_creator|[create_text_("202;100;50;50;7;1;255;1;Position de la souris sur la fenêtre :[/n]num(var|mousex|);num(var|mousey|)")])")}
+}
+
+{print("fin")}
+]]]
+
+#window_test3[[[
+{if||dll|frc_windows_creator|[create_window("202;1500;520;-1;-1;200;50;200;mouse position window")])||?=||-1||{exit}}
+{threading([[[{sleep(100)}{print("text(dll|frc_windows_creator|[window_on_event("202;43")])")}{if||dll|frc_windows_creator|[window_exist("202")]||?=||1||{print("text(dll|frc_windows_creator|[destroy_window("202")])")}}{free_dll()}{sleep(100)}{close_threading()}]]])}
+
+{threading([[[
+{sleep(200)}
+{print("text(dll|frc_windows_creator|[create_text_("202;100;50;50;7;2;1;1;appui sur echap pour quitter !")])")}
+{sleep(2000)}
+{print("text(dll|frc_windows_creator|[create_text_("202;100;50;50;7;1;1;1;appui sur echap pour quitter !")])")}
+]]])}
+
+{sleep(200)}
+{dll|frc_windows_creator|[window_event("202")]}
+{print("b")}
+{var|mousex|=0}
+{var|mousey|=0}
+{repeat||infini||
+{sleep(5)}
+{if||dll|frc_windows_creator|[window_on_mouse_move("202")]||?=||-1||{free_dll()}{sleep(100)}{close_threading()}{break(2)}}
+{print("text(dll|frc_windows_creator|[create_circle("202;num(var|mousex|);num(var|mousey|);30;1;1;1")])")}
+{var|mousex|=text(dll|frc_windows_creator|[window_mouse_position("202;0")])}
+{var|mousey|=text(dll|frc_windows_creator|[window_mouse_position("202;1")])}
+{print("text(dll|frc_windows_creator|[create_circle("202;num(var|mousex|);num(var|mousey|);30;1;255;1")])")}
+}
+{print("fin")}
+]]]
+
+###[[[{use_script(testcode)[window_test3]}]]]###
