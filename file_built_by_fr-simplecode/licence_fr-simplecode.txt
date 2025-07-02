@@ -1,0 +1,9 @@
+Licence du logiciel fr-simplecode.exe sur Windows (v0.3):
+---------------------------------------------------
+Ce logiciel est sous licence pour un usage sous contrainte. Vous n'êtes pas autorisé à modifier ou reproduire ce logiciel sans l'autorisation explicite de l'auteur argentropcher, assigné au compte Google argentropcher. L'utilisation commerciale est autorisée à condition de respecter les termes de cette licence et de ne pas enfreindre les droits de l'auteur.
+
+Avertissement :
+Ce logiciel est fourni tel quel, sans aucune garantie. L'auteur ne pourra être tenu responsable de tout dommage résultant de l'utilisation de ce logiciel sur votre appareil.
+
+Information sur les dll :
+n'exécuter pas de fichier dll sans savoir ce qu'ils font réelment, aucune garantie n'est promise pour l'usage de dll depuis fr-simplecode !

@@ -1,0 +1,4 @@
+me()=C:\Users\XXXX\Documents\XXXX\C,C++\test_dll
+i=C:\Users\XXXX\Documents\XXXX\C,C++\test_dll.dll
+morpion=morpion_frc.dll
+
