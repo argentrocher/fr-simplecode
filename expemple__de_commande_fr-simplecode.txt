@@ -1,0 +1,74 @@
+[[[{###sortie:tout###}{si||5||!=||5||[[2]]{bob}{bloub}{si||2||?=||2||[[1]]{cd}}}]]]
+
+[[[{###sortie:tout###}{si||700-695||!=||4+1||[[2]]{bob}{bloub}{si||2||?=||2||[[1]]{cd}}}]]]
+
+[[[{###sortie:tout###}{si||var|bob|||!=||5||[[2]]{bob}{bloub}{bg}}]]]
+
+
+[[[{###sortie:tout###}{si||700-695||!=||4+1||{bob}{bloub}{si||2||?=||2||[[1]]{cd}}}]]]
+
+[[[{###sortie:tout###}{taboudi}{si||var|bob|||!=||5||[[2]]{bob}{bloub}{###output:normal###}}{fin}]]]
+
+[[[{###sortie:normale###}{print("bob"" tg")}]]]
+
+[[[{###sortie:normale###} {var|bob|=random[900,1100]} {print("bob "var|bob|" !")} {si||var|bob|||>=||950||[[1]]{si||var|bob|||<=||1050||[[1]]{print("var bob est compris entre 950 et 1050")}{print("var bob est supérieur à 1050")}}{print("var bob est inférieur à 950")}} ]]]
+
+[[[{affiche("ouverture de edge")}{execute(start msedge)}]]]
+
+[[[{###sortie:tout###}{if||3||?=||3||{bob}{bib}{poulet}{si||4||<||3||[[2]]{hello}{bye}{good}}}]]]
+
+[[[{si||3||<||9||{print("bob")}}]]]
+
+[[[{var|bob|=triangle(var|bob|;7)}{print(var|bob|)}]]]
+
+[[[{var|bob|=sqrt(var|bob|)}{print(var|bob|)}]]]
+
+[[[{si||3||>||0||{print("bob")}{print("||?")}}]]]
+
+[[[{repeat||5||{if||random[1,2]||?=||2||[[2]]{print("pause")}{break(5)}{print("ok")}}}]]]
+
+[[[{break(2)}{print("b")}]]]
+
+[[[{if||2||?=||2||{break(0)}{print("b")}}{print("g")}{print("k")}]]]
+
+[[[{if||2||?=||2||{if||3||?=||3||{print("bob")}{break(5)}{print("3")}}{print("2")}}{print("1")}]]]
+
+[[[{repeat||5||{if||random[1,2]||?=||2||[[2]]{print("pause")}{break(5)}{print("ok")}}}{stop_break()}{print("fin")}]]]
+
+[[[{var|compteur|=0}{repeat||5||{if||random[1,2]||?=||2||[[2]]{print("pause")}{break(1000000)}{print("ok")}{var|compteur|=var|compteur|+1}}}{stop_pause()}{print("fin")}{if||var|compteur|||?=||5||{print("lancement du cmd")}{execute(start cmd)}}{print(var|compteur| " ok")}]]] 
+
+random[1,9]random[1,9]random[1,9].random[1,9]random[1,9]
+
+[[[{repeat||10000||{print("Il est : " time(h) " h "time(m)" et "time(s)" secondes.")}}]]]
+
+[[[{var|seconde|=0}{repeat||10000||{if||var|seconde|||<||time(s)||{print("Il est : " time(h) " h "time(m)" et "time(s)" secondes.")}{var|seconde|=time(s)}{if||var|seconde|||?=||59||{var|seconde|=0}}}}]]]
+
+[[[{var|seconde|=0}{###output_print:notcomma###}{repeat||1280000||{if||var|seconde|||<||time(s)||{print("Il est : " time(h) " h "time(m)" et "time(s)" secondes.")}{var|seconde|=time(s)}}{if||time(s)||?=||0||{if||var|seconde|||?=||59||{var|seconde|=-1}}}}]]]
+
+[[[{repeat||infini||{print("a")}{break(2)}}{print("fin")}]]]
+
+[[[{var|seconde|=0}{var|seconde_debut|=time(s)}{var|minute_debut|=time(m)}{###output_print:notcomma###}{repeat||infini||{if||var|seconde|||<||time(s)||{print("Il est : " time(h) " h "time(m)" et "time(s)" secondes.")}{var|seconde|=time(s)}}{if||time(s)||?=||0||{if||var|seconde|||?=||59||{var|seconde|=-1}}}{if||var|minute_debut|||!=||time(m)||{if||var|seconde_debut|||<=||time(s)||{print("indice")}{break(1)}}}}{print("fin")}]]]
+
+[[[{repeat||2||{repeat||infini||{print("bob")}{break(2)}}{print("ff")}}]]]
+
+[[[{repeat||2||{var|seconde|=0}{var|minute_debut|=time(m)}{repeat||endless||{if||var|minute_debut|||?=||time(m)||[[1]]{if||var|seconde|||!=||time(s)||{print(time(m)" "time(s))}{var|seconde|=time(s)}}{print("fin")}{break(1)}}}}]]]
+
+[[[{repeat||2||{var|seconde|=0}{var|seconde_debut|=time(s)}{var|minute_debut|=time(m)}{###output_print:notcomma###}{repeat||infini||{if||var|seconde|||<||time(s)||{print("Il est : " time(h) " h " time(m) " et " time(s) " secondes.")}{var|seconde|=time(s)}}{if||time(s)||?=||0||{if||var|seconde|||?=||59||{var|seconde|=-1}}}{if||var|minute_debut|||!=||time(m)||{if||var|seconde_debut|||<=||time(s)||{print("indice")}{break(1)}}}}}{print("fin")}]]] 
+
+texte_boucle[[[{if||var|seconde|||<||time(s)||{print("Il est : " time(h) " h "time(m)" et "time(s)" secondes.")}{var|seconde|=time(s)}}{if||time(s)||?=||0||{if||var|seconde|||?=||59||{var|seconde|=-1}}]]]
+
+[[[{###output_print:not[/n]###}{print("a")}{print("b")}{###sortie_affiche:[/n]###}{print("c")}]]]
+
+[[[{if||in_var(bob)||?=||1||{print("var bob")}}]]]
+
+[[[{table|test|=[[1;2;3;4;5]]}{var|i|=1}{repeat||table|test|.len()||{print(table|test|[var|i|])}{var|i|=var|i|+1}}{var_suppr(i)}{table|test|=suppr()}]]]
+
+[[[{table|test|=[[[[1,1;1,2;1,3;1,4;1,5]];[[2,1;2,2;2,3;2,4;2,5]];[[3,1;3,2;3,3;3,4;3,5]];[[4,1;4,2;4,3;4,4;4,5]];[[5,1;5,2;5,3;5,4;5,5]]]]}{var|i|=1}{repeat||table|test|.len()||{var|ii|=1}{repeat||table|test|.len([var|i|])||{print(table|test|[var|i|][var|ii|])}{var|ii|=var|ii|+1}}{var|i|=var|i|+1}}{var_suppr(i)}{var_suppr(ii)}{table|test|=suppr()}]]]
+
+[[[{table|random|=[[random(0;10)]]}{repeat||100||{table|randomi|=[[random(0;10)]]}{table|random|=join(table|random|;table|randomi|)}}{table|randomi|=suppr()}]]]
+
+[[[{var|i|=1}{repeat||table|random|.len()-1||{var|min_index|=var|i|}{var|j|=var|i|+1}{repeat||table|random|.len()||{if||var|j|||>||table|random|.len()||{break(table|random|.len())}}{if||table|random|[var|j|]||<||table|random|[var|min_index|]||{var|min_index|=var|j|}}{var|j|=var|j|+1}}{if||var|min_index|||!=||var|i|||{var|temp|=table|random|[var|i|]}{table|random|[var|i|]=table|random|[var|min_index|]}{table|random|[var|min_index|]=var|temp|}}{var|i|=var|i|+1}}{var_suppr(i)}{var_suppr(j)}{var_suppr(min_index)}{var_suppr(temp)}]]]
+
+[[[{table|tri|=[[0]]}{var|i|=1}{repeat||-1+table|random|.len()||{var|min_index|=var|i|}{var|j|=var|i|+1}{repeat||1+table|random|.len()||{if||var|j|||>||table|random|.len()||{break(table|random|.len())}}{if||table|random|[var|j|]||<||table|random|[var|min_index|]||{var|min_index|=var|j|}}{var|j|=var|j|+1}}{stop_break()}{if||var|min_index|||!=||var|i|||{table|tri2|=[[table|random|[var|min_index|]]]}{table|tri|=join(table|tri|;table|tri2|)}}}{var_suppr(i)}{var_suppr(j)}{var_suppr(min_index)}{table|tri2|=suppr()}]]]
+
+[[[{repeat||table|random|.len()||{var|min_index|=1}{var|min_value|=table|random|[1]}{var|index|=2}{repeat||table|random|.len()-1||{if||table|random|[var|index|]|||<||var|min_value|||{var|min_value|=table|random|[var|index|]}{var|min_index|=var|index|}}{var|index|=1+var|index|}}{table|trix|.add(var|min_value|)}{table|random|.del([var|min_index|])}{var_suppr(min_index)}{var_suppr(min_value)}{var_suppr(index)}}]]]
