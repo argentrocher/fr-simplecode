@@ -1,0 +1,95 @@
+[[[{print("le jeu du morpion 2 joueur en fr-simplecode !")}
+{if||##state_table_use_script_path##||?=||0||{print("Erreur : la table frc_use_script_path a été désactivé, le morpion ne marche pas !")}{exit}}
+{use_script(text(table|frc_use_script_path|[1]))[morpion]}]]]
+
+#init
+[[[
+{print("initalisation du morpion")}
+{if||##state_table_use_script_path##||?=||0||{print("Erreur : la table frc_use_script_path a été désactivé les fonction du morpion ne marche pas !")}{###table_use_script_path:true###}}
+{define_dll(morpion)(morpion_frc.dll)}
+]]]
+
+
+#plateau_morpion[[[
+{affiche(" text(table|grille|[1]) |  text(table|grille|[2]) | text(table|grille|[3])")}
+{affiche(" --+---+--")}
+{affiche(" text(table|grille|[4]) | text(table|grille|[5]) | text(table|grille|[6])")}
+{affiche(" --+---+--")}
+{affiche(" text(table|grille|[7]) | text(table|grille|[8]) | text(table|grille|[9])")}
+]]]
+
+#morpion[[[
+{if||##state_table_use_script_path##||?=||0||{print("Erreur : la table frc_use_script_path a été désactivé les fonction du morpion ne marche pas !")}{exit}}
+
+definir l'emplacement de la dll (ici actuel)
+{define_dll(morpion)(morpion_frc.dll)}
+
+{###sortie_affiche:[/n]###}
+{###function_text:true###}
+{###function_num:true###}
+{###dll_arg_analysis:false###}
+{###sortie_affiche:pasdevirgule###}
+
+{table|grille|=[[1;2;3;4;5;6;7;8;9]]}
+{affiche("commande : (-10 pour quitter)[/n]")}
+{affiche("Plateau :")}
+{use_script(text(table|frc_use_script_path|[1]))[plateau_morpion]}
+{affiche("[/n]joue :")}
+{table|grille|=[[text(_);text(_);text(_);text(_);text(_);text(_);text(_);text(_);text(_)]]}
+{table|grille_virtuel|=[[0;0;0;0;0;0;0;0;0]]}
+{table|joueurs|=[[text(X);text(O)]]}
+{var|index_joueur|=1}
+{var|victoire|=0}
+{var|tour|=0}
+
+{repeat||endless||
+  {affiche("Plateau :")}
+  {use_script(text(table|frc_use_script_path|[1]))[plateau_morpion]}
+
+  {affiche("Joueur text(table|joueurs|[var|index_joueur|]), choisis une case (1 à 9) :")}
+  {var|choix|=num(prompt("vôtre case"))}
+
+  {if||var|choix|||>||9||
+    {var|choix|=0}
+  }
+
+  {if||var|choix|||?=||-10||{affiche("vous avez quitté")}{exit}}
+
+  {if||var|choix|||<||1||[[2]]
+    {affiche("Case invalide. Réessaie.[/n]")}
+    {var|tour|=var|tour|-1}   ne compte pas le tour
+   else ici
+    {if||table|grille_virtuel|[var|choix|]||!=||0||[[2]]
+       {affiche("Case occupé. Réessaie.[/n]")}
+       {var|tour|=var|tour|-1} 
+     else ici
+       {table|grille|.edit([var|choix|])(table|joueurs|[var|index_joueur|])}
+       {if||var|index_joueur|||?=||1||[[2]]{table|grille_virtuel|.edit([var|choix|])(var|index_joueur|)}{var|index_joueur|=2}{table|grille_virtuel|.edit([var|choix|])(var|index_joueur|)}{var|index_joueur|=1}}
+
+       {if||var|tour|||>=||4||
+	{var|morpion_result|=dll|morpion|[check_winner(grille)]}
+	{if||var|morpion_result|||?=||-1||
+		{affiche("morpion_frc.dll a eut une erreur !")}
+		{exit}
+	}
+	{if||var|morpion_result|||?=||1||
+                                {affiche("[/n]Plateau final:")}
+  		{use_script(text(table|frc_use_script_path|[1]))[plateau_morpion]}
+		{affiche("[/n]le joueur X a gagner !")}
+		{exit}
+	}
+                {if||var|morpion_result|||?=||2||
+		{affiche("[/n]Plateau final:")}
+  		{use_script(text(table|frc_use_script_path|[1]))[plateau_morpion]}
+		{affiche("[/n]le joueur O a gagner !")}
+		{exit}
+	}
+       }
+   }
+ }
+ {var|tour|=var|tour|+1}
+ {affiche("tour: "var|tour|)}
+ {if||var|tour|||?=||9||{affiche("Égalité ! Fin du jeu.")}{exit}}
+}
+{affiche("Égalité ! Fin du jeu.")}
+]]]
