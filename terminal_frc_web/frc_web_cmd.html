@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>fr-simplecode web console</title>
+<link rel="icon" type="image/png" href="frc.png"> <!-- remplace par ton icône -->
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: monospace;
+        display: flex;
+        flex-direction: column;
+        background-color: #f0f0f0;
+    }
+    h1 {
+        text-align: center;
+        margin: 0;
+        padding: 10px;
+        background-color: #f0f0f0;
+    }
+    #output {
+        flex: 1;
+        overflow-y: auto;
+        background: #fff;
+        padding: 8px;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-top: 0; 
+        margin-bottom: 10px;
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        border-radius: 6px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        font-size: 1.4em;
+        scrollbar-width: none;          /* pour Firefox */
+       -ms-overflow-style: none;       /* pour IE et Edge */
+   }
+
+   #output::-webkit-scrollbar {        /* pour Chrome, Safari, Opera */
+      display: none;
+    }
+    .stdout {
+        color: black;
+    }
+    .stderr {
+        color: red;
+    }
+    .sent {
+       color:blue;
+    }
+    #bottom {
+        display: flex;
+        border-top: 1px solid #ccc;
+        border-radius: 5px;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-top: 0; 
+        margin-bottom: 10px;
+    }
+    #cmd {
+        flex: 1;
+        padding: 5px;
+        font-family: monospace;
+        font-size: 1em;
+        border: none;
+        outline: none;
+    }
+    button {
+        padding: 5px 10px;
+        font-size: 1em;
+    }
+    /* Bouton paramètres en haut à gauche */
+    #settings-btn {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        z-index: 1000;
+        padding: 5px 10px;
+        background: #ddd;
+        border: 1px solid #aaa;
+        border-radius: 4px;
+        font-size: 0.9em;
+    }
+    /* Modal pour les paramètres */
+    #settings-modal {
+        display: none; /* caché par défaut */
+        position: fixed;
+        top: 50px;
+        left: 10px;
+        background: white;
+        border: 1px solid #ccc;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        z-index: 1100;
+        width: 250px;
+        font-size: 0.9em;
+    }
+    #settings-modal label {
+        display: block;
+        margin-top: 10px;
+        margin-bottom: 3px;
+        font-weight: bold;
+    }
+    #settings-modal input[type=color] {
+        width: 100%;
+        height: 30px;
+        border: none;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+<button id="settings-btn">⚙️</button>
+<h1 style="color:red;" id="title">fr-simplecode web console</h1>
+<div id="output"></div>
+<div id="bottom">
+    <input id="cmd" placeholder="Tape une commande...">
+    <button onclick="send()">Envoyer</button>
+</div>
+
+<!-- Modal paramètres -->
+<div id="settings-modal">
+    <label for="bg-body">Couleur fond page</label>
+    <input type="color" id="bg-body" value="#f0f0f0">
+
+    <label for="color-title">Couleur titre</label>
+    <input type="color" id="color-title" value="#ff0000">
+
+    <label for="bg-output">Couleur fond console</label>
+    <input type="color" id="bg-output" value="#ffffff">
+
+    <label for="bg-bottom">Couleur texte entrée</label>
+    <input type="color" id="bg-bottom" value="#ffffff">
+
+    <label for="color-sent">Couleur stdin</label>
+    <input type="color" id="color-sent" value="#0000ff">
+
+    <label for="color-stdout">Couleur stdout</label>
+    <input type="color" id="color-stdout" value="#000000">
+
+    <label for="color-stderr">Couleur stderr</label>
+    <input type="color" id="color-stderr" value="#ff0000">
+</div>
+
+<script>
+let ws = new WebSocket("ws://localhost:8765");
+
+let lastCmd = ""; // stocke la dernière commande envoyée
+
+ws.onmessage = (event) => {
+    let div = document.createElement("div");
+    let text = event.data;
+
+    if (text.startsWith("STDOUT: ")) {
+        div.textContent = text.slice(8); // enlève "STDOUT: "
+        div.className = "stdout";
+    } else if (text.startsWith("STDERR: ")) {
+        div.textContent = text.slice(8); // enlève "STDERR: "
+        div.className = "stderr";
+    } else {
+        div.textContent = text;
+    }
+
+    document.getElementById('output').appendChild(div);
+    // scroll en bas
+    document.getElementById('output').scrollTop = document.getElementById('output').scrollHeight;
+};
+
+function send() {
+    let cmd = document.getElementById('cmd').value.trim();
+    if (cmd !== "") {
+        ws.send(cmd);
+        lastCmd = cmd;  // on mémorise la dernière commande
+
+        // Crée un div bleu pour ce qu'on envoie
+        let div = document.createElement("div");
+        div.textContent = cmd;
+        div.className = "sent"; // classe qu’on va styliser en bleu
+        document.getElementById('output').appendChild(div);
+
+        // Scroll en bas
+        document.getElementById('output').scrollTop = document.getElementById('output').scrollHeight;
+
+        // Vide l'input
+        document.getElementById('cmd').value = "";
+    }
+}
+
+// Appuyer sur "Entrée" déclenche send()
+document.getElementById('cmd').addEventListener("keyup", function(event) {
+    if (event.key === "Enter") {
+        send();
+    }
+});
+
+// Gestion affichage modal
+const settingsBtn = document.getElementById('settings-btn');
+const modal = document.getElementById('settings-modal');
+
+settingsBtn.addEventListener('click', () => {
+    modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
+});
+
+// Appliquer les couleurs dynamiquement
+const body = document.body;
+const title = document.getElementById('title');
+const output = document.getElementById('output');
+const bottom = document.getElementById('cmd');
+
+const inputs = {
+    bgBody: document.getElementById('bg-body'),
+    colorTitle: document.getElementById('color-title'),
+    bgOutput: document.getElementById('bg-output'),
+    bgBottom: document.getElementById('bg-bottom'),
+    colorSent: document.getElementById('color-sent'),
+    colorStdout: document.getElementById('color-stdout'),
+    colorStderr: document.getElementById('color-stderr'),
+};
+
+inputs.bgBody.addEventListener('input', e => {
+    body.style.backgroundColor = e.target.value;
+    title.style.backgroundColor = e.target.value;
+});
+inputs.colorTitle.addEventListener('input', e => {
+    title.style.color = e.target.value;
+});
+inputs.bgOutput.addEventListener('input', e => {
+    output.style.backgroundColor = e.target.value;
+    bottom.style.backgroundColor = e.target.value;
+    document.querySelector('#bottom button').style.backgroundColor = e.target.value;
+});
+inputs.bgBottom.addEventListener('input', e => {
+    bottom.style.color = e.target.value;
+    document.querySelector('#bottom button').style.color = e.target.value;
+});
+inputs.colorSent.addEventListener('input', e => {
+    document.querySelectorAll('.sent').forEach(el => el.style.color = e.target.value);
+});
+inputs.colorStdout.addEventListener('input', e => {
+    document.querySelectorAll('.stdout').forEach(el => el.style.color = e.target.value);
+});
+inputs.colorStderr.addEventListener('input', e => {
+    document.querySelectorAll('.stderr').forEach(el => el.style.color = e.target.value);
+});
+
+// Aussi appliquer la couleur aux futurs messages :
+const observer = new MutationObserver(mutations => {
+    mutations.forEach(mutation => {
+        mutation.addedNodes.forEach(node => {
+            if (node.nodeType === 1) {
+                if (node.classList.contains('sent')) {
+                    node.style.color = inputs.colorSent.value;
+                } else if (node.classList.contains('stdout')) {
+                    node.style.color = inputs.colorStdout.value;
+                } else if (node.classList.contains('stderr')) {
+                    node.style.color = inputs.colorStderr.value;
+                }
+            }
+        });
+    });
+});
+observer.observe(output, { childList: true });
+
+// Appuyer sur "flèche haut" récupère la dernière commande
+document.getElementById('cmd').addEventListener("keydown", function(event) {
+    if (event.key === "ArrowUp") {
+        if (lastCmd !== "") {
+            document.getElementById('cmd').value = lastCmd;
+            // déplace le curseur à la fin
+            setTimeout(() => document.getElementById('cmd').setSelectionRange(document.getElementById('cmd').value.length, document.getElementById('cmd').value.length), 0);
+        }
+    }
+});
+</script>
+</body>
+</html>
