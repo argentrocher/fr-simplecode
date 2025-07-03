@@ -72,3 +72,7 @@ texte_boucle[[[{if||var|seconde|||<||time(s)||{print("Il est : " time(h) " h "ti
 [[[{table|tri|=[[0]]}{var|i|=1}{repeat||-1+table|random|.len()||{var|min_index|=var|i|}{var|j|=var|i|+1}{repeat||1+table|random|.len()||{if||var|j|||>||table|random|.len()||{break(table|random|.len())}}{if||table|random|[var|j|]||<||table|random|[var|min_index|]||{var|min_index|=var|j|}}{var|j|=var|j|+1}}{stop_break()}{if||var|min_index|||!=||var|i|||{table|tri2|=[[table|random|[var|min_index|]]]}{table|tri|=join(table|tri|;table|tri2|)}}}{var_suppr(i)}{var_suppr(j)}{var_suppr(min_index)}{table|tri2|=suppr()}]]]
 
 [[[{repeat||table|random|.len()||{var|min_index|=1}{var|min_value|=table|random|[1]}{var|index|=2}{repeat||table|random|.len()-1||{if||table|random|[var|index|]|||<||var|min_value|||{var|min_value|=table|random|[var|index|]}{var|min_index|=var|index|}}{var|index|=1+var|index|}}{table|trix|.add(var|min_value|)}{table|random|.del([var|min_index|])}{var_suppr(min_index)}{var_suppr(min_value)}{var_suppr(index)}}]]]
+
+[[[{var|a|=1}{if||var|a|||?=||1||{print("a est égal à 1")}||else||{print("a n'est pas égal à 1")}}]]]
+
+[[[{print("text(text_replace("text(var|poulet|)";".00";"text(text_replace("num(var|poulet|*2)";".00";""))"))")}]]]
