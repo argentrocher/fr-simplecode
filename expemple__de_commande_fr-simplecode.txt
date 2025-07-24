@@ -75,4 +75,14 @@ texte_boucle[[[{if||var|seconde|||<||time(s)||{print("Il est : " time(h) " h "ti
 
 [[[{var|a|=1}{if||var|a|||?=||1||{print("a est égal à 1")}||else||{print("a n'est pas égal à 1")}}]]]
 
-[[[{print("text(text_replace("text(var|poulet|)";".00";"text(text_replace("num(var|poulet|*2)";".00";""))"))")}]]]
+[[[{var|poulet|=1080}{print("text(text_replace("text(var|poulet|)";".00";"text(text_replace("num(var|poulet|*2)";".00";""))"))")}]]] --> 10802160
+
+[[[{var|service|="text(text_replace("ascev";"c";"rrr"))"}{print("num(text_eval("text(var|service|)";#=;"rrr"))")}]]] --> 1.00
+
+[[[[{var|service|="text(text_replace("ascev";"c";"rrr"))"}{print("text(var|service|)")}]]] --> asrrrev
+
+[[[{var|service|="text(text_replace("ascev";"c";"rrtr"))"}{print("num(text_eval("text(var|service|)";#=;"rrr"))")}]]] --> 0.00
+
+[[[{var|service|="text(text_replace("ascev";"c";"rrtr"))"}{print("num(text_eval("text(var|service|)";#=;"rrtr"))")}]]] --> 1.00
+
+[[[{print("num(text_eval("text(text_replace("adcd";"c";"rrr"))";#=;"rrr"))")}]]]    --> 1.00
