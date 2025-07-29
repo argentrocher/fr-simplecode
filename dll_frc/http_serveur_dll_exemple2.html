@@ -4,11 +4,20 @@
 <meta charset="UTF-8">
 <title>frc page test</title>
 <style>
-/*[[[{print("text(dll|C:\XXXX\http_serveur_dll|[start_http_server("8080;C:\XXXX\web_http_serveur_test.html")])")}]]]
+/*
+[[[{print("text(dll|C:\XXXX\http_serveur_dll|[start_http_server("8080;C:\XXXX\web_http_serveur_test.html")])")}]]] --> affiche 1 si ok | cette commande démare le serveur (unique si on en démarre un, ça arrête l'ancien) sur un port (8080 ici) et vers une bage web par défaut
 
-[[[{print("text(dll|C:\XXXX\http_serveur_dll|[configure_base_directory("C:\XXXX")])")}]]]
+[[[{print("text(dll|C:\XXXX\http_serveur_dll|[close_http_server()])")}]]] --> affiche 1 si ok (toujours ok)| cette commande ferme le serveur
 
-[[[{print("text(dll|C:\XXXX\http_serveur_dll|[configure_favicon_directory("C:\XXXX.ico")])")}]]]*/
+[[[{print("text(dll|C:\XXXX\http_serveur_dll|[configure_frc_tags_true()])")}]]] --> affiche 1 si ok (toujours ok)| cette commande active les balises de remplacement de <frc> en <div class="frc"> et </div> (si pas activé, il faut encadré ces balises frc d'autre objet html)
+
+  [[{print("text(dll|C:\XXXX\http_serveur_dll|[configure_frc_tags_false()])")}]]] --> affiche 1 si ok (toujours ok)| cette commande désactive les balises de remplacement de <frc> en <div class="frc"> et </div>
+
+[[[{print("text(dll|C:\XXXX\http_serveur_dll|[configure_base_directory("C:\XXXX")])")}]]] --> affiche 1 si ok | cette commande configure le répertoire pour les fichiers (html, image ...) à un emplacement voulu
+
+[[[{print("text(dll|C:\XXXX\http_serveur_dll|[configure_favicon_directory("C:\XXXX.ico")])")}]]]*/ --> affiche 1 si ok | cette commande défini l'icon .ico qui serra appliqué sur toutes les pages web du serveur
+
+[[[{print("text(dll|C:\XXXX\http_serveur_dll|[start_web_page("C:\XXXX.html")])")}]]] --> affiche 1 si ok | cette commande démarre une page web unique puis ferme le serveur imédiatement, elle permet de tester sa page sans serveur avec ip mais les balises frc sont traité
 
 /*
 <div>
