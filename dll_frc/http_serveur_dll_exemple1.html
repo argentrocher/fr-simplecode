@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Test POST</title>
+</head>
+<body>
+ <h1 style="text-align: center; color:red">page d'exemple de la dll http serveur frc</h1>
+ <div style="border: 2px solid black; padding-left: 20px; max-width: 320px;">
+    <h2>Formulaire POST exemple :</h2>
+    <form action="http://<${SERVER-IP!}$>:8080/C:/XXXX.html" method="post">
+        <label for="nom">Nom :</label>
+        <input type="text" id="nom" name="nom"><br><br>
+
+        <label for="age">Âge :</label>
+        <input type="number" id="age" name="age"><br><br>
+
+        <input type="submit" value="Envoyer">
+    </form>
+   <br>
+   </div>
+<br>
+
+   <frc>
+[[[{print(1+1)}{print("= 2 !")}{var|i|="OK !!!"}
+{print("text(var|i|)")}]]]
+   </frc>
+
+<br>
+
+ <frc>
+[[[{print("<label>")}{if||text_eval("<${GET!}$>";?=;"0")||?=||0||{print("vous avez envoyé sur GET: <${GET!}$> <br>")}}{if||text_eval("<${POST!}$>";?=;"0")||?=||0||{print("vous avez envoyé sur POST: <${POST!}$>")}}{print("</label>")}]]]
+</frc>
+
+<frc>
+[[[
+{print("<label>")}
+{if||text_eval("<${POST:nom}$>";?=;"0")||?=||0||{print("<br>vôtre nom est : <${POST:nom}$>")}}
+{if||text_eval("<${POST:age}$>";?=;"0")||?=||0||{print("<br>vôtre âge est : <${POST:age}$>")}}
+{print("</label>")}
+]]]
+</frc>
+
+<frc>
+[[[
+{print("<br>")}
+{if||text_eval("<${GET!}$>";?=;"0")||?=||0||
+	{table|get|=<${GET!}$>}
+	{print("décodage de la demande GET : <br>")}
+	{table|get|.sea()}
+	{var|get-position|=0}
+	{repeat||table|get|.len()||
+		{var|get-position|=++}
+		{table|get-decode|=[[text(text_replace("text(table|get|[num(var|get-position|)])";"=";";"))]]}
+		{print("<br>'text(table|get-decode|[1])' contient 'text(table|get-decode|[2])' !")}
+	}
+}
+{print("<br>")}
+{if||text_eval("<${POST!}$>";?=;"0")||?=||0||
+	{table|post|=<${POST!}$>}
+	{print("décodage de la demande POST : <br>")}
+	{table|post|.sea()}
+	{var|post-position|=0}
+	{repeat||table|post|.len()||
+		{var|post-position|=++}
+		{table|post-decode|=[[text(text_replace("text(table|post|[num(var|post-position|)])";"=";";"))]]}
+		{print("<br>'text(table|post-decode|[1])' contient 'text(table|post-decode|[2])' !")}
+	}
+}
+]]]
+</frc>
+
+<frc>
+[[[
+{if||text_eval("<${GET!}$>";?=;"0")||?=||0||{print("<br> GET KEYS: <${GET.KEYS!}$> et GET VALUES: <${GET.VALUES!}$>")}}
+{if||text_eval("<${POST!}$>";?=;"0")||?=||0||{print("<br> POST KEYS: <${POST.KEYS!}$> et POST VALUES: <${POST.VALUES!}$>")}}
+]]]
+</frc>
+
+<frc>
+[[[{print("<br> GET vide ? (1 vidé, 0 erreur): <${GET#FREE}$> <br> POST vide ? (1 vidé, 0 erreur): <${POST#FREE}$> <br>")}]]]
+</frc>
+
+<frc>
+[[[{print("<label><br>info :<br>heure de la requête : <${INFO:TIME}$> <br>message du client  global : <${INFO:WEB}$> <br><br>détail : <br>millisecondes : <${INFO:TIME.MS}$> <br>HOST: <${INFO:WEB.HOST}$> <br> USER-AGENT: <${INFO:WEB.USER-AGENT}$> <br> ACCEPT: <${INFO:WEB.ACCEPT}$> <br> IP: <${INFO:IP}$>  <br> SERVEUR IP: <${SERVER-IP!}$> <br> PORT: <${INFO:PORT}$> <br> LOCALISATION: <${INFO:LOCALISATION}$> <br><br> SERVEUR PROCESSUS:  <${INFO:PROCESS}$><br></label>")}]]]
+</frc>
+
+<frc>
+[[[{if||<${INFO:FRC_TAGS}$>||?=||1||{print("<label><br>Les 'div' générés par les balises <pre> < frc > </pre>sont dans le code.</label>")}||else||{print("<label><br>Les 'div' générés par les balises <pre> < frc > </pre>ne sont pas dans le code.</label>")}}]]]
+</frc>
+<br>
+<br>
+<label>commande désactivé à utilisé pour redéfinir le fichier de base html (1 commande autorisé, 0 refusé)<br></label>
+<"frc">[[[{print("<${REDIRECT_PAGE:C:\XXXXXXXXX.html}$>")}]]]<"/frc">
+
+</body>
+</html>
