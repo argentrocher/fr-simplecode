@@ -17,7 +17,7 @@
 
 //gcc -shared -o http_serveur_dll.dll http_serveur_dll.c -lws2_32 -lpsapi -Wl,--add-stdcall-alias
 
-//[[[{print("text(dll|C:\Users\TGAPL\Documents\Thomas 2\C,C++\http_serveur_dll|[start_http_server("8080;C:\Users\TGAPL\Documents\Thomas 2\C,C++\web_http_serveur_test.html")])")}]]]
+//[[[{print("text(dll|C:\XXXX\http_serveur_dll|[start_http_server("8080;C:\XXXX\web_http_serveur_test.html")])")}]]]
 
 //def close pour fonction start
 __declspec(dllexport) const char* close_http_server(const char* unused);
@@ -28,26 +28,26 @@ static SOCKET server_socket = INVALID_SOCKET;
 static HANDLE server_thread = NULL;
 static volatile int server_running = 0;
 
-//donné reçu par la page web
+//donnÃ© reÃ§u par la page web
 static char post_data[BUFFER_SIZE] = {0};
 static char get_data[BUFFER_SIZE] = {0};
 
-//chemin de la page web à exécuté
+//chemin de la page web Ã  exÃ©cutÃ©
 static char base_html_path[512] = {0};
 
 //stocke les infos de la page web
 static char info_web_data[BUFFER_SIZE] = {0};
-//stocke l'heure de la requête
+//stocke l'heure de la requÃªte
 static char info_time_data[256] = {0};
-//stocke l'ip du client de la requête
+//stocke l'ip du client de la requÃªte
 static char info_ip_data[64] = {0};
-//pour mettre des div ou non à la place des balises frc 0=non 1=oui
+//pour mettre des div ou non Ã  la place des balises frc 0=non 1=oui
 static int replace_frc_tags = 0;
 
-//chemin de répertoire qui peu comptenir des fichiers html/imgage en passant par les url
+//chemin de rÃ©pertoire qui peu comptenir des fichiers html/imgage en passant par les url
 static char base_directory[BUFFER_SIZE] = {0};
 
-//chemin d'une image .ico définit pour l'icon du navigateur
+//chemin d'une image .ico dÃ©finit pour l'icon du navigateur
 static char favicon_directory[BUFFER_SIZE] = {0};
 
 static int port = 8080;
@@ -66,14 +66,14 @@ int file_exists(const char* path) {
     return 0;
 }
 
-//inversé les / en  //
+//inversÃ© les / en  //
 void normalize_path(char* path) {
     for (char* p = path; *p; ++p) {
         if (*p == '/') *p = '\\';
     }
 }
 
-//enlevé les caractères % et les + par des espaces
+//enlevÃ© les caractÃ¨res % et les + par des espaces
 void url_decode(char *dst, const char *src) {
     while (*src) {
         if (*src == '%' && src[1] && src[2]) {
@@ -131,7 +131,7 @@ char* process_server_ip_tags(const char* html_raw) {
             break;
         }
 
-        strncat(out, p, found - p);  // Copier jusqu’au tag
+        strncat(out, p, found - p);  // Copier jusquâ€™au tag
         strcat(out, server_ip);      // Remplacer par l'IP locale
 
         p = found + tag_len;
@@ -150,7 +150,7 @@ char* get_app_performance_info() {
 
     HANDLE hProcess = GetCurrentProcess();
 
-    // Mémoire
+    // MÃ©moire
     if (GetProcessMemoryInfo(hProcess, &pmc, sizeof(pmc))) {
         SIZE_T memKB = pmc.WorkingSetSize / 1024;
 
@@ -175,19 +175,19 @@ char* get_app_performance_info() {
 }
 
 
-//fonction pour extraire les valeur correspondant au clé dans les données get_data et post_data
+//fonction pour extraire les valeur correspondant au clÃ© dans les donnÃ©es get_data et post_data
 void extract_value_from_data(const char* source, const char* key, char* dest, size_t dest_size) {
-    dest[0] = '\0';  // Par défaut, vide
+    dest[0] = '\0';  // Par dÃ©faut, vide
 
     const char* p = source;
 
-    //printf("source : %s, clé : %s\n",p,key);
+    //printf("source : %s, clÃ© : %s\n",p,key);
 
     size_t key_len = strlen(key);
     while ((p = strstr(p, key))) {
-        // Vérifie que c’est bien la bonne clé (ex: "nom=" et non "prenom=")
+        // VÃ©rifie que câ€™est bien la bonne clÃ© (ex: "nom=" et non "prenom=")
         if ((p == source || *(p - 1) == ';' || *(p - 1) == '[') && p[key_len] == '=') {
-            p += key_len + 1; // saute "clé="
+            p += key_len + 1; // saute "clÃ©="
 
             size_t i = 0;
             while (*p && *p != ';' && *p != ']' && i < dest_size - 1) {
@@ -196,13 +196,13 @@ void extract_value_from_data(const char* source, const char* key, char* dest, si
             dest[i] = '\0';
             return;
         }
-        p += key_len; // avance pour ne pas reboucler sur la même position
+        p += key_len; // avance pour ne pas reboucler sur la mÃªme position
     }
 
-    strcpy(dest, "0"); // clé non trouvée
+    strcpy(dest, "0"); // clÃ© non trouvÃ©e
 }
 
-//suppression des balises de code <${ }$> dans le fichier à executé par le programme lanceur
+//suppression des balises de code <${ }$> dans le fichier Ã  executÃ© par le programme lanceur
 void web_page_frc_methode(char* input) {
     char buffer[BUFFER_SIZE * 2] = {0};
     char* out = buffer;
@@ -219,7 +219,7 @@ void web_page_frc_methode(char* input) {
         strncat(out, p, start - p);
         const char* end = strstr(start, "}$>");
         if (!end) {
-            strcat(out, p); // pas bien formé, copie tout
+            strcat(out, p); // pas bien formÃ©, copie tout
             break;
         }
 
@@ -261,7 +261,7 @@ void web_page_frc_methode(char* input) {
                     continue;
                 }
 
-                // ajoute la clé si tout va bien
+                // ajoute la clÃ© si tout va bien
                 strncat(temp, src, equal - src);
                 strcat(temp, ";");
 
@@ -331,7 +331,7 @@ void web_page_frc_methode(char* input) {
                     continue;
                 }
 
-                // ajoute la clé si tout va bien
+                // ajoute la clÃ© si tout va bien
                 strncat(temp, src, equal - src);
                 strcat(temp, ";");
 
@@ -404,7 +404,7 @@ void web_page_frc_methode(char* input) {
                 strcat(fullpath, ".html");
             }
 
-            // Vérifie si le fichier existe
+            // VÃ©rifie si le fichier existe
             FILE* f = fopen(fullpath, "rb");
             if (f) {
                 fclose(f);
@@ -416,7 +416,7 @@ void web_page_frc_methode(char* input) {
         }else if (strcmp(code, "INFO:TIME") == 0) {
             strcat(out, info_time_data);
         } else if (strcmp(code, "INFO:TIME.MS") == 0) {
-            // Récupère les millisecondes (extrait après le dernier '.')
+            // RÃ©cupÃ¨re les millisecondes (extrait aprÃ¨s le dernier '.')
             const char* dot = strrchr(info_time_data, '.');
             strcat(out, dot ? dot + 1 : "0");
         } else if (strcmp(code, "INFO:WEB") == 0) {
@@ -529,21 +529,21 @@ int run_command_and_capture_output(const char* cmd, char* output, size_t output_
 
     PROCESS_INFORMATION pi = { 0 };
 
-    // Créer une copie modifiable de la commande (CreateProcess la modifie)
+    // CrÃ©er une copie modifiable de la commande (CreateProcess la modifie)
     char cmdline[1024];
     strncpy(cmdline, cmd, sizeof(cmdline) - 1);
 
     BOOL success = CreateProcessA(
         NULL,         // Nom de l'exe (NULL = dans la commande)
         cmdline,      // Ligne de commande (modifiable)
-        NULL, NULL,   // sécurité
-        TRUE,         // Hérite des handles (stdout)
-        0,            // Pas de flags spéciaux
+        NULL, NULL,   // sÃ©curitÃ©
+        TRUE,         // HÃ©rite des handles (stdout)
+        0,            // Pas de flags spÃ©ciaux
         NULL, NULL,   // environnement et dossier courant
         &si, &pi
     );
 
-    CloseHandle(hWritePipe); // Fermer côté écriture dans le parent
+    CloseHandle(hWritePipe); // Fermer cÃ´tÃ© Ã©criture dans le parent
 
     if (!success) {
         CloseHandle(hReadPipe);
@@ -562,7 +562,7 @@ int run_command_and_capture_output(const char* cmd, char* output, size_t output_
             strcat(output, buffer);
             total += readBytes;
         } else {
-            break; // éviter de dépasser la taille
+            break; // Ã©viter de dÃ©passer la taille
         }
     }
 
@@ -596,7 +596,7 @@ char* process_frc_tags(const char* html_raw) {
         char content[BUFFER_SIZE] = {0};
         strncpy(content, start + 5, end - (start + 5));
 
-        // Nettoyage : supprime les \r \n, espaces de début/fin ligne
+        // Nettoyage : supprime les \r \n, espaces de dÃ©but/fin ligne
         char cleaned[BUFFER_SIZE] = {0};
         const char* p = content;
         char* q = cleaned;
@@ -612,29 +612,29 @@ char* process_frc_tags(const char* html_raw) {
         }
         *q = '\0';
 
-        //supprimé les balises d'info de page web post et get ... ex: <${GET!}$>
+        //supprimÃ© les balises d'info de page web post et get ... ex: <${GET!}$>
         web_page_frc_methode(cleaned);
-        // Écrit dans un fichier temporaire
+        // Ã‰crit dans un fichier temporaire
         FILE* f = fopen("http_serveur_frc.frc", "w");
         if (f) {
             fprintf(f, "%s", cleaned);
             fclose(f);
         }
 
-        // Récupère chemin exe appelant
+        // RÃ©cupÃ¨re chemin exe appelant
         char exe_path[MAX_PATH];
         GetModuleFileName(NULL, exe_path, MAX_PATH);
 
-        // Commande à exécuter
+        // Commande Ã  exÃ©cuter
         char command[MAX_PATH + 256];
         sprintf(command, "\"%s\" --start:\"http_serveur_frc.frc\"", exe_path);
 
-        // Ouvre le processus et récupère stdout
+        // Ouvre le processus et rÃ©cupÃ¨re stdout
         char result[BUFFER_SIZE*2] = {0};
         if (!run_command_and_capture_output(command, result, sizeof(result))) {
             // result contient toute la sortie de ton programme
-            //printf("Résultat :\n%s\n", result);
-            printf("Erreur lors de l'exécution\n");
+            //printf("RÃ©sultat :\n%s\n", result);
+            printf("Erreur lors de l'exÃ©cution\n");
         }
 
         // Remplace la balise par la sortie
@@ -646,7 +646,7 @@ char* process_frc_tags(const char* html_raw) {
             strcat(out, "</div>");
         }
 
-        // Avance le pointeur après </frc>
+        // Avance le pointeur aprÃ¨s </frc>
         html_raw = end + 6;
         start = html_raw;
     }
@@ -664,7 +664,7 @@ void parse_args(const char* arg) {
     char port_str[16] = {0};
     int i = 0;
 
-    // Lire jusqu'à la première virgule, point ou point-virgule
+    // Lire jusqu'Ã  la premiÃ¨re virgule, point ou point-virgule
     while (arg[i] && arg[i] != ',' && arg[i] != '.' && arg[i] != ';' && i < 15) {
         port_str[i] = arg[i];
         i++;
@@ -697,7 +697,7 @@ void extract_query_params(const char* src, char* dest) {
 void replace_block_collision(char* buffer) {
     char* ptr = strstr(buffer, "]][[");
     while (ptr) {
-        // Remplace les 4 caractères par ';' et décale la suite
+        // Remplace les 4 caractÃ¨res par ';' et dÃ©cale la suite
         *ptr = ';';
         memmove(ptr + 1, ptr + 4, strlen(ptr + 4) + 1);  // +1 pour le \0
         ptr = strstr(ptr + 1, "]][[");
@@ -716,7 +716,7 @@ void me_ip_(SOCKET client_socket) {
     }
 }
 
-//gestion en thread s'éparé de chaques demandes du navigateur
+//gestion en thread s'Ã©parÃ© de chaques demandes du navigateur
 DWORD WINAPI handle_client(LPVOID param) {
     SOCKET client_socket = (SOCKET)param;
     char buffer[BUFFER_SIZE];
@@ -784,11 +784,11 @@ DWORD WINAPI handle_client(LPVOID param) {
     }
 
 
-    // Vérifie si la requête est pour favicon.ico
+    // VÃ©rifie si la requÃªte est pour favicon.ico
     if (strstr(decoded_path, "favicon.ico")) {
         //char ico_path[BUFFER_SIZE] = {0};
 
-        // On vérifie que le répertoire favicon est bien défini
+        // On vÃ©rifie que le rÃ©pertoire favicon est bien dÃ©fini
         if (favicon_directory[0]) {
             //snprintf(ico_path, sizeof(ico_path), "%s\\favicon.ico", favicon_directory);
 
@@ -798,7 +798,7 @@ DWORD WINAPI handle_client(LPVOID param) {
                 long ico_len = ftell(ico_file);
                 fseek(ico_file, 0, SEEK_SET);
 
-                if (ico_len <= 0 || ico_len > 10 * 1024 * 1024) { // Sécurité : 10 Mo max
+                if (ico_len <= 0 || ico_len > 10 * 1024 * 1024) { // SÃ©curitÃ© : 10 Mo max
                     fclose(ico_file);
                     LeaveCriticalSection(&data_lock);
                     // 413 Payload Too Large (optionnel)
@@ -846,7 +846,7 @@ DWORD WINAPI handle_client(LPVOID param) {
 
     char* query_start = strchr(decoded_path, '?');
 
-    // Vérifie si le fichier est une image supportée
+    // VÃ©rifie si le fichier est une image supportÃ©e
     char* ext_ptr = NULL;
     if ((ext_ptr = strstr(decoded_path, ".ico")) && (!query_start || ext_ptr < query_start) ||
     (ext_ptr = strstr(decoded_path, ".png")) && (!query_start || ext_ptr < query_start) ||
@@ -889,7 +889,7 @@ DWORD WINAPI handle_client(LPVOID param) {
         int download_request=0;
         if (strstr(decoded_path, "?download")) download_request=1;
 
-        // Coupe après l'extension
+        // Coupe aprÃ¨s l'extension
         const char* exts[] = { ".ico", ".png", ".jpg", ".jpeg", ".gif", ".bmp", ".webp", ".avif", ".svg", ".jp2", ".tif", ".mp4", ".m4a", ".mp3", ".wav", ".pdf", ".webm", ".ogg", ".ogv", ".mov", ".opus", ".aac", ".css", ".json", ".js", ".xml", ".txt", ".text", ".md",".zip", ".gz", ".7z", ".exe", ".bin", ".dll", ".py", ".frc"};
         for (int i = 0; i < sizeof(exts) / sizeof(exts[0]); ++i) {
             char* ext_ptr2 = strstr(decoded_path, exts[i]);
@@ -915,7 +915,7 @@ DWORD WINAPI handle_client(LPVOID param) {
             snprintf(final_path, sizeof(final_path), "%s\\%s", base_directory, filename);
         } else {
             LeaveCriticalSection(&data_lock);
-            // Pas trouvé
+            // Pas trouvÃ©
             const char* not_found = "HTTP/1.1 404 Not Found\r\nContent-Length: 0\r\n\r\n";
             send(client_socket, not_found, strlen(not_found), 0);
             closesocket(client_socket);
@@ -924,7 +924,7 @@ DWORD WINAPI handle_client(LPVOID param) {
 
         if (!file_exists(final_path)) {
             LeaveCriticalSection(&data_lock);
-            // Pas trouvé
+            // Pas trouvÃ©
             const char* not_found = "HTTP/1.1 404 Not Found\r\nContent-Length: 0\r\n\r\n";
             send(client_socket, not_found, strlen(not_found), 0);
             closesocket(client_socket);
@@ -958,7 +958,7 @@ DWORD WINAPI handle_client(LPVOID param) {
 
         LeaveCriticalSection(&data_lock);
 
-        // Détecte le type MIME
+        // DÃ©tecte le type MIME
         const char* content_type = "application/octet-stream"; // fallback
         if (strstr(final_path, ".png")) content_type = "image/png";
         else if (strstr(final_path, ".jpg") || strstr(final_path, ".jpeg")) content_type = "image/jpeg";
@@ -995,7 +995,7 @@ DWORD WINAPI handle_client(LPVOID param) {
         // Envoie des headers + contenu image
         char header[256];
         if (download_request) {
-            //*strstr(decoded_path, "?download") = '\0';  // Coupe à ?download
+            //*strstr(decoded_path, "?download") = '\0';  // Coupe Ã  ?download
 
             sprintf(header,
             "HTTP/1.1 200 OK\r\n"
@@ -1021,12 +1021,12 @@ DWORD WINAPI handle_client(LPVOID param) {
     char html[BUFFER_SIZE] = "<html><body>Erreur de chargement</body></html>";
     int len = strlen(html);
 
-    // Essayer de prendre un fichier depuis l’URL (si se termine par .html)
+    // Essayer de prendre un fichier depuis lâ€™URL (si se termine par .html)
     if (strstr(decoded_path, ".html")) {
-        // Tronquer après ".html"
+        // Tronquer aprÃ¨s ".html"
         char* html_ext = strstr(decoded_path, ".html");
         if (html_ext) {
-            html_ext[5] = '\0';  // coupe après ".html"
+            html_ext[5] = '\0';  // coupe aprÃ¨s ".html"
         }
 
         char* filename = strrchr(decoded_path, '/');
@@ -1035,10 +1035,10 @@ DWORD WINAPI handle_client(LPVOID param) {
         normalize_path(decoded_path);
 
         if (decoded_path[0] == '\\') { //c:/  aussi   && isalpha(decoded_path[1]) && decoded_path[2] == ':'
-            memmove(decoded_path, decoded_path + 1, strlen(decoded_path)); // décale vers la gauche
+            memmove(decoded_path, decoded_path + 1, strlen(decoded_path)); // dÃ©cale vers la gauche
         }
 
-        //printf("path trouvé : %s\n",decoded_path);
+        //printf("path trouvÃ© : %s\n",decoded_path);
         //fflush(stdout);
 
         // Dossier de base
@@ -1090,7 +1090,7 @@ DWORD WINAPI handle_client(LPVOID param) {
             }
         }
     } else {
-        // Aucun .html dans l’URL  on prend la base_html_path
+        // Aucun .html dans lâ€™URL  on prend la base_html_path
         FILE* f = fopen(base_html_path, "rb");
         if (f) {
             len = fread(html, 1, sizeof(html) - 1, f);
@@ -1099,7 +1099,7 @@ DWORD WINAPI handle_client(LPVOID param) {
         }
     }
 
-    //construit le fichier html interpréter pour le navigateur
+    //construit le fichier html interprÃ©ter pour le navigateur
     const char* final_html_1 = process_server_ip_tags(html);
     const char* final_html = process_frc_tags(final_html_1);
     len = strlen(final_html);
@@ -1145,7 +1145,7 @@ DWORD WINAPI server_loop(LPVOID lpParam) {
             }
         }
         if (frc_interrupted_dll) {
-            Sleep(20);  // Donne le temps à l'appelant de fermer proprement
+            Sleep(20);  // Donne le temps Ã  l'appelant de fermer proprement
             break;
         }
     }
@@ -1214,7 +1214,7 @@ __declspec(dllexport) const char* configure_frc_tags_false(const char* unused) {
 
 
 __declspec(dllexport) const char* start_web_page(const char* arg) {
-    // Vérifie si le chemin finit par ".html", sinon l'ajoute
+    // VÃ©rifie si le chemin finit par ".html", sinon l'ajoute
     char fixed_path[MAX_PATH];
     strncpy(fixed_path, arg, sizeof(fixed_path) - 6); // 5 + 1 de marge
     fixed_path[sizeof(fixed_path) - 6] = '\0';
@@ -1253,7 +1253,7 @@ __declspec(dllexport) const char* start_web_page(const char* arg) {
         return "0";//"Erreur socket";
     }
 
-    // Choisir un port aléatoire non utilisé (entre 10000–60000)
+    // Choisir un port alÃ©atoire non utilisÃ© (entre 10000â€“60000)
     //srand((unsigned)time(NULL));
     //int temp_port = 10000 + rand() % 50000;
     int temp_port = port+2;
@@ -1312,7 +1312,7 @@ __declspec(dllexport) const char* start_web_page(const char* arg) {
 __declspec(dllexport) const char* configure_base_directory(const char* directory) {
     if (!directory || strcmp(directory, "") == 0 || strcmp(directory, "0") == 0) {
         EnterCriticalSection(&data_lock);
-        base_directory[0] = '\0';  // Réinitialiser
+        base_directory[0] = '\0';  // RÃ©initialiser
         LeaveCriticalSection(&data_lock);
         return "1";
     }
@@ -1321,7 +1321,7 @@ __declspec(dllexport) const char* configure_base_directory(const char* directory
     if (attrs != INVALID_FILE_ATTRIBUTES && (attrs & FILE_ATTRIBUTE_DIRECTORY)) {
         EnterCriticalSection(&data_lock);
         strncpy(base_directory, directory, BUFFER_SIZE - 1);
-        base_directory[BUFFER_SIZE - 1] = '\0';  // Sécurité
+        base_directory[BUFFER_SIZE - 1] = '\0';  // SÃ©curitÃ©
         LeaveCriticalSection(&data_lock);
         return "1";
     }
@@ -1331,7 +1331,7 @@ __declspec(dllexport) const char* configure_base_directory(const char* directory
 
 
 __declspec(dllexport) const char* configure_favicon_directory(const char* directory) {
-    // Si NULL, vide ou "0" on désactive le favicon
+    // Si NULL, vide ou "0" on dÃ©sactive le favicon
     if (!directory || directory[0] == '\0' || strcmp(directory, "") == 0 || strcmp(directory, "0") == 0) {
         EnterCriticalSection(&data_lock);
         favicon_directory[0] = '\0';
@@ -1339,7 +1339,7 @@ __declspec(dllexport) const char* configure_favicon_directory(const char* direct
         return "1";
     }
 
-    // Vérifie que ça se termine par ".ico"
+    // VÃ©rifie que Ã§a se termine par ".ico"
     const char* ext = strrchr(directory, '.');
     if (!ext || _stricmp(ext, ".ico") != 0) {
         return "0"; // Mauvaise extension
@@ -1347,12 +1347,12 @@ __declspec(dllexport) const char* configure_favicon_directory(const char* direct
 
     DWORD attrib = GetFileAttributesA(directory);
 
-    // Vérifie que le fichier existe
+    // VÃ©rifie que le fichier existe
     if (attrib == INVALID_FILE_ATTRIBUTES || (attrib & FILE_ATTRIBUTE_DIRECTORY)) {
         return "0"; // Fichier introuvable
     }
 
-    // Copie le chemin validé
+    // Copie le chemin validÃ©
     EnterCriticalSection(&data_lock);
     strncpy(favicon_directory, directory, BUFFER_SIZE - 1);
     favicon_directory[BUFFER_SIZE - 1] = '\0';
