@@ -14,3 +14,5 @@ nano delete frc "nom_du_fichier" supprime un fichier dans le répértoire si le 
 nano start frc "nom_du_fichier" démarre le script init (on peut rajouté le nom du script avec [] comme use_script()[])
 
 + correction de table||.len() pour les index (! il est conseillé de ne pas dépassé 3 tables imbriqué les unes dans les autres de magnière générale !)
+
++ ajout de var_local|| (voir wiki)
