@@ -1,6 +1,6 @@
 fr-simplecode est un language basique de codage pour windows (64 bits uniquement), découvrer le ! 
 
-dernière version : fr-simplecode0.3 (! en développement, le fichier change régulièrement !) (actuellement 9728 lignes de code C)
+dernière version : fr-simplecode0.3 (! en développement, le fichier change régulièrement !) (actuellement 9939 lignes de code C)
 
 fr-simplecode0.3 : 
 + ajout des variables var en texte grâce aux " " après le =
