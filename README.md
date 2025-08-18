@@ -1,6 +1,6 @@
 fr-simplecode est un language basique de codage pour windows (64 bits uniquement), découvrer le ! 
 
-dernière version : fr-simplecode0.3 (! en développement, le fichier change régulièrement !) (actuellement 10421 lignes de code C)
+dernière version : fr-simplecode0.3 (! en développement, le fichier change régulièrement !) (actuellement 10597 lignes de code C)
 
 fr-simplecode0.3 : 
 + ajout des variables var en texte grâce aux " " après le =
@@ -15,6 +15,8 @@ nano frc "nom_du_fichier" créer un fichier frc dans un répértoire dédier
 nano delete frc "nom_du_fichier" supprime un fichier dans le répértoire si le nom donné existe
 nano start frc "nom_du_fichier" démarre le script init (on peut rajouté le nom du script avec [] comme use_script()[])
 
-+ correction de table||.len() pour les index (! il est conseillé de ne pas dépassé 3 tables imbriqué les unes dans les autres de magnière générale !)
++ correction de table||.len() pour les index (! il est conseillé de ne pas dépassé 3 tables imbriqué les unes dans les autres de magnière générale ! et ajout de l'ignorance system pour un index non existant dans len à 0)
+
++ changement des routines de table, optimisation, correction d'erreur  
 
 + ajout de var_local|| (voir wiki)
