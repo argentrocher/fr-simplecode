@@ -1,12 +1,15 @@
 fr-simplecode est un language basique de codage pour windows (64 bits uniquement), découvrer le ! 
 
-dernière version : fr-simplecode0.3 (! en développement, le fichier change régulièrement !) (actuellement 10597 lignes de code C)
+dernière version : fr-simplecode0.3 (! en développement, le fichier change régulièrement !) (actuellement 11004 lignes de code C)
 
 fr-simplecode0.3 : 
 + ajout des variables var en texte grâce aux " " après le =
 + ajout de text_replace("arg";"arg";"arg")
 + ajout de text_cut("arg";index;index)
 + ajout de text_len("arg")
++ ajout de text_letter("arg";index)
++ ajout de text_uppercase("arg")
++ ajout de text_lowercase("arg")
 + ajout de text_eval("arg1";operateur;"arg2")
 + ajout de var|name|=++ et var|name|=-- pour ajouter 1 ou retirer 1
 
