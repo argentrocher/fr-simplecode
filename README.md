@@ -11,6 +11,8 @@ fr-simplecode0.3 :
 + ajout de text_uppercase("arg")
 + ajout de text_lowercase("arg")
 + ajout de text_eval("arg1";operateur;"arg2")
++ ajout de text_count("arg1";"arg2")
++ ajout de text_find("arg1";"arg2";index)
 + ajout de var|name|=++ et var|name|=-- pour ajouter 1 ou retirer 1
 
 + ajout de nano frc (! pas dans info actuelment !)
@@ -25,3 +27,22 @@ nano start frc "nom_du_fichier" démarre le script init (on peut rajouté le nom
 + ajout de var_local|| (voir wiki)
 
 + ajout de commentaire grâce à <code>$//</code> puis <code>//$</code> pour fermé
+
+
+
+
+
+
+
+
+[[[{print("text(text_letter("atext(text_letter("abc";3))";2))")}]]]
+
+[[[{print("text(text_uppercase("text(text_uppercase("momo"))"))")}]]]
+
+[[[{print("text(text_lowercase("text(text_lowercase("momo"))"))")}]]]
+
+[[[{print("text(text_cut("text(text_cut("1h1h2";-1;-2))";2;1))")}]]]
+
+[[[{print("text(text_replace("text(text_replace("momo";"o";"i"))";"m";"t"))")}]]]
+
+[[[{print(text_find("arg arg 234";"a";-1))}]]]
