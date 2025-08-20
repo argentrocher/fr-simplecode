@@ -23,3 +23,5 @@ nano start frc "nom_du_fichier" démarre le script init (on peut rajouté le nom
 + changement des routines de table, optimisation, correction d'erreur  
 
 + ajout de var_local|| (voir wiki)
+
++ ajout de commentaire grâce à <code>$//</code> puis <code>//$</code> pour fermé
