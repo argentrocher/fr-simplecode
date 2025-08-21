@@ -12,7 +12,7 @@ fr-simplecode0.3 :
 + ajout de text_uppercase("arg")
 + ajout de text_lowercase("arg")
 + ajout de text_eval("arg1";operateur;"arg2")
-+ ajout de text_count("arg1";"arg2";index)
++ ajout de text_count("arg1";"arg2")
 + ajout de text_find("arg1";"arg2";index)
 + ajout de var|name|=++ et var|name|=-- pour ajouter 1 ou retirer 1
 
