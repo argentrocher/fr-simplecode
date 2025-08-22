@@ -1,7 +1,9 @@
 fr-simplecode est un language basique de codage pour windows (64 bits uniquement), découvrer le ! 
 
-dernière version : fr-simplecode0.3 (! en développement, le fichier change régulièrement !) (actuellement 11911 lignes de code C)
+dernière version : fr-simplecode0.3 (! en développement, le fichier change régulièrement !) (actuellement 12008 lignes de code C) <br> --> correction de bug, pas de nouveauté
 
+
+--ancienne nouveauté :<br>
 fr-simplecode0.3 : 
 + ajout des variables var en texte grâce aux " " après le =
 + ajout de text_replace("arg";"arg";"arg")
@@ -25,16 +27,13 @@ nano start frc "nom_du_fichier" démarre le script init (on peut rajouté le nom
 
 + changement des routines de table, optimisation, correction d'erreur  
 
-+ ajout de var_local|| (voir wiki)
++ ajout de var_local||
 
 + ajout de commentaire grâce à <code>$//</code> puis <code>//$</code> pour fermé
 
-
-
-
-
-
-
+<br>
+pour plus d'info : <a href="https://github.com/argentrocher/fr-simplecode/wiki">(voir wiki)</a>
+<br><br>
 
 [[[{print("text(text_letter("atext(text_letter("abc";3))";2))")}]]]
 
