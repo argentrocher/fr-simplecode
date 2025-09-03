@@ -1,8 +1,8 @@
 fr-simplecode est un language basique de codage pour windows (64 bits uniquement), découvrer le ! 
 
-dernière version : fr-simplecode0.3 (! en développement, le fichier change régulièrement !) (actuellement 12084 lignes de code C) <br> --> correction de bug, pas de nouveauté
+dernière version : fr-simplecode0.3 (! en développement, le fichier change régulièrement ! --> les dernières fonctionnalité on été ajouté, uniquement correction de bug encore possible) (actuellement 12866 lignes de code C) <br> --> dernière ajout :<br><code>--arg:</code> sur la commande d'exécution permet de fournir un argument récupérable dans le code grâce à <code>[main_arg]</code>,<br>modification des règles d'appel à <code>[input]</code> fournit par <code>use_script(;)</code> sous la même forme que <code>[main_arg]</code>.
 
-
+<br>
 --ancienne nouveauté :<br>
 fr-simplecode0.3 : 
 + ajout des variables var en texte grâce aux " " après le =
@@ -34,15 +34,16 @@ nano start frc "nom_du_fichier" démarre le script init (on peut rajouté le nom
 <br>
 pour plus d'info : <a href="https://github.com/argentrocher/fr-simplecode/wiki">(voir wiki)</a>
 <br><br>
+commande de test : <br><br>
 
-[[[{print("text(text_letter("atext(text_letter("abc";3))";2))")}]]]
+<code>[[[{print("text(text_letter("atext(text_letter("abc";3))";2))")}]]]</code>
 
-[[[{print("text(text_uppercase("text(text_uppercase("momo"))"))")}]]]
+<code>[[[{print("text(text_uppercase("text(text_uppercase("momo"))"))")}]]]</code>
 
-[[[{print("text(text_lowercase("text(text_lowercase("momo"))"))")}]]]
+<code>[[[{print("text(text_lowercase("text(text_lowercase("momo"))"))")}]]]</code>
 
-[[[{print("text(text_cut("text(text_cut("1h1h2";-1;-2))";2;1))")}]]]
+<code>[[[{print("text(text_cut("text(text_cut("1h1h2";-1;-2))";2;1))")}]]]</code>
 
-[[[{print("text(text_replace("text(text_replace("momo";"o";"i"))";"m";"t"))")}]]]
+<code>[[[{print("text(text_replace("text(text_replace("momo";"o";"i"))";"m";"t"))")}]]]</code>
 
-[[[{print(text_find("arg arg 234";"a";-1))}]]]
+<code>[[[{print(text_find("arg arg 234";"a";-1))}]]]</code>
