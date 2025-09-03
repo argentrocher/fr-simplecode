@@ -1,3 +1,5 @@
+<head><meta name="google-site-verification" content="k1Ku-V2S2bvRYoVdqf_-UaNnDOuzXFqMYL2xyv3j_L4" /></head>
+
 fr-simplecode est un language basique de codage pour windows (64 bits uniquement), découvrer le ! 
 
 dernière version : fr-simplecode0.3 (! en développement, le fichier change régulièrement ! --> les dernières fonctionnalité on été ajouté, uniquement correction de bug encore possible) (actuellement 12866 lignes de code C) <br> --> dernière ajout :<br><code>--arg:</code> sur la commande d'exécution permet de fournir un argument récupérable dans le code grâce à <code>[main_arg]</code>,<br>modification des règles d'appel à <code>[input]</code> fournit par <code>use_script(;)</code> sous la même forme que <code>[main_arg]</code>.
