@@ -49,3 +49,8 @@ commande de test : <br><br>
 <code>[[[{print("text(text_replace("text(text_replace("momo";"o";"i"))";"m";"t"))")}]]]</code>
 
 <code>[[[{print(text_find("arg arg 234";"a";-1))}]]]</code>
+
+<br>
+comment récupérer la version de mon application ?
+<br>
+<code>[[[{if||version()||?=||0||{print("version : fr-simplecode0.2 ou précédente")}}{if||version()||?=||0.3||{print("version : fr-simplecode0.3")}}{if||version()||?=||0.4||{print("version : fr-simplecode0.4")}}]]]</code>
