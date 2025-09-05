@@ -41,7 +41,7 @@ nano start frc "nom_du_fichier" démarre le script init (on peut rajouté le nom
 <br>
 pour plus d'info : <a href="https://github.com/argentrocher/fr-simplecode/wiki">(voir wiki)</a>
 <br><br>
-commande de test : <br><br>
+commande de test 0.3 : <br><br>
 
 <code>[[[{print("text(text_letter("atext(text_letter("abc";3))";2))")}]]]</code>
 
@@ -55,6 +55,10 @@ commande de test : <br><br>
 
 <code>[[[{print(text_find("arg arg 234";"a";-1))}]]]</code>
 
+<br>
+commande test 0.4 : <br><br>
+<code>[[[{print("num(hash("bdkfbbrvdjvrjbvjerbvberbrejbrjebzejvjbvjebvbevbhbhbvvvecvgzcyzazgcfjzebchezvchezchzvchcvchvecvehvcvhevcvechevchevcvcvhdschzeejzvbbvhbevhbhhscjbvhvbjzbvhbzvebhfvjsbchvuevhvfevzefbufbuzgecuebczbvezvezvezjhfbezgfugefygezgfezfyfceugeycuegcyzgicheugcyehuefugyuezgezgfeyfezfezxgeygxuyzgcchjegcececcezyegfygfuyezgyuegcyevxvexezvxexvejbverhrvhrevbryvgyrgyrgfyergfyergfyegfygfyhfuiezgfuzheihcuegcyuejhegczgcyuechjezgeygcegcgeucgecehckehqskhcuidgcyegchjgcsqgcyuegcuyegcyuezgcuygcugckjsqhsgcuz_675654534486879896655465766745644463435454454546465456JHUGYGYGTFTYFTFTFTFTFTFRDRTUGUKTTFFJHGJFFJGJYFYJFTFDTRHGHJJKUGYFRERT4534336467HGGHVGHFGFDFGDGHFHFHFGDTDRTDTRDGHJVHVGFDGDbdhvbhbvjvdbdjhbvjhdvyugchdgjvsddvjsdjvsjdhvgsddsgfdsjgfjfdshggcjcgjdsgcdcgdscvdscvyusdcsydgcjhgchjsgyugeyegcjhgcjssyucsycfyshchjqscyucgezychsgchgcyuegchjscfhcgcfyueycgyefcyuegcezvebehvejbhjvzexvvezsxuyevcjecyuegcyuehcuceygcegciuehcyuegcgcegcuegcuycezihfuehfugfyugetyfteyfdyuezfdyuafzdtyfefcuegctyfecegcgezeiuhfhzgyuegfegyuehxuggdygezyygexcdae"))")}]]]</code> = hash à .1000 charactères (corespond au nombre décimaux) et 11 chiffres de hashage maximum pour respecter le format du double (15 chiffres max); résultat : <code>37805820906.10</code>
+<br>
 <br>
 comment récupérer la version de mon application ?
 <br>
