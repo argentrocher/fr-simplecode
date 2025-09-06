@@ -2,10 +2,12 @@
 
 fr-simplecode est un language basique de codage pour windows (64 bits uniquement), découvrer le ! 
 
-dernière version : fr-simplecode0.4 (! récent, pas beaucoup de modification par rapport à la 0.3 et en développement, le fichier change régulièrement et n'est pas forcément stable !) (actuellement 13264 lignes de code C)
+dernière version : fr-simplecode0.4 (! récent, pas beaucoup de modification par rapport à la 0.3 et en développement, le fichier change régulièrement et n'est pas forcément stable !) (actuellement 13293 lignes de code C)
 <br>nouveauté :<br>
 les nombres on désormais des virgules jusqu'à 14 de manière stable (! sans entier), un mode normal et scientifique pour l'affichage des nombres<br>
-<code>pow(v1;v2)</code> permet de faire des nombres avec des puissances<br><br>
+<code>pow(v1;v2)</code> permet de faire des nombres avec des puissances<br>
+<code>hash("arg")</code> permet de haché un texte en un nombre constant en fonction du texte (fonction irréversible, avec le hash, impossible à reconstruire)
+<br><br>
 
 dernière version stable : fr-simplecode0.3 (actuellement 12866 lignes de code C) <br> --> dernière ajout :<br><code>--arg:</code> sur la commande d'exécution permet de fournir un argument récupérable dans le code grâce à <code>[main_arg]</code>,<br>modification des règles d'appel à <code>[input]</code> fournit par <code>use_script(;)</code> sous la même forme que <code>[main_arg]</code>.
 
