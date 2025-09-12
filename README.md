@@ -14,6 +14,7 @@ les signes d'opération dans les calculs on été agrandi : <ul><li><code>%</cod
 <code>factorial(val)</code> permet de renvoyé le nombre val en factoriel<br>
 <code>[/n]</code>,<code>[/0]</code>,<code>[/l0]</code>,<code>[/l1]</code>,<code>[/l2]</code>,<code>[/l3]</code>,<code>[/l4]</code>,<code>[/l5]</code>,<code>[/l6]</code> sont désormais disponibles partout dans les parseurs de texte, sortie (print,speak) et dll.<br>
 <code>/</code> permet désormais de les désactivés, leurs duplications collés <code>//</code> renvoie <code>/</code> (parsing standard)<br>
+<code>box_error(parsing)</code>/<code>boite_erreur(parsing)</code> fonctionne comme un <code>print()</code> mais avec une boite d'erreur windows<br>
 
 <br>
 dernière version stable : fr-simplecode0.3 (actuellement 12866 lignes de code C) <br> --> dernière ajout :<br><code>--arg:</code> sur la commande d'exécution permet de fournir un argument récupérable dans le code grâce à <code>[main_arg]</code>,<br>modification des règles d'appel à <code>[input]</code> fournit par <code>use_script(;)</code> sous la même forme que <code>[main_arg]</code>.
