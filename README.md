@@ -2,7 +2,7 @@
 
 fr-simplecode est un language basique de codage pour windows (64 bits uniquement), découvrer le ! 
 
-dernière version : fr-simplecode0.4 (! récent, pas beaucoup de modification par rapport à la 0.3 et en développement, le fichier change régulièrement et n'est pas forcément stable !) (actuellement 14098 lignes de code C)
+dernière version : fr-simplecode0.4 (! récent, pas beaucoup de modification par rapport à la 0.3 et en développement, le fichier change régulièrement et n'est pas forcément stable !) (actuellement 14903 lignes de code C)
 <br>nouveauté :<br>
 les nombres on désormais des virgules jusqu'à 14 de manière stable (! sans entier), un mode normal et scientifique pour l'affichage des nombres<br>
 <code>pow(v1;v2)</code> permet de faire des nombres avec des puissances<br>
@@ -15,6 +15,8 @@ les signes d'opération dans les calculs on été agrandi : <ul><li><code>%</cod
 <code>[/n]</code>,<code>[/0]</code>,<code>[/l0]</code>,<code>[/l1]</code>,<code>[/l2]</code>,<code>[/l3]</code>,<code>[/l4]</code>,<code>[/l5]</code>,<code>[/l6]</code> sont désormais disponibles partout dans les parseurs de texte, sortie (print,speak) et dll.<br>
 <code>/</code> permet désormais de les désactivés, leurs duplications collés <code>//</code> renvoie <code>/</code> (parsing standard)<br>
 <code>box_error(parsing)</code>/<code>boite_erreur(parsing)</code> fonctionne comme un <code>print()</code> mais avec une boite d'erreur windows<br>
+<code>?func.</code> permet de définir des fonctions (uniquement dans des fichiers lancé directement ou avec <code>use_script()</code>), le programme recherche automatiquement le nom de la fonction dans le fichier si dans text() ou num() et l'exécute, avec possibilité de <code>return()</code> ou <code>retourne()</code> avec le même parsing que des <code>print()</code><br>
+il est également possible de passé des arguments variables ou préfixé ex: <code>?func.abc(var_local|a|;var_local|b|=10)[[[{print(var_local|a|" "var_local|b|)}]]]</code> si on l'appel avec : <code>[[[{abc(1; )}]]]</code> affichera <code>1 10</code>, si on l'appel avec : <code>[[[{abc(3;var_local|b|=11)}]]]</code> affichera <code>3 11</code> --> risque de ne pas fonctionné actuelement<br>
 
 <br>
 dernière version stable : fr-simplecode0.3 (actuellement 12866 lignes de code C) <br> --> dernière ajout :<br><code>--arg:</code> sur la commande d'exécution permet de fournir un argument récupérable dans le code grâce à <code>[main_arg]</code>,<br>modification des règles d'appel à <code>[input]</code> fournit par <code>use_script(;)</code> sous la même forme que <code>[main_arg]</code>.
