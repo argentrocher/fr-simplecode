@@ -2,7 +2,7 @@
 
 fr-simplecode est un language basique de codage pour windows (64 bits uniquement), découvrer le ! 
 
-dernière version : fr-simplecode0.4 (avec pile de script fr-simplecode0.4.1) (! récent, pas beaucoup de modification par rapport à la 0.3 et en développement, le fichier change régulièrement et n'est pas forcément stable !) (actuellement 15545 lignes de code C)
+dernière version : fr-simplecode0.4 (avec pile de script fr-simplecode0.4.1) (! récent, pas beaucoup de modification par rapport à la 0.3 et en développement, le fichier change régulièrement et n'est pas forcément stable !) (actuellement 15790 lignes de code C)
 <br>nouveauté :<br>
 les nombres on désormais des virgules jusqu'à 14 de manière stable (! sans entier), un mode normal et scientifique pour l'affichage des nombres<br>
 <code>pow(v1;v2)</code> permet de faire des nombres avec des puissances<br>
@@ -10,6 +10,8 @@ les nombres on désormais des virgules jusqu'à 14 de manière stable (! sans en
 les signes d'opération dans les calculs on été agrandi : <ul><li><code>%</code> pour le modulo (! modulo sur entier uniquement, pour un modulo à virgule, utilisez <code>modulo(val1;val2)</code>)</li>
 <li><code>#</code> permet de faire des divisions entières</li>
 <li><code>^</code> permet de faire des calculs de puissance (opération à la priorité le plus élevé) comme pow(val1;val2)</li>
+<li><code>sound_generator(arg1;arg2;arg3;arg4;arg5)</code> permet de générer des sons</li>
+<li><code>block_executed()</code> renvoie le nombre de block executé par le programme depuis le début du script</li>
 </ul>
 <code>factorial(val)</code> permet de renvoyé le nombre val en factoriel<br>
 <code>[/n]</code>,<code>[/0]</code>,<code>[/l0]</code>,<code>[/l1]</code>,<code>[/l2]</code>,<code>[/l3]</code>,<code>[/l4]</code>,<code>[/l5]</code>,<code>[/l6]</code> sont désormais disponibles partout dans les parseurs de texte, sortie (print,speak) et dll.<br>
