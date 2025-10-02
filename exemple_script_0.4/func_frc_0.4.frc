@@ -1,0 +1,35 @@
+
+#init[[[{time(start)}{boucle([input])}{print(time(end)" ms")}]]]
+
+?func.boucle(var_local|i|)[[[{print(var_local|i|" [/l3]num(block_executed())[/l4]")}{if||var_local|i|||>||1||{var_local|i|=--}{boucle(var_local|i|)}}]]]
+
+?func.autre(var_local|i|)[[[{print(var_local|i|)}{speak("num(abc(66;null))")}]]]
+
+?func.abc(var_local|a|;var_local|b|=10)[[[{print(var_local|a|" "var_local|b|)}{return(var_local|a|*var_local|b|+1)}]]]
+
+
+?func.compte(var_local|me|)[[[
+{var_local|n|=0}{if||var_local|me|||<=||0||{return(-1)}}{repeat||endless||{var_local|n|=++}{print(var_local|n|)}{if||var_local|me|||?=||var_local|n|||{return(var_local|n|)}}}
+]]]
+
+?func.printf(var_local|a|)[[[
+{box_error("cd "var_local|a|)}
+]]]
+
+?func.utile(var_local|a|)[[[
+{print(var_local|a|" and "var_local|b|)}{var_local|a|=++}{if(||var_local|a|||<||100|| and ||var_local|a|||>||-100||){var_local|b|=random(2;7)}{utile(var_local|a|)}}
+]]]
+
+#reste[[[{print(hello("dodo"))}{print(compte([input]))}{print("text(utile("ehcav"))")}{user("text(text_cut("momo";-1;-1))";var_local|b|="b")}
+{var_local_env()}{last_var_local_env()}{start_file_var_local_env()}{print(abc(1;var_local|b|="100"))}{autre(abc(12;null))}]]]
+
+?func.hello()[[[
+{print("hello text(var_local|b|)")}
+]]]
+
+?func.user(var_local|a|;var_local|b|=10)[[[
+{print("argument a : text(var_local|a|), value : text(var_local|b|)")}
+]]]
+
+
+[[[{var_local|input|=prompt("temps de fr-simplecode pour compter jusqu'à")}{time(start)}{use_script(func_frc_0.4.frc;num(var_local|input|))}{print(time(end)" ms")}]]]
