@@ -2,7 +2,7 @@
 
 fr-simplecode est un language basique de codage pour windows (64 bits uniquement), découvrer le ! 
 
-dernière version : fr-simplecode0.4 (avec pile de script fr-simplecode0.4.1) (! récent, pas beaucoup de modification par rapport à la 0.3 et en développement, le fichier change régulièrement et n'est pas forcément stable !) (actuellement 16530 lignes de code C)
+dernière version : fr-simplecode0.4 (avec pile de script fr-simplecode0.4.1) (! récent, pas beaucoup de modification par rapport à la 0.3 et en développement, le fichier change régulièrement et n'est pas forcément stable !) (actuellement 16688 lignes de code C)
 <br>nouveauté :<br>
 les nombres on désormais des virgules jusqu'à 14 de manière stable (! sans entier), un mode normal et scientifique pour l'affichage des nombres<br>
 <code>pow(v1;v2)</code> permet de faire des nombres avec des puissances<br>
@@ -74,6 +74,8 @@ commande de test 0.3 : <br><br>
 <br>
 commande test 0.4 : <br><br>
 <code>[[[{print("num(hash("bdkfbbrvdjvrjbvjerbvberbrejbrjebzejvjbvjebvbevbhbhbvvvecvgzcyzazgcfjzebchezvchezchzvchcvchvecvehvcvhevcvechevchevcvcvhdschzeejzvbbvhbevhbhhscjbvhvbjzbvhbzvebhfvjsbchvuevhvfevzefbufbuzgecuebczbvezvezvezjhfbezgfugefygezgfezfyfceugeycuegcyzgicheugcyehuefugyuezgezgfeyfezfezxgeygxuyzgcchjegcececcezyegfygfuyezgyuegcyevxvexezvxexvejbverhrvhrevbryvgyrgyrgfyergfyergfyegfygfyhfuiezgfuzheihcuegcyuejhegczgcyuechjezgeygcegcgeucgecehckehqskhcuidgcyegchjgcsqgcyuegcuyegcyuezgcuygcugckjsqhsgcuz_675654534486879896655465766745644463435454454546465456JHUGYGYGTFTYFTFTFTFTFTFRDRTUGUKTTFFJHGJFFJGJYFYJFTFDTRHGHJJKUGYFRERT4534336467HGGHVGHFGFDFGDGHFHFHFGDTDRTDTRDGHJVHVGFDGDbdhvbhbvjvdbdjhbvjhdvyugchdgjvsddvjsdjvsjdhvgsddsgfdsjgfjfdshggcjcgjdsgcdcgdscvdscvyusdcsydgcjhgchjsgyugeyegcjhgcjssyucsycfyshchjqscyucgezychsgchgcyuegchjscfhcgcfyueycgyefcyuegcezvebehvejbhjvzexvvezsxuyevcjecyuegcyuehcuceygcegciuehcyuegcgcegcuegcuycezihfuehfugfyugetyfteyfdyuezfdyuafzdtyfefcuegctyfecegcgezeiuhfhzgyuegfegyuehxuggdygezyygexcdae"))")}]]]</code> = hash à .1000 charactères (corespond au nombre décimaux) et 11 chiffres de hashage maximum pour respecter le format du double (15 chiffres max); résultat : <code>37805820906.10</code><br><br>
+
+<code>[[[{var_local|char|="mon char !"}{print("text(text_letters("text(var_local|char|)";text_len("text(var_local|char|)");text_find("text(var_local|char|)";"c";text_count("text(var_local|char|)";"c"))))")}]]]</code> affiche char ! (du dernier 'c' jusqu'à la fin)<br><br>
 
 <code>[[[{var_local|a|="text(prompt("password (la vache)"))"}{if(||hash("text(text_letters("text(var_local|a|)";-1;-8))")||<=||36498736912.008|| and ||hash("text(text_letters("text(var_local|a|)";-1;-8))")||>=||36498736912.008||){print("oui")}||else||{print("non")}}]]]</code> montre qu'un mot de passe est indécodable sans le connaître réelement, même dans le code (tout se qui finit par <code>la vache</code> est <span>$oui$</span>) avec la nouvelle fonction <code>text_letters("arg";index1;index2)</code> qui renvoie plusieurs charactères en même temps à la différence de <code>text_letter("arg";index)</code>
 
