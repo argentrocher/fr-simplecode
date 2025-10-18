@@ -2,7 +2,7 @@
 
 fr-simplecode est un language basique de codage pour windows (64 bits uniquement), découvrer le ! 
 
-dernière version : fr-simplecode0.4 (avec pile de script fr-simplecode0.4.1) (! récent, pas beaucoup de modification par rapport à la 0.3 et en développement, le fichier change régulièrement et n'est pas forcément stable !) (actuellement 17156 lignes de code C)
+dernière version : fr-simplecode0.4 (avec pile de script fr-simplecode0.4.1) (! récent, pas beaucoup de modification par rapport à la 0.3 et en développement, le fichier change régulièrement et n'est pas forcément stable !) (actuellement 17312 lignes de code C)
 <br>nouveauté :<br>
 les nombres on désormais des virgules jusqu'à 14 de manière stable (! sans entier), un mode normal et scientifique pour l'affichage des nombres<br>
 <code>pow(v1;v2)</code> permet de faire des nombres avec des puissances<br>
@@ -22,6 +22,7 @@ les signes d'opération dans les calculs on été agrandi : <ul><li><code>%</cod
 <code>?func.</code> permet de définir des fonctions (uniquement dans des fichiers lancé directement ou avec <code>use_script()</code>), le programme recherche automatiquement le nom de la fonction dans le fichier si dans text() ou num() et l'exécute, avec possibilité de <code>return()</code> ou <code>retourne()</code> avec le même parsing que des <code>print()</code><br>
 il est également possible de passé des arguments variables ou préfixé ex: <code>?func.abc(var_local|a|;var_local|b|=10)[[[{print(var_local|a|" "var_local|b|)}]]]</code> si on l'appel avec : <code>[[[{abc(1; )}]]]</code> affichera <code>1 10</code>, si on l'appel avec : <code>[[[{abc(3;var_local|b|=11)}]]]</code> affichera <code>3 11</code><br>
 <code>var_local|name|=--</code> et <code>var|name|=--</code> peuvent désormais supprimé le dernier charactère si la variable est en texte (! pour <code>var|name|=""</code> considérer comme 0 donc numérique mais pas pour var_local),<br>si on utlise <code>var_local|name|=++</code> et <code>var|name|=++</code> sur des variables textuels, cela ajoute un espace à la fin<br>
+<code>num()</code> peut désormais prendre un deuxième argument qui limite le nombre de chiffres après la virgule : <code>num(3/2+1;0)</code> affiche <code>2</code>, <code>num(3/2+1;2)</code> affiche <code>1.67</code><br>
 
 <br>
 dernière version stable : fr-simplecode0.3 (actuellement 12866 lignes de code C) <br> --> dernière ajout :<br><code>--arg:</code> sur la commande d'exécution permet de fournir un argument récupérable dans le code grâce à <code>[main_arg]</code>,<br>modification des règles d'appel à <code>[input]</code> fournit par <code>use_script(;)</code> sous la même forme que <code>[main_arg]</code>.
