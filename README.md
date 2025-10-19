@@ -2,7 +2,7 @@
 
 fr-simplecode est un language basique de codage pour windows (64 bits uniquement), découvrer le ! 
 
-dernière version : fr-simplecode0.4 (avec pile de script fr-simplecode0.4.1) (! récent, pas beaucoup de modification par rapport à la 0.3 et en développement, le fichier change régulièrement et n'est pas forcément stable !) (actuellement 17312 lignes de code C)
+dernière version : fr-simplecode0.4 (avec pile de script fr-simplecode0.4.1) (! récent, pas beaucoup de modification par rapport à la 0.3 et en développement, le fichier change régulièrement et n'est pas forcément stable !) (actuellement 17606 lignes de code C)
 <br>nouveauté :<br>
 les nombres on désormais des virgules jusqu'à 14 de manière stable (! sans entier), un mode normal et scientifique pour l'affichage des nombres<br>
 <code>pow(v1;v2)</code> permet de faire des nombres avec des puissances<br>
