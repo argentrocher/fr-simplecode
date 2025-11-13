@@ -38,9 +38,12 @@ c'est à dire que les calculs entre deux tables sont apliqué au cases correspon
 exemple 1 : <code>table|a|=**[[3;45;67;[[34;"f";6]];7;[[1;4]]]]+(5+6)</code>, table|a|--><code>[[14.00;56.00;78.00;[[45.00;"f";17.00]];18.00;[[12.00;15.00]]]]</code> car toutes les cases sont touché à tout les niveaux par +11<br>
 exemple 2 : <code>table|a|=**[[3;45;67;[[34;6;"f"]];7;[[1;4]]]][[1;[[2;3]]]]</code>, table|a|--><code>[[3.00;[[90.00;135.00]];67.00;[[68.00;18.00;"f"]];7.00;[[2.00;12.00]]]]</code> car c'est une multiplication implicite entre les deux tables, les cases impair sont multiplié par 1, les cases pair qui ne sont pas en sous table sont multiplié par 2 puis par trois sur la même valeur; on voit que 45 devient <code>[[90;135]]</code>sinon le reste suit la même logique et les lettres ne sont pas touchés<br>
 exemple 3 : <code>table|a|=**"momo"+[[1;3;67;[[34;"f";"kkk";4;[[34]]]];17;"c"]]</code>, table|a|--><code>[["momo";"momo";"momo";[["momo";"momo";"momo";"momo";[["momo"]]]];"momo";"momo"]]</code> car toutes les cases sont touché à tout les niveaux par un texte à gauche donc prioritaire, toutes les cases de la table on donc toute la même valeur: <code>momo</code><br></p>
+
+<code>time_delay()</code> sans argument renvoie jourheureminuteseconde.miliseconde (en temps que nombre) seul, <code>time_delay(arg)</code> avec <code>arg</code> un ancien <code>time_delay()</code> renvoie le temps écoulé sous le même format jourheureminuteseconde.miliseconde écoulé.
+<br>
+<br>
 <br>
 dernière version stable : fr-simplecode0.3 (actuellement 12866 lignes de code C) <br> --> dernière ajout :<br><code>--arg:</code> sur la commande d'exécution permet de fournir un argument récupérable dans le code grâce à <code>[main_arg]</code>,<br>modification des règles d'appel à <code>[input]</code> fournit par <code>use_script(;)</code> sous la même forme que <code>[main_arg]</code>.
-
 <br>
 --ancienne nouveauté :<br>
 fr-simplecode0.3 : 
