@@ -1,0 +1,310 @@
+It is a math and time librairy use with block {use_script(pathofthisfile;input)[nameofscript]} in [[[ ]]]
+
+#init[[[{var|PI|=3.14159265358979323846}{var|PIx1000000|=3141592.65358979323846}]]]
+
+#test[[[{print("[input]")}{print("Bienvenue sur le module math+timelibrairy.frc de fr-simplecode,[/n](utiliser sleep_s pour les pauses en secondes car sleep_ms ne fonctionne pas)")}]]]
+
+#example[[[{print("affichage de la date du jour pendant 1 min")}{repeat||60||{use_script(math+timelibrairy)[date_aujourd'hui]}{use_script(math+timelibrairy;1)[sleep_s]}}]]]
+
+#sin_math[[[
+{var|x|=[input]*100000}
+{var|div|=var|x|/628318}
+{var|div|=var|div|/100}
+{var|div|=var|div|*100}
+{var|x|=var|x|-var|div|*628318}
+{var|sin|=var|x|-(var|x|*var|x|*var|x|)/6000000000000+(var|x|*var|x|*var|x|*var|x|*var|x|)/12000000000000000000-(var|x|*var|x|*var|x|*var|x|*var|x|*var|x|*var|x|)/504000000000000000000000000+(var|x|*var|x|*var|x|*var|x|*var|x|*var|x|*var|x|*var|x|*var|x|)/362880000000000000000000000000000
+{var|sin|=var|sin|-(var|x|*var|x|*var|x|*var|x|*var|x|)/130767436800000000000000000000000+(var|x|*var|x|*var|x|*var|x|*var|x|*var|x|*var|x|*var|x|*var|x|*var|x|)/2092278988800000000000000000000000000}
+{var|sin|=var|sin|/100000}
+]]]
+
+#cos_math[[[
+{var|x|=[input]*100000}
+{var|div|=var|x|/628318}
+{var|div|=var|div|/100}
+{var|div|=var|div|*100}
+{var|x|=var|x|-var|div|*628318}
+{var|cos|=100000-(var|x|*var|x|)/20000000000+(var|x|*var|x|*var|x|*var|x|)/240000000000000000-(var|x|*var|x|*var|x|*var|x|*var|x|*var|x|)/720000000000000000000000+(var|x|*var|x|*var|x|*var|x|*var|x|*var|x|*var|x|*var|x|)/4032000000000000000000000000000}
+{var|cos|=var|cos|-(var|x|*var|x|*var|x|*var|x|*var|x|)/130767436800000000000000000000000+(var|x|*var|x|*var|x|*var|x|*var|x|*var|x|*var|x|*var|x|*var|x|)/2092278988800000000000000000000000000}
+{var|cos|=var|cos|/100000}
+]]]
+
+#arcsin_math[[[
+{var|x|=[input]*100000}
+{var|arcsin|=var|x|+(var|x|*var|x|*var|x|)/6000000000000+(3*var|x|*var|x|*var|x|*var|x|*var|x|)/40000000000000000000+(5*var|x|*var|x|*var|x|*var|x|*var|x|*var|x|*var|x|)/112000000000000000000000000000}
+{var|arcsin|=var|arcsin|/100000}
+]]]
+
+#arccos_math[[[
+{var|x|=[input]*100000}
+{var|arccos|=157079-(var|x|+(var|x|*var|x|*var|x|)/6000000000000+(3*var|x|*var|x|*var|x|*var|x|*var|x|)/40000000000000000000+(5*var|x|*var|x|*var|x|*var|x|*var|x|*var|x|*var|x|)/112000000000000000000000000000)}
+{var|arccos|=var|arccos|/100000}
+]]]
+
+
+#exp_math[[[
+{var|x|=[input]*100000}
+{var|exp|=100000+var|x|+(var|x|*var|x|)/20000000000+(var|x|*var|x|*var|x|)/600000000000000000+(var|x|*var|x|*var|x|*var|x|)/2400000000000000000000000}
+{var|exp|=var|exp|/100000}
+]]]
+
+#log1p[[[
+{var|x|=[input]*100000}
+{var|log1p|=var|x|-(var|x|*var|x|)/20000000000+(var|x|*var|x|*var|x|)/300000000000000000-(var|x|*var|x|*var|x|*var|x|)/4000000000000000000000000}
+{var|log1p|=var|log1p|/100000}
+]]]
+
+#carre[[[
+{var|carre|=[input]}
+{var|carre|=(var|carre|*var|carre|)}
+]]]
+
+#cube[[[
+{var|cube|=[input]}
+{var|cube|=(var|cube|*var|cube|*var|cube|)}
+]]]
+
+#racine_2[[[
+{var|racine_2|=sqrt([input])}
+]]]
+
+#racine_3[[[
+{var|racine_3|=cbrt([input])}
+]]]
+
+#sin[[[
+{var|sin|=sin([input])}
+]]]
+
+#cos[[[
+{var|cos|=cos([input])}
+]]]
+
+#tan[[[
+{var|tan|=tan([input])}
+]]]
+
+#arcsin[[[
+{var|arcsin|=arcsin([input])}
+]]]
+
+#arccos[[[
+{var|arccos|=arccos([input])}
+]]]
+
+#arctan[[[
+{var|arctan|=arctan([input])}
+]]]
+
+#exp[[[
+{var|exp|=exp([input])}
+]]]
+
+#log[[[
+{var|log|=log([input])}
+]]]
+
+#rad[[[
+{var|rad|=([input]*3.14159265358979323846)/180}
+]]]
+
+#deg[[[
+{var|deg|=([input]*180)/3.14159265358979323846}
+]]]
+
+#Fahrenheit[[[
+{var|Fahrenheit|=([input]*9/5)+32}
+]]]
+
+#Celsius[[[
+{var|Celsius|=([input]-32)/9*5}
+]]]
+
+$//        Time fonction :        //$
+
+#jour[[[
+{var|jour|=time(day)}
+]]]
+
+$//upgrate just for fr-simplecode0.4 (because use round with num( ;0) to month )//$
+#mois[[[
+{if||version()||>=||0.4|||[[1]]
+	{var|mois|=get_comma(num(time(date);0)/100)}
+	{var|mois|=time(date)}{var|mois|=var|mois|-(get_comma(var|mois|)/100)}{var|mois|=get_comma(var|mois|/100)}
+}
+]]]
+
+$//upgrate just for fr-simplecode0.4 (because use round with num( ;0) to month )//$
+#mois_string[[[
+{if||version()||>=||0.4|||[[1]]
+	{var|mois|=get_comma(num(time(date);0)/100)}
+	{var|mois|=time(date)}{var|mois|=var|mois|-(get_comma(var|mois|)/100)}{var|mois|=get_comma(var|mois|/100)}
+}
+{if||var|mois|||?=||1||[[1]]
+	{var|mois_string|="janvier"}
+	{if||var|mois|||?=||2||[[1]]
+		{var|mois_string|=féfrier"}
+		{if||var|mois|||?=||3||[[1]]
+			{var|mois_string|="mars"}
+			{if||var|mois|||?=||4||[[1]]
+				{var|mois_string|="avril"}
+				{if||var|mois|||?=||5||[[1]]
+					{var|mois_string|="mai"}
+					{if||var|mois|||?=||6||[[1]]
+						{var|mois_string|="juin"}
+						{if||var|mois|||?=||7||[[1]]
+							{var|mois_string|="juillet"}
+							{if||var|mois|||?=||8||[[1]]
+								{var|mois_string|="aout"}
+								{if||var|mois|||?=||9||[[1]]
+									{var|mois_string|="septembre"}
+									{if||var|mois|||?=||10||[[1]]
+										{var|mois_string|="octobre"}
+										{if||var|mois|||?=||11||[[1]]
+											{var|mois_string|="novembre"}
+											{var|mois_string|="décembre"}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+]]]
+
+#annee[[[
+{var|annee|=get_comma(time(date))+2000}
+]]]                                                                $//change 2000 if is in other century//$
+
+#jour_semaine_string[[[
+{if||num_day()||?=||1||[[1]]
+	{var|jour_semaine_string|="Lundi"}
+	{if||num_day()||?=||2||[[1]]
+		{var|jour_semaine_string|="Mardi"}
+		{if||num_day()||?=||3||[[1]]
+			{var|jour_semaine_string|="Mercredi"}
+			{if||num_day()||?=||4||[[1]]
+				{var|jour_semaine_string|="Jeudi"}
+				{if||num_day()||?=||5||[[1]]
+					{var|jour_semaine_string|="Vendredi"}
+					{if||num_day()||?=||6||[[1]]
+						{var|jour_semaine_string|="Samedi"}
+						{var|jour_semaine_string|="Dimanche"}
+					}
+				}
+			}
+		}
+	}
+}
+]]]
+
+#jour_semaine[[[
+{if||num_day()||?=||1||[[1]]
+	{print("Lundi")}
+	{if||num_day()||?=||2||[[1]]
+		{print("Mardi")}
+		{if||num_day()||?=||3||[[1]]
+			{print("Mercredi")}
+			{if||num_day()||?=||4||[[1]]
+				{print("Jeudi")}
+				{if||num_day()||?=||5||[[1]]
+					{print("Vendredi")}
+					{if||num_day()||?=||6||[[1]]
+						{print("Samedi")}
+						{print("Dimanche")}
+					}
+				}
+			}
+		}
+	}
+}
+]]]
+
+$//upgrate just for fr-simplecode0.4 (because use round with num( ;0) to month )//$
+#date_aujourd'hui[[[
+{###output_print:not[/n]###}
+{###output_print:notcomma###}
+{if||num_day()||?=||1||[[1]]
+	{print("Lundi")}
+	{if||num_day()||?=||2||[[1]]
+		{print("Mardi")}
+		{if||num_day()||?=||3||[[1]]
+			{print("Mercredi")}
+			{if||num_day()||?=||4||[[1]]
+				{print("Jeudi")}
+				{if||num_day()||?=||5||[[1]]
+					{print("Vendredi")}
+					{if||num_day()||?=||6||[[1]]
+						{print("Samedi")}
+						{print("Dimanche")}
+					}
+				}
+			}
+		}
+	}
+}
+{print(" "time(day)" ")}
+{if||version()||>=||0.4|||[[1]]
+	{var|mois|=get_comma(num(time(date);0)/100)}
+	{var|mois|=time(date)}{var|mois|=var|mois|-(get_comma(var|mois|)/100)}{var|mois|=get_comma(var|mois|/100)}
+}
+{if||var|mois|||?=||1||[[1]]
+	{print("janvier")}
+	{if||var|mois|||?=||2||[[1]]
+		{print("féfrier")}
+		{if||var|mois|||?=||3||[[1]]
+			{print("mars")}
+			{if||var|mois|||?=||4||[[1]]
+				{print("avril")}
+				{if||var|mois|||?=||5||[[1]]
+					{print("mai")}
+					{if||var|mois|||?=||6||[[1]]
+						{print("juin")}
+						{if||var|mois|||?=||7||[[1]]
+							{print("juillet")}
+							{if||var|mois|||?=||8||[[1]]
+								{print("aout")}
+								{if||var|mois|||?=||9||[[1]]
+									{print("septembre")}
+									{if||var|mois|||?=||10||[[1]]
+										{print("octobre")}
+										{if||var|mois|||?=||11||[[1]]
+											{print("novembre")}
+											{print("décembre")}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+{print(" "get_comma(time(date))+2000", "time(h)" heures "time(m)" et "time(s)" secondes.[/n]")}
+{###output_print:comma###}
+{###output_print:[/n]###}
+]]]
+
+#sleep_s[[[
+{var|start_time|=time(h)*3600+time(m)*60+time(s)} 
+{var|end_time|=var|start_time|+([input])} 
+{repeat||infini||
+    {var|current_time|=time(h)*3600+time(m)*60+time(s)} 
+    {if||var|current_time|||>=||var|end_time|||
+        {break(1)}
+    }
+} 
+]]]
+
+$//just 0.4 or sleep() fonction is include else error --> use sleep_s //$
+$//unnecessary : use sleep() and it's egal//$
+#sleep_ms[[[
+{var|sleep|=[input]}
+{sleep(var|sleep|)}
+{var_suppr(sleep)}
+]]]
