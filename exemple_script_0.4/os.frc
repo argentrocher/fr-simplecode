@@ -1,0 +1,227 @@
+FRC
+
+?func.os()[[[
+{info()}
+]]]
+
+?func._init_()[[[
+{###sortie_affiche:[/n]###}
+{###function_text:true###}
+{###function_num:true###}
+{###dll_arg_analysis:true###}
+{define_dll(frc_os)(text(exe_path())\lib_frc\lib\frc_utilitaire\frc_os.dll)}
+{if||version()||<||0.4||{print("module incompatible avec vôtre version de fr-simplecode : 0.4 ou plus obligatoire")}{exit}}
+]]]
+
+?func.info()[[[
+{print("os utilitaire permet de gerer des fichiers et dossier grâce à frc_os.dll")}{_init_()}
+]]]
+
+?func._error_(var_local|result|;var_local|name|;var_local|path|;var_local|mode|;var_local|type_function|="NULL")[[[
+{print("type fonction : text(var_local|type_function|); résultat : text(var_local|result|)")}
+{if?||text_eval("text(var_local|result|)";?=;"ERR: arg null")||
+	{box_error("ERREUR FR-SIMPLECODE :[/n]code : 1 [/l5]erreur système[/l6]")}
+	{exit}
+}
+{if?||text_eval("text(var_local|result|)";?=;"[ERREUR APPELS]")||
+	{box_error("ERREUR FR-SIMPLECODE WITH LIBRAIRY :[/n]code : 2 [/l5]dll fonction échec[/l6]")}
+	{exit}
+}
+{if?||text_eval("text(var_local|result|)";?=;"ERR: FILE_NOT_EXIST")||
+	{if!||text_eval("text(var_local|type_function|)";!=;"NULL")||
+		{print("Erreur : fichier text(var_local|path|) introuvable.")}
+	||else||
+		{print("Erreur : fichier text(var_local|path|) introuvable sur text(var_local|type_function|).")}
+	}
+	{return(1)}
+}
+{if(?||text_eval("text(var_local|result|)";?=;"ERR: format: name;path;mode")|| or ?||text_eval("text(var_local|result|)";?=;"ERR: format: name;text")|| or ?||text_eval("text(var_local|result|)";?=;"ERR: format: name;N")|| or ?||text_eval("text(var_local|result|)";?=;"ERR: format: name;offset;origin")||)
+	{if!||text_eval("text(var_local|type_function|)";!=;"NULL")||
+		{print("Erreur : format incorrect : argument attendu.")}
+	||else||
+		{print("Erreur : format incorrect : argument attendu sur text(var_local|type_function|).")}
+	}
+	{return(1)}
+}
+{if?||text_eval("text(var_local|result|)";?=;"ERR: name too long")||
+	{if!||text_eval("text(var_local|type_function|)";!=;"NULL")||
+		{print("Erreur : nom trop long.")}
+	||else||
+		{print("Erreur : nom trop long sur text(var_local|type_function|).")}
+	}
+	{return(1)}
+}
+{if?||text_eval("text(var_local|result|)";?=;"ERR: empty name")||
+	{if!||text_eval("text(var_local|type_function|)";!=;"NULL")||
+		{print("Erreur : nom trop court.")}
+	||else||
+		{print("Erreur : nom trop court sur text(var_local|type_function|).")}
+	}
+	{return(1)}
+}
+{if?||text_eval("text(var_local|result|)";?=;"ERR: empty path")||
+	{if!||text_eval("text(var_local|type_function|)";!=;"NULL")||
+		{print("Erreur : chemin trop court.")}
+	||else||
+		{print("Erreur : chemin trop court sur text(var_local|type_function|).")}
+	}
+	{return(1)}
+}
+{if?||text_eval("text(var_local|result|)";?=;"ERR: mem")||
+	{if!||text_eval("text(var_local|type_function|)";!=;"NULL")||
+		{print("Erreur : mémoire.")}
+	||else||
+		{print("Erreur : mémoire sur text(var_local|type_function|).")}
+	}
+	{return(1)}
+}
+{if?||text_eval("text(var_local|result|)";?=;"ERR: mode must be r,w or a")||
+	{if!||text_eval("text(var_local|type_function|)";!=;"NULL")||
+		{print("Erreur : mode de fichier inconnu, doit être a, w ou r.")}
+	||else||
+		{print("Erreur : mode de fichier inconnu, doit être a, w ou r sur text(var_local|type_function|).")}
+	}
+	{return(1)}
+}
+{if?||text_eval("text(var_local|result|)";?=;"ERR: name already exists")||
+	{if!||text_eval("text(var_local|type_function|)";!=;"NULL")||
+		{print("Erreur : le nom demander existe déjà.")}
+	||else||
+		{print("Erreur : le nom demander existe déjà sur text(var_local|type_function|).")}
+	}
+	{return(1)}
+}
+{if?||text_eval("text(var_local|result|)";?=;"ERR: name not found")||
+	{if!||text_eval("text(var_local|type_function|)";!=;"NULL")||
+		{print("Erreur : le nom demander n'existe pas.")}
+	||else||
+		{print("Erreur : le nom demander n'existe pas sur text(var_local|type_function|).")}
+	}
+	{return(1)}
+}
+{if?||text_eval("text(var_local|result|)";?=;"ERR: file not opened for writing (mode not a or w)")||
+	{if!||text_eval("text(var_local|type_function|)";!=;"NULL")||
+		{print("Erreur : le fichier ne s'ouvre que en mode a ou w.")}
+	||else||
+		{print("Erreur : le fichier ne s'ouvre que en mode a ou w sur text(var_local|type_function|).")}
+	}
+	{return(1)}
+}
+{if?||text_eval("text(var_local|result|)";?=;"ERR: file not found")||
+	{if!||text_eval("text(var_local|type_function|)";!=;"NULL")||
+		{print("Erreur : le fichier demander n'existe pas.")}
+	||else||
+		{print("Erreur : le fichier demander n'existe pas sur text(var_local|type_function|).")}
+	}
+	{return(1)}
+}
+{if?||text_eval("text(var_local|result|)";?=;"ERR: negative pos with SEEK_SET")||
+	{if!||text_eval("text(var_local|type_function|)";!=;"NULL")||
+		{print("Erreur : la position de l'origine est déjà 0 (on ne peut pas mettre une valeur négative sur l'index).")}
+	||else||
+		{print("Erreur : la position de l'origine est déjà 0 (on ne peut pas mettre une valeur négative sur l'index) sur text(var_local|type_function|).")}
+	}
+	{return(1)}
+}
+{if?||text_eval("text(var_local|result|)";?=;"ERR: invalid origin (must be 0,1,2)")||
+	{if!||text_eval("text(var_local|type_function|)";!=;"NULL")||
+		{print("Erreur : l'origine ne peut être que 0 (début), 1 (position actuel du pointeur), 2 (fin).")}
+	||else||
+		{print("Erreur : l'origine ne peut être que 0 (début), 1 (position actuel du pointeur), 2 (fin) sur text(var_local|type_function|).")}
+	}
+	{return(1)}
+}
+{return(2)}
+]]]
+
+?func.file_open(var_local|name|;var_local|path|;var_local|mode|)[[[
+{_init_()}
+{var_local|parsed|="text(var_local|name|);text(var_local|path|);text(var_local|mode|)"}
+{var_local|result|="text(dll|frc_os|[file_open("text(var_local|parsed|)")])"}
+{_error_("text(var_local|result|)";"text(var_local|name|)";"text(var_local|path|)";"text(var_local|mode|)";var_local|type_function|="file_open")}
+]]]
+
+?func.file_close(var_local|name|)[[[
+{_init_()}
+{var_local|result|="text(dll|frc_os|[file_close("text(var_local|name|)")])"}
+{_error_("text(var_local|result|)";"text(var_local|name|)";"NULL";"NULL";var_local|type_function|="file_close")}
+]]]
+
+?func.file_tell(var_local|name|)[[[
+{_init_()}
+{var_local|result|="text(dll|frc_os|[file_tell("text(var_local|name|)")])"}
+{if||_error_("text(var_local|result|)";"text(var_local|name|)";"NULL";"NULL";var_local|type_function|="file_tell")||?=||2||
+	{return("text(var_local|result|)")}
+}
+{return(-1)}
+]]]
+
+?func.file_write(var_local|name|;var_local|texte|)[[[
+{_init_()}
+{var_local|parsed|="text(var_local|name|);text(var_local|texte|)"}
+{var_local|result|="text(dll|frc_os|[file_write("text(var_local|parsed|)")])"}
+{if||_error_("text(var_local|result|)";"text(var_local|name|)";"NULL";"NULL";var_local|type_function|="file_write")||?=||2||
+	{return("text(var_local|result|)")}
+}
+{return(-1)}
+]]]
+
+?func.file_read(var_local|name|;var_local|N|)[[[
+{_init_()}
+{if?||text_eval("num(var_local|N|)"?="0.00")||
+	{var_local|N|="0"}
+||else||
+	{var_local|N|="text(text_letters("text(var_local|N|)";1;text_find("text(var_local|N|)";".";1)-1))"}
+}
+{var_local|parsed|="text(var_local|name|);text(var_local|N|)"}
+{var_local|result|="text(dll|frc_os|[file_read("text(var_local|parsed|)")])"}
+{if||_error_("text(var_local|result|)";"text(var_local|name|)";"NULL";"NULL";var_local|type_function|="file_read")||?=||2||
+	{return("text(var_local|result|)")}
+}
+{return(-1)}
+]]]
+
+?func.file_read_ansi(var_local|name|;var_local|N|)[[[
+{_init_()}
+{if?||text_eval("num(var_local|N|)"?="0.00")||
+	{var_local|N|="0"}
+||else||
+	{var_local|N|="text(text_letters("text(var_local|N|)";1;text_find("text(var_local|N|)";".";1)-1))"}
+}
+{var_local|parsed|="text(var_local|name|);text(var_local|N|)"}
+{var_local|result|="text(dll|frc_os|[file_read_ansi("text(var_local|parsed|)")])"}
+{if||_error_("text(var_local|result|)";"text(var_local|name|)";"NULL";"NULL";var_local|type_function|="file_read")||?=||2||
+	{return("text(var_local|result|)")}
+}
+{return(-1)}
+]]]
+
+?func.file_len(var_local|name|)[[[
+{_init_()}
+{var_local|result|="text(dll|frc_os|[file_len("text(var_local|name|)")])"}
+{if||_error_("text(var_local|result|)";"text(var_local|name|)";"NULL";"NULL";var_local|type_function|="file_len")||?=||2||
+	{return("text(var_local|result|)")}
+}
+{return(-1)}
+]]]
+
+?func.file_seek(var_local|name|;var_local|offset|;var_local|origin|)[[[
+{_init_()}
+{if?||text_eval("num(var_local|offset|)"?="0.00")||
+	{var_local|offset|="0"}
+||else||
+	{var_local|offset|="text(text_letters("text(var_local|offset|)";1;text_find("text(var_local|offset|)";".";1)-1))"}
+}
+{if?||text_eval("num(var_local|origin|)"?="0.00")||
+	{var_local|origin|="0"}
+||else||
+	{var_local|origin|="text(text_letters("text(var_local|origin|)";1;text_find("text(var_local|origin|)";".";1)-1))"}
+}
+{var_local|parsed|="text(var_local|name|);text(var_local|offset|);text(var_local|origin|)"}
+{var_local|result|="text(dll|frc_os|[file_seek("text(var_local|parsed|)")])"}
+{if||_error_("text(var_local|result|)";"text(var_local|name|)";"NULL";"NULL";var_local|type_function|="file_seek")||?=||2||
+	{return("text(var_local|result|)")}
+}
+{return(-1)}
+]]]
+
