@@ -2,7 +2,7 @@
 
 fr-simplecode est un language basique de codage pour windows (64 bits uniquement), découvrer le ! 
 
-dernière version : fr-simplecode0.4.1 (avec pile de script sur fr-simplecode0.4.1 et pas sur fr-simplecode0.4-> n'est plus mi à jour car sans pile, c'est moins performant) (! récent, beaucoup de modification par rapport à la 0.3 mais en développement, le fichier change régulièrement et peu planter pour les nouvelles fonctions (actuelment 0.4.1 est stable ais des améliorations sont encore à venir sous se même nom) (actuellement 19709 lignes de code C)
+dernière version : fr-simplecode0.4.1 (avec pile de script sur fr-simplecode0.4.1 et pas sur fr-simplecode0.4-> n'est plus mi à jour car sans pile, c'est moins performant) (! récent, beaucoup de modification par rapport à la 0.3 mais en développement, le fichier change régulièrement et peu planter pour les nouvelles fonctions (actuelment 0.4.1 est stable mais des améliorations sont encore à venir sous se même nom) (actuellement 19913 lignes de code C)
 <br>nouveauté :<br>
 les nombres on désormais des virgules jusqu'à 14 de manière stable (! sans entier), un mode normal et scientifique pour l'affichage des nombres<br>
 <code>pow(v1;v2)</code> permet de faire des nombres avec des puissances<br>
@@ -10,7 +10,7 @@ les nombres on désormais des virgules jusqu'à 14 de manière stable (! sans en
 <code>block_executed()</code> renvoie le nombre de block executé par le programme depuis le début du script<br>
 <code>include(arg1)(arg2)</code> permet d'inclure des scripts, arg1 est le chemin du fichier (il peut également être un lien en http/https (tester sur github, https ne prend que du tls1.2)), arg2 est le nom attribué : ex: <code>[[[{include(https://argentrocher.github.io/fr-simplecode/exemple_script_0.4/func_frc_0.4.frc)(abc)}{abc.boucle(10)}]]]</code><br>
 pour gérer le http/https, fr-simplecode créer les fichiers récupérés sur internet de stockage sur <code>lib_frc/web_include/</code>, une table de registre est également créer sur <code>lib_frc/register_web_frc.txt</code> qui comptient des validités (si l'on dépasse 1h sans téléchargé, il recharge le code depuis internet, sinon il garde le même fichier), si vous voulez recharger tout les liens, supprimé le fichier. (! ne pas écrire de fichier <code>register_web_frc_tmp.txt</code> car fr-simplecode fait des copies sur cette emplacement et vérifie les validité du registre)
-<code>sound_generator(arg1;arg2;arg3;arg4;arg5)</code> permet de générer des sons<br>
+<code>sound_generator(arg1;arg2;arg3;arg4;arg5)</code> permet de générer des sons<br><br>
 les signes d'opération dans les calculs on été agrandi : <ul><li><code>%</code> pour le modulo (! modulo sur entier uniquement, pour un modulo à virgule, utilisez <code>modulo(val1;val2)</code>)</li>
 <li><code>#</code> permet de faire des divisions entières</li>
 <li><code>^</code> permet de faire des calculs de puissance (opération à la priorité le plus élevé) comme pow(val1;val2)</li>
