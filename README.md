@@ -2,6 +2,8 @@
 
 fr-simplecode est un language basique de codage pour windows (64 bits uniquement), découvrer le ! 
 
+<br>INFO : <strong>frc_notepad.xml</strong> permet d'avoir un bon rendu du code (hormis pour les chaînes entre " car l'imbrication des fonctions internes text() et num() qui posèdent également des " internes ne peuvent pas être ignorés.) <br>
+
 dernière version : fr-simplecode0.4.1 (avec pile de script sur fr-simplecode0.4.1 et pas sur fr-simplecode0.4-> n'est plus mi à jour car sans pile, c'est moins performant) (! récent, beaucoup de modification par rapport à la 0.3 mais en développement, le fichier change régulièrement et peu planter pour les nouvelles fonctions (actuelment 0.4.1 est stable mais des améliorations sont encore à venir sous se même nom) (actuellement 19913 lignes de code C)
 <br>nouveauté :<br>
 les nombres on désormais des virgules jusqu'à 14 de manière stable (! sans entier), un mode normal et scientifique pour l'affichage des nombres<br>
