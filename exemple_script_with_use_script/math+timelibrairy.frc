@@ -142,7 +142,7 @@ $//upgrate just for fr-simplecode0.4 (because use round with num( ;0) to month )
 {if||var|mois|||?=||1||[[1]]
 	{var|mois_string|="janvier"}
 	{if||var|mois|||?=||2||[[1]]
-		{var|mois_string|=féfrier"}
+		{var|mois_string|="féfrier"}
 		{if||var|mois|||?=||3||[[1]]
 			{var|mois_string|="mars"}
 			{if||var|mois|||?=||4||[[1]]
@@ -308,3 +308,4 @@ $//unnecessary : use sleep() and it's egal//$
 {sleep(var|sleep|)}
 {var_suppr(sleep)}
 ]]]
+
