@@ -101,6 +101,10 @@ commande test 0.4 : <br><br>
 <code>[[[{var_local|a|="text(prompt("password (la vache)"))"}{if(||hash("text(text_letters("text(var_local|a|)";-1;-8))")||<=||36498736912.008|| and ||hash("text(text_letters("text(var_local|a|)";-1;-8))")||>=||36498736912.008||){print("oui")}||else||{print("non")}}]]]</code> montre qu'un mot de passe est indécodable sans le connaître réelement, même dans le code (tout se qui finit par <code>la vache</code> est <span>$oui$</span>) avec la nouvelle fonction <code>text_letters("arg";index1;index2)</code> qui renvoie plusieurs charactères en même temps à la différence de <code>text_letter("arg";index)</code>
 
 <br>
+
+exemple de moyenne d'une table par rapport à des oppérations random : <code>[[[{table_local|o|=[[]]}{repeat||50||{repeat||100||{var_local|o|=++}}{print("O "var_local|o|)}{table_local|o|.add(var_local|o|)}{var_local|o|=random(0;var_local|o|)}}{var_local|moy|=0}{var_local|index|=1}{repeat||table_local|o|.len()||{var_local|moy|=var_local|moy|+table_local|o|[var_local|index|]}{var_local|index|=++}}{var_local|moy|=var_local|moy|/2}{print("la moyenne des valeurs tirés est de "var_local|moy|)}]]]</code>
+
+<br>
 <br>
 comment récupérer la version de mon application ?
 <br>
