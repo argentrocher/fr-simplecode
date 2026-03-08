@@ -1,0 +1,140 @@
+
+#init[[[
+{print("le jeu du morpion 2 joueur en fr-simplecode !")}{use_script(text(var_local|frc_use_script_path|))[morpion]}
+]]]
+
+#morpion[[[
+{###sortie_affiche:[/n]###}
+{###function_text:true###}
+{###function_num:true###}
+$//{###sortie:tout###}//$
+{main()}
+]]]
+
+?func.plateau(var_local|1|;var_local|2|;var_local|3|;var_local|4|;var_local|5|;var_local|6|;var_local|7|;var_local|8|;var_local|9|)[[[
+{print("text(var_local|1|) | text(var_local|2|) | text(var_local|3|)[/n]--+---+--")}
+{print("text(var_local|4|) | text(var_local|5|) | text(var_local|6|)[/n]--+---+--")}
+{print("text(var_local|7|) | text(var_local|8|) | text(var_local|9|)")}
+]]]
+
+?func.affiche_plateau()[[[
+{table_local|grille_local|=[[" ";" ";" ";" ";" ";" ";" ";" ";" "]]}
+{var_local|i|=1}
+{repeat||table|grille|.len()||
+	{if||table|grille|[var_local|i|]||?=||1||
+		{table_local|grille_local|.edit([var_local|i|])("X")}
+	}
+	{if||table|grille|[var_local|i|]||?=||2||
+		{table_local|grille_local|.edit([var_local|i|])("O")}
+	}
+	{var_local|i|=++}
+}
+{print("Plateau :")}
+{plateau("text(table_local|grille_local|[1])";"text(table_local|grille_local|[2])";"text(table_local|grille_local|[3])";"text(table_local|grille_local|[4])";"text(table_local|grille_local|[5])";"text(table_local|grille_local|[6])";"text(table_local|grille_local|[7])";"text(table_local|grille_local|[8])";"text(table_local|grille_local|[9])")}
+]]]
+
+?func.case_reste()[[[
+{var_local|pointeur|=0}
+{repeat||table|grille|.len()||
+	{var_local|pointeur|=++}
+	{if||table|grille|[var_local|pointeur|]||?=||0||{return(0)}}
+}
+{return(1)}
+]]]
+
+?func.sortir()[[[
+{var_local|prompt|="text(prompt("recommencé ? (o/n)"))"}
+{if(?||text_eval("text(var_local|prompt|)";/=;"o")|| or ?||text_eval("text(var_local|prompt|)";/=;"y")||)
+{print("nouvelle partie :")}{return(1)}
+}
+{return(0)}
+]]]
+
+?func.verifie()[[[
+{var_local|x|=1}
+{var_local|y|=1}
+{table_local|grille_local|=table|grille|}
+{repeat||3||
+	$//colonne//$
+	{if(||table_local|grille_local|[var_local|x|]||?=||1|| and ||table_local|grille_local|[var_local|x|+1]||?=||1|| and ||table_local|grille_local|[var_local|x|+2]||?=||1||)
+		{return(1)}
+	}
+	{if(||table_local|grille_local|[var_local|x|]||?=||2|| and ||table_local|grille_local|[var_local|x|+1]||?=||2|| and ||table_local|grille_local|[var_local|x|+2]||?=||2||)
+		{return(2)}
+	}
+	$//ligne//$
+	{if(||table_local|grille_local|[var_local|y|]||?=||1|| and ||table_local|grille_local|[var_local|y|+3]||?=||1|| and ||table_local|grille_local|[var_local|y|+6]||?=||1||)
+		{return(1)}
+	}
+	{if(||table_local|grille_local|[var_local|y|]||?=||2|| and ||table_local|grille_local|[var_local|y|+3]||?=||2|| and ||table_local|grille_local|[var_local|y|+6]||?=||2||)
+		{return(2)}
+	}
+	{var_local|x|=var_local|x|+3}
+	{var_local|y|=++}
+}
+$//2 diagonales//$
+{if(||table_local|grille_local|[1]||?=||1|| and ||table_local|grille_local|[5]||?=||1|| and ||table_local|grille_local|[9]||?=||1||)
+	{return(1)}
+}
+{if(||table_local|grille_local|[1]||?=||2|| and ||table_local|grille_local|[5]||?=||2|| and ||table_local|grille_local|[9]||?=||2||)
+	{return(2)}
+}
+{if(||table_local|grille_local|[3]||?=||1|| and ||table_local|grille_local|[5]||?=||1|| and ||table_local|grille_local|[7]||?=||1||)
+	{return(1)}
+}
+{if(||table_local|grille_local|[3]||?=||2|| and ||table_local|grille_local|[5]||?=||2|| and ||table_local|grille_local|[7]||?=||2||)
+	{return(2)}
+}
+{return(0)}
+]]]
+
+?func.joue_pion(var_local|j|)[[[
+$//{print("joueur num(var_local|j|;0)")}//$
+{var_local|p|=prompt("joue une case (1 à 9)")}
+{if(||var_local|p|||<||1|| or ||var_local|p|||>||9||){print("valeur interdite !")}{print(var_local|p|" and "var_local|j|)}{joue_pion(var_local|j|)}}
+{if||table|grille|[var_local|p|]||?=||0||
+	$//{print(var_local|p|" and "var_local|j|)}//$
+	{table|grille|.edit([var_local|p|])(var_local|j|)}
+||else||
+	{print("la case est occupé ![/n]recommence")}
+	{joue_pion(var_local|j|)}
+}
+]]]
+
+?func.joue()[[[
+{if||var|joueur|||?=||1||
+	{print("au joueur X :")}
+	{joue_pion(1)}
+	{var|joueur|=2}
+||else||
+	{print("au joueur O :")}
+	{joue_pion(2)}
+	{var|joueur|=1}
+}
+{affiche_plateau()}
+]]]
+
+?func.main()[[[
+{print("Plateau :")}
+{plateau("[/l0]";"[/l0]";"[/l0]";"[/l0]";"[/l0]";"[/l0]";"[/l0]";"[/l0]";"[/l0]")}
+{table|grille|=[[0;0;0;0;0;0;0;0;0]]}
+{var|joueur|=1}
+{repeat||endless||
+	{if||case_reste()||?=||1||
+		{print("le plateau est plein ! [/n]égalité !")}
+		{if?||sortir()||{main()}||else||{print("merci et à bientôt")}{exit}}
+	||else||
+		{joue()}
+		{var_local|tmp|=verifie()}
+		{if||var_local|tmp|||?=||1||
+			{print("le joueur X a gagner !")}
+			{if?||sortir()||{main()}||else||{print("merci et à bientôt")}{exit}}
+		}
+		{if||var_local|tmp|||?=||2||
+			{print("le joueur O a gagner !")}
+			{if?||sortir()||{main()}||else||{print("merci et à bientôt")}{exit}}
+		}
+	}
+{sleep(100)}
+}
+]]]
