@@ -1,8 +1,10 @@
 <head><meta name="google-site-verification" content="k1Ku-V2S2bvRYoVdqf_-UaNnDOuzXFqMYL2xyv3j_L4" /></head>
 
-fr-simplecode est un language basique de codage pour windows (64 bits uniquement), découvrer le ! 
+fr-simplecode est un language basique de codage pour windows (64 bits uniquement), découvrer le ! <br><br>
 
-<br>INFO : <strong>frc_notepad.xml</strong> permet d'avoir un bon rendu du code (hormis pour les chaînes entre " car l'imbrication des fonctions internes text() et num() qui posèdent également des " internes ne peuvent pas être ignorés.) <br>
+(Nouveau : pour installer l'extansion .frc sur la dernière version ou déplacer fr-simplecode : utilise le script <strong>fr-simplecode_instal_frc.ps1</strong>)
+
+INFO : <strong>frc_notepad.xml</strong> permet d'avoir un bon rendu du code (hormis pour les chaînes entre " car l'imbrication des fonctions internes text() et num() qui posèdent également des " internes ne peuvent pas être ignorés.) <br><br>
 
 dernière version : fr-simplecode0.4.1 (avec pile de script sur fr-simplecode0.4.1 et pas sur fr-simplecode0.4-> n'est plus mi à jour car sans pile, c'est moins performant) (! récent, beaucoup de modification par rapport à la 0.3 mais en développement, le fichier change régulièrement et peu planter pour les nouvelles fonctions (actuelment 0.4.1 est stable mais des améliorations sont encore à venir sous se même nom) (actuellement 19913 lignes de code C)
 <br>nouveauté :<br>
