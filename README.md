@@ -6,8 +6,16 @@ fr-simplecode est un language basique de codage pour windows (64 bits uniquement
 
 INFO : <strong>frc_notepad.xml</strong> permet d'avoir un bon rendu du code (hormis pour les chaînes entre " car l'imbrication des fonctions internes text() et num() qui posèdent également des " internes ne peuvent pas être ignorés.) <br><br>
 
-dernière version : fr-simplecode0.4.1 (avec pile de script sur fr-simplecode0.4.1 et pas sur fr-simplecode0.4-> n'est plus mi à jour car sans pile, c'est moins performant) (! récent, beaucoup de modification par rapport à la 0.3 mais en développement, le fichier change régulièrement et peu planter pour les nouvelles fonctions (actuelment 0.4.1 est stable mais des améliorations sont encore à venir sous se même nom) (actuellement 19913 lignes de code C)
+dernière version : fr-simplecode0.4.1 (avec pile de script sur fr-simplecode0.4.1 et pas sur fr-simplecode0.4-> n'est plus mi à jour car sans pile, c'est moins performant) 
+(! récent, beaucoup de modification par rapport à la 0.3 mais en développement, le fichier change régulièrement et peu planter pour les nouvelles fonctions)
+<br>--> fr-simplecode version inférieur à 0.4 est désermais considéré comme obselete ! (la documentation de la 0.3 reste valide pour la 0.4 mais est moins étendu)
+<br>--> actuellement 21804 lignes de code C !
+
 <br>nouveauté :<br>
+
++ <strong>gain de vitesse important au niveau de la lecture des fichiers comptenant le code (1 milions de block exécuté en boucle gagne désormais un temps divisé par 2 par rapport au fichier 0.4.1 précédent !peut dépendre des instructions et de la performance de vôtre ordinateur! ). 
++ L'utilisation de l'appliquation élêve désormais automatiquement l'accès au processeur en priorité si possible.</strong>
+
 les nombres on désormais des virgules jusqu'à 14 de manière stable (! sans entier), un mode normal et scientifique pour l'affichage des nombres<br>
 <code>pow(v1;v2)</code> permet de faire des nombres avec des puissances<br>
 <code>hash("arg")</code> permet de haché un texte en un nombre constant en fonction du texte (fonction irréversible, avec le hash, impossible à reconstruire)<br>
