@@ -8,13 +8,18 @@
     <!-- Balise Google Search Console -->
     <meta name="google-site-verification" content="ARmCuvFztMbA89Omcf0HI7D5XbClbwwOximfATy6F5E" />
 
+	<!-- JSZip pour créer le ZIP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <!-- FileSaver.js pour déclencher le téléchargement -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 50px;
         }
-        a.github-link {
+        button.github-link {
             display: inline-block;
             padding: 15px 25px;
             background-color: #24292e;
@@ -23,14 +28,176 @@
             border-radius: 5px;
             font-size: 18px;
         }
-        a.github-link:hover {
-            background-color: #444c56;
+        button.github-link:hover {
+            background-color: #744c56;
+        }
+		button.download-btn {
+            display: inline-block;
+            padding: 15px 25px;
+            background-color: #24292e;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+		button.download-btn:hover {
+            background-color: #447c56;
         }
     </style>
 </head>
 <body>
     <h1>Bienvenue sur mon site fr-simplecode GitHub Pages</h1>
-    <p>Vous pouvez accéder à mon dépôt GitHub ici :</p>
-    <a class="github-link" href="https://github.com/argentrocher/fr-simplecode" target="_blank">Accéder au dépôt GitHub</a>
+	<br><br>
+    <p style="font-size: 20px;"><strong>Vous pouvez accéder à mon dépôt GitHub ou télécharger la dernière version ici :</strong></p>
+    <button class="github-link" onclick="window.location.href='https://github.com/argentrocher/fr-simplecode'" target="_blank">Accéder au dépôt GitHub</button>
+	
+	<button class="download-btn" onclick="downloadZip()">Télécharger la dernière version (ZIP)</button>
+
+	<label style="position: fixed; bottom: 10px; left: 10px; font-size: 15px;">Par argentropcher, asigné au compte Google argentropcher, tous droits réservés</label>
+	<label style="position: fixed; bottom: 10px; right: 10px; font-size: 15px;">Windows System only</label>
+    <script>
+        async function downloadZip() {
+            const zip = new JSZip();
+
+            // Chaque élément peut être :
+            // - Un fichier texte (name + content)
+            // - Un fichier binaire (name + url)
+            // - Un dossier (name + files: [])
+            const filesToInclude = [
+                {
+                    name: "INFO.txt",
+                    content: "Ce ZIP contient uniquement des fichier de mon github !\n\nWiki sur https://github.com/argentrocher/fr-simplecode/wiki \n\n\nBy argentropcher"
+                },
+                {
+                    name: "fr-simplecode0.4.1.exe",
+                    url: "https://argentrocher.github.io/fr-simplecode/fr-simplecode0.4.1.exe"
+                },
+				{
+                    name: "frc.ico",
+                    url: "https://argentrocher.github.io/fr-simplecode/frc.ico"
+                },
+				{
+                    name: "frc.png",
+                    url: "https://argentrocher.github.io/fr-simplecode/frc.png"
+                },
+				{
+                    name: "fr-simplecode_instal_frc.ps1",
+                    url: "https://argentrocher.github.io/fr-simplecode/fr-simplecode_instal_frc.ps1"
+                }, 
+				{
+                    name: "frc_notepad.xml",
+                    url: "https://argentrocher.github.io/fr-simplecode/frc_notepad.xml"
+                },
+				{
+                    name: "libwinpthread-1.dll",
+                    url: "https://argentrocher.github.io/fr-simplecode/libwinpthread-1.dll"
+                },
+				{
+                    name: "expemple__de_commande_fr-simplecode.txt",
+                    url: "https://argentrocher.github.io/fr-simplecode/expemple__de_commande_fr-simplecode.txt"
+                },
+                {
+                    name: "lib_frc/",
+                    files: [
+                        {
+                            name: "register_web_frc.txt",
+                            content: ""
+                        }
+                    ]
+                },
+                {
+                    name: "lib_frc/web_include/",
+                    files: [
+                        {
+                            name: "web_ressource.info",
+                            content: ""
+                        }
+                    ]
+                },
+                {
+                    name: "lib_frc/lib/",
+                    files: [
+                        {
+                            name: "math+timelibrairy.frc",
+                            url: "https://argentrocher.github.io/fr-simplecode/exemple_script_0.4/math+timelibrairy.frc"
+                        }
+                    ]
+                },
+                {
+                    name: "lib_frc/lib/frc_utilitaire",
+                    files: [
+                        {
+                            name: "os.frc",
+                            url: "https://argentrocher.github.io/fr-simplecode/exemple_script_0.4/frc_utilitaire/os.frc"
+                        },
+						{
+							name: "frc_os.dll",
+							url: "https://argentrocher.github.io/fr-simplecode/exemple_script_0.4/frc_utilitaire/frc_os.dll"
+						},
+						{
+							name: "cmd_color.frc",
+							url: "https://argentrocher.github.io/fr-simplecode/exemple_script_0.4/frc_utilitaire/cmd_color.frc"
+						},
+						{
+							name: "cmd_color.param",
+							url: "https://argentrocher.github.io/fr-simplecode/exemple_script_0.4/frc_utilitaire/cmd_color.param"
+						},
+						{
+                            name: "service.frc",
+                            url: "https://argentrocher.github.io/fr-simplecode/exemple_script_0.4/frc_utilitaire/service.frc"
+                        },
+						{
+							name: "frc_service.dll",
+							url: "https://argentrocher.github.io/fr-simplecode/exemple_script_0.4/frc_utilitaire/frc_service.dll"
+						}
+                    ]
+                }
+            ];
+
+            // --- Fonction pour ajouter un fichier au ZIP ---
+            async function addFileToZip(zip, filePath, fileData) {
+                if (fileData.content) {
+                    // Si c'est du texte
+                    zip.file(filePath, fileData.content);
+                } else if (fileData.url) {
+                    // Si c'est un fichier binaire (ex: .exe, .pdf, etc.)
+                    try {
+                        const response = await fetch(fileData.url);
+                        if (!response.ok) throw new Error(`Erreur : ${response.status}`);
+                        const blob = await response.blob();
+                        zip.file(filePath, blob, { binary: true });
+                    } catch (error) {
+                        console.error(`Impossible de télécharger ${fileData.url} :`, error);
+                        // Ajoute un fichier texte avec l'erreur
+                        zip.file(filePath, `Erreur : ${error.message}`);
+                    }
+                }
+            }
+
+            // --- Parcourir la liste et ajouter chaque fichier/dossier ---
+            for (const item of filesToInclude) {
+                if (item.files) {
+                    // Si c'est un dossier
+                    const folder = zip.folder(item.name);
+                    for (const file of item.files) {
+                        await addFileToZip(folder, file.name, file);
+                    }
+                } else {
+                    // Si c'est un fichier
+                    await addFileToZip(zip, item.name, item);
+                }
+            }
+
+            // --- Générer et télécharger le ZIP ---
+            zip.generateAsync({ type: "blob" })
+                .then(content => {
+                    saveAs(content, "fr-simplecode_pack0.4.1.zip");
+                })
+                .catch(error => {
+                    console.error("Erreur lors de la génération du ZIP :", error);
+                    alert("Une erreur est survenue. Voir la console pour plus de détails.");
+                });
+        }
+    </script>
 </body>
 </html>
