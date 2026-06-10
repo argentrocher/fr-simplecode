@@ -1,0 +1,248 @@
+FRC
+
+#init[[[
+{print("Extension de service pour l'accès à des dll jusqu'à 10 arguments (version 1)")}
+{_init_()}
+]]]
+
+?func._initialize() [[[
+{table|service_dll_|=[[]]}
+]]]
+
+?func._init_() [[[
+{###sortie_affiche:[/n]###}
+{###function_text:true###}
+{###function_num:true###}
+{###dll_arg_analysis:true###}
+{if||version()||<||0.4||{print("module incompatible avec vôtre version de fr-simplecode : 0.4 ou plus obligatoire")}{exit}}
+{define_dll(frc_service)(text(exe_path())\lib_frc\lib\frc_utilitaire\frc_service.dll)}
+{if||dll|frc_service|[[int;void]version()]||!=||1||{print("INFO: télécharger la version compatible ou contacter l'administrateur sur le site oficiel github")}{box_error("la dll frc_service.dll est incompatible avec cette librairy service.frc ![/n]version attendu : 1")}{exit}}
+]]]
+
+$//utilitaire//$
+?func.is_number(var_local|t|;) [[[
+$//{print("text(var_local|t|)")}//$
+{var_local|i|=1}
+{repeat||text_len("text(var_local|t|)")||
+	{var_local|v|=ord("text(text_letter("text(var_local|t|)";var_local|i|))")}
+	{var_local|i|=++}
+	{if(||var_local|v|||<||46|| or ||var_local|v|||>||57||)
+		{if||var_local|v|||!=||44||{return(0)}}
+	}
+}
+]]]
+
+?func.clean_dot_comma(var_local|t|;) [[[
+{var_local|r|="text(text_replace("text(var_local|t|)";";";""))"}
+{return("text(var_local|r|)")}
+]]]
+
+
+$//renvoie l'état des tampons principaux dans la console (si on donne un argument int, on voit sont état dans rax)//$
+?func._view(var_local|test|) [[[
+{_init_()}
+{var_local|z|=dll|frc_service|[[int;int]view(var_local|test|)]}
+{return(var_local|z|)}
+]]]
+
+?func._free_dll_mem(var_local|obj|;) [[[
+{_init_()}
+{if?||is_number("text(var_local|obj|)")||
+	{var_local|i|=dll|frc_service|[[int;int]free_dll_mem(var_local|obj|)]}
+	{if!||var_local|i|||{return(0)}}
+	{if!||var_local|obj|||
+		{table|service_dll_|=[[]]}
+	||else||
+		{table|service_dll_|.del([var_local|obj|])}
+	}
+	{return(1)}
+}
+{var_local|i|=1}
+{repeat||table|service_dll_|.len([0])||
+	{if?||text_eval("text(var_local|obj|)";?=;"text(table|service_dll_|[var_local|i|])")||{break}}
+	{var_local|i|=++}
+}
+{if||var_local|i|||>||table|service_dll_|.len([0])||{return(-1)}}
+{var_local|y|=dll|frc_service|[[int;int]free_dll_mem(var_local|i|)]}
+{if!||var_local|y|||{return(0)}}
+{table|service_dll_|.del([var_local|i|])}
+{return(1)}
+]]]
+
+?func._send_dll(var_local|cmd|;var_local|opcode|) [[[
+{_init_()}
+{var_local|s|=text_find("text(var_local|cmd|)";";";2)}
+{if!||var_local|s|||{return(-1)}}
+{var_local|e|=text_find("text(var_local|cmd|)";";";3)}
+{if!||var_local|e|||{return(-1)}}
+{var_local|r|="text(text_letters("text(var_local|cmd|)";var_local|s|+1;var_local|e|-1))"}
+$//{print("text(var_local|r|) text(var_local|cmd|)")}//$
+{if!||var_local|opcode|||
+	{if?||text_eval("text(var_local|r|)";?=;"void")||
+		{var_local|re|=dll|frc_service|[[void;char]dll_service("text(var_local|cmd|)")]}
+		{return(var_local|re|)}
+	}
+	{if?||text_eval("text(var_local|r|)";?=;"int")||
+		{var_local|re|=dll|frc_service|[[int;char]dll_service("text(var_local|cmd|)")]}
+		{return(var_local|re|)}
+	}
+	{if?||text_eval("text(var_local|r|)";?=;"bool")||
+		{var_local|re|=dll|frc_service|[[bool;char]dll_service("text(var_local|cmd|)")]}
+		{return(var_local|re|)}
+	}
+	{if?||text_eval("text(var_local|r|)";?=;"double")||
+		{var_local|re|=dll|frc_service|[[double;char]dll_service("text(var_local|cmd|)")]}
+		{return(var_local|re|)}
+	}
+	$//par défaut char//$
+	{var_local|re|="text(dll|frc_service|[[char;char]dll_service("text(var_local|cmd|)")])"}
+	{return("text(var_local|re|)")}
+}
+$//si opcode car pas de code spécifique on fait avec mem//$
+{var_local|i|=dll|frc_service|[[int;void]verify_dll_mem()]}
+{if?||var_local|i|||
+	{var_local|ss|=text_find("text(var_local|cmd|)";";";1)}
+	{var_local|r1|="text(text_letters("text(var_local|cmd|)";1;var_local|ss|-1))"}
+	{table|service_dll_|.add("text(var_local|r1|)")}
+}
+$//Suite//$
+{if?||text_eval("text(var_local|r|)";?=;"void")||
+	{var_local|re|=dll|frc_service|[[void;char]dll_service_mem("text(var_local|cmd|)")]}
+	{return(var_local|re|)}
+}
+{if?||text_eval("text(var_local|r|)";?=;"int")||
+	{var_local|re|=dll|frc_service|[[int;char]dll_service_mem("text(var_local|cmd|)")]}
+	{return(var_local|re|)}
+}
+{if?||text_eval("text(var_local|r|)";?=;"bool")||
+	{var_local|re|=dll|frc_service|[[bool;char]dll_service_mem("text(var_local|cmd|)")]}
+	{return(var_local|re|)}
+}
+{if?||text_eval("text(var_local|r|)";?=;"double")||
+	{var_local|re|=dll|frc_service|[[double;char]dll_service_mem("text(var_local|cmd|)")]}
+	{return(var_local|re|)}
+}
+$//par défaut char//$
+{var_local|re|="text(dll|frc_service|[[char;char]dll_service_mem("text(var_local|cmd|)")])"}
+{return("text(var_local|re|)")}
+]]]
+
+?func._dll_service(var_local|dll|;var_local|fonction|;var_local|return|;var_local|type1|;var_local|arg1|;var_local|type2|;var_local|arg2|;var_local|type3|;var_local|arg3|;var_local|type4|;var_local|arg4|;var_local|type5|;var_local|arg5|;var_local|type6|;var_local|arg6|;var_local|type7|;var_local|arg7|;var_local|type8|;var_local|arg8|;var_local|type9|;var_local|arg9|;var_local|type10|;var_local|arg10|) [[[
+{if((?||is_number("text(var_local|dll|)")|| and !||var_local|dll|||) or (?||is_number("text(var_local|return|)")|| and !||var_local|return|||) or (?||is_number("text(var_local|fonction|)")|| and !||var_local|fonction|||))
+	{print("Les trois premiers arguments doivent être fournit (dll;fonction;return)")}
+	{return(-1)}
+}
+{var_local|cmd|="text(var_local|dll|);text(var_local|fonction|);text(var_local|return|)"}
+{if(?||is_number("text(var_local|type1|)")|| and !||var_local|type1|||)
+	{var_local|r|="text(_send_dll("text(var_local|cmd|);"))"}
+	{return("text(var_local|r|)")}
+}
+{var_local|cmd|="text(var_local|cmd|);text(var_local|type1|);text(clean_dot_comma("text(var_local|arg1|)"))"}
+{if(?||is_number("text(var_local|type2|)")|| and !||var_local|type2|||)
+	{var_local|r|="text(_send_dll("text(var_local|cmd|);"))"}
+	{return("text(var_local|r|)")}
+}
+{var_local|cmd|="text(var_local|cmd|);text(var_local|type2|);text(clean_dot_comma("text(var_local|arg2|)"))"}
+{if(?||is_number("text(var_local|type3|)")|| and !||var_local|type3|||)
+	{var_local|r|="text(_send_dll("text(var_local|cmd|);"))"}
+	{return("text(var_local|r|)")}
+}
+{var_local|cmd|="text(var_local|cmd|);text(var_local|type3|);text(clean_dot_comma("text(var_local|arg3|)"))"}
+{if(?||is_number("text(var_local|type4|)")|| and !||var_local|type4|||)
+	{var_local|r|="text(_send_dll("text(var_local|cmd|);"))"}
+	{return("text(var_local|r|)")}
+}
+{var_local|cmd|="text(var_local|cmd|);text(var_local|type4|);text(clean_dot_comma("text(var_local|arg4|)"))"}
+{if(?||is_number("text(var_local|type5|)")|| and !||var_local|type5|||)
+	{var_local|r|="text(_send_dll("text(var_local|cmd|);"))"}
+	{return("text(var_local|r|)")}
+}
+{var_local|cmd|="text(var_local|cmd|);text(var_local|type5|);text(clean_dot_comma("text(var_local|arg5|)"))"}
+{if(?||is_number("text(var_local|type6|)")|| and !||var_local|type6|||)
+	{var_local|r|="text(_send_dll("text(var_local|cmd|);"))"}
+	{return("text(var_local|r|)")}
+}
+{var_local|cmd|="text(var_local|cmd|);text(var_local|type6|);text(clean_dot_comma("text(var_local|arg6|)"))"}
+{if(?||is_number("text(var_local|type7|)")|| and !||var_local|type7|||)
+	{var_local|r|="text(_send_dll("text(var_local|cmd|);"))"}
+	{return("text(var_local|r|)")}
+}
+{var_local|cmd|="text(var_local|cmd|);text(var_local|type7|);text(clean_dot_comma("text(var_local|arg7|)"))"}
+{if(?||is_number("text(var_local|type8|)")|| and !||var_local|type8|||)
+	{var_local|r|="text(_send_dll("text(var_local|cmd|);"))"}
+	{return("text(var_local|r|)")}
+}
+{var_local|cmd|="text(var_local|cmd|);text(var_local|type8|);text(clean_dot_comma("text(var_local|arg8|)"))"}
+{if(?||is_number("text(var_local|type9|)")|| and !||var_local|type9|||)
+	{var_local|r|="text(_send_dll("text(var_local|cmd|);"))"}
+	{return("text(var_local|r|)")}
+}
+{var_local|cmd|="text(var_local|cmd|);text(var_local|type9|);text(clean_dot_comma("text(var_local|arg9|)"))"}
+{if(?||is_number("text(var_local|type10|)")|| and !||var_local|type10|||)
+	{var_local|r|="text(_send_dll("text(var_local|cmd|);"))"}
+	{return("text(var_local|r|)")}
+}
+{var_local|cmd|="text(var_local|cmd|);text(var_local|type10|);text(clean_dot_comma("text(var_local|arg10|)"))"}
+{var_local|r|="text(_send_dll("text(var_local|cmd|);"))"}
+{return("text(var_local|r|)")}
+]]]
+
+?func._dll_service_mem(var_local|dll|;var_local|fonction|;var_local|return|;var_local|type1|;var_local|arg1|;var_local|type2|;var_local|arg2|;var_local|type3|;var_local|arg3|;var_local|type4|;var_local|arg4|;var_local|type5|;var_local|arg5|;var_local|type6|;var_local|arg6|;var_local|type7|;var_local|arg7|;var_local|type8|;var_local|arg8|;var_local|type9|;var_local|arg9|;var_local|type10|;var_local|arg10|) [[[
+{if((?||is_number("text(var_local|dll|)")|| and !||var_local|dll|||) or (?||is_number("text(var_local|return|)")|| and !||var_local|return|||) or (?||is_number("text(var_local|fonction|)")|| and !||var_local|fonction|||))
+	{print("Les trois premiers arguments doivent être fournit (dll;fonction;return)")}
+	{return(-1)}
+}
+{var_local|cmd|="text(var_local|dll|);text(var_local|fonction|);text(var_local|return|)"}
+{if(?||is_number("text(var_local|type1|)")|| and !||var_local|type1|||)
+	{var_local|r|="text(_send_dll("text(var_local|cmd|);";1))"}
+	{return("text(var_local|r|)")}
+}
+{var_local|cmd|="text(var_local|cmd|);text(var_local|type1|);text(clean_dot_comma("text(var_local|arg1|)"))"}
+{if(?||is_number("text(var_local|type2|)")|| and !||var_local|type2|||)
+	{var_local|r|="text(_send_dll("text(var_local|cmd|);";1))"}
+	{return("text(var_local|r|)")}
+}
+{var_local|cmd|="text(var_local|cmd|);text(var_local|type2|);text(clean_dot_comma("text(var_local|arg2|)"))"}
+{if(?||is_number("text(var_local|type3|)")|| and !||var_local|type3|||)
+	{var_local|r|="text(_send_dll("text(var_local|cmd|);";1))"}
+	{return("text(var_local|r|)")}
+}
+{var_local|cmd|="text(var_local|cmd|);text(var_local|type3|);text(clean_dot_comma("text(var_local|arg3|)"))"}
+{if(?||is_number("text(var_local|type4|)")|| and !||var_local|type4|||)
+	{var_local|r|="text(_send_dll("text(var_local|cmd|);";1))"}
+	{return("text(var_local|r|)")}
+}
+{var_local|cmd|="text(var_local|cmd|);text(var_local|type4|);text(clean_dot_comma("text(var_local|arg4|)"))"}
+{if(?||is_number("text(var_local|type5|)")|| and !||var_local|type5|||)
+	{var_local|r|="text(_send_dll("text(var_local|cmd|);";1))"}
+	{return("text(var_local|r|)")}
+}
+{var_local|cmd|="text(var_local|cmd|);text(var_local|type5|);text(clean_dot_comma("text(var_local|arg5|)"))"}
+{if(?||is_number("text(var_local|type6|)")|| and !||var_local|type6|||)
+	{var_local|r|="text(_send_dll("text(var_local|cmd|);";1))"}
+	{return("text(var_local|r|)")}
+}
+{var_local|cmd|="text(var_local|cmd|);text(var_local|type6|);text(clean_dot_comma("text(var_local|arg6|)"))"}
+{if(?||is_number("text(var_local|type7|)")|| and !||var_local|type7|||)
+	{var_local|r|="text(_send_dll("text(var_local|cmd|);";1))"}
+	{return("text(var_local|r|)")}
+}
+{var_local|cmd|="text(var_local|cmd|);text(var_local|type7|);text(clean_dot_comma("text(var_local|arg7|)"))"}
+{if(?||is_number("text(var_local|type8|)")|| and !||var_local|type8|||)
+	{var_local|r|="text(_send_dll("text(var_local|cmd|);";1))"}
+	{return("text(var_local|r|)")}
+}
+{var_local|cmd|="text(var_local|cmd|);text(var_local|type8|);text(clean_dot_comma("text(var_local|arg8|)"))"}
+{if(?||is_number("text(var_local|type9|)")|| and !||var_local|type9|||)
+	{var_local|r|="text(_send_dll("text(var_local|cmd|);";1))"}
+	{return("text(var_local|r|)")}
+}
+{var_local|cmd|="text(var_local|cmd|);text(var_local|type9|);text(clean_dot_comma("text(var_local|arg9|)"))"}
+{if(?||is_number("text(var_local|type10|)")|| and !||var_local|type10|||)
+	{var_local|r|="text(_send_dll("text(var_local|cmd|);";1))"}
+	{return("text(var_local|r|)")}
+}
+{var_local|cmd|="text(var_local|cmd|);text(var_local|type10|);text(clean_dot_comma("text(var_local|arg10|)"))"}
+{var_local|r|="text(_send_dll("text(var_local|cmd|);";1))"}
+{return("text(var_local|r|)")}
+]]]
