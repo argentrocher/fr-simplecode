@@ -1,20 +1,32 @@
 <head><meta name="google-site-verification" content="k1Ku-V2S2bvRYoVdqf_-UaNnDOuzXFqMYL2xyv3j_L4" /></head>
 
-fr-simplecode est un language basique de codage pour windows (64 bits uniquement), découvrer le ! <br><br>
+<h2>fr-simplecode est un language basique de codage pour windows (64 bits uniquement), découvrer le !</h2><br><br>
 
 (Nouveau : pour installer l'extansion .frc sur la dernière version ou déplacer fr-simplecode : utilise le script <strong>fr-simplecode_instal_frc.ps1</strong>)
 
 INFO : <strong>frc_notepad.xml</strong> permet d'avoir un bon rendu du code (hormis pour les chaînes entre " car l'imbrication des fonctions internes text() et num() qui posèdent également des " internes ne peuvent pas être ignorés.) <br><br>
 
-dernière version : fr-simplecode0.4.1 (avec pile de script sur fr-simplecode0.4.1 et pas sur fr-simplecode0.4-> n'est plus mi à jour car sans pile, c'est moins performant) 
-(! récent, beaucoup de modification par rapport à la 0.3 mais en développement, le fichier change régulièrement et peu planter pour les nouvelles fonctions)
-<br>--> fr-simplecode version inférieur à 0.4 est désermais considéré comme obselete ! (la documentation de la 0.3 reste valide pour la 0.4 mais est moins étendu)
-<br>--> actuellement 21804 lignes de code C !
+<h1><strong>fr-simplecode0.4.1 est considérer comme stable depuis la dernière mise à jour</strong></h1><br>
 
-<br>nouveauté :<br>
+
+
+<br>--> fr-simplecode version inférieur à 0.4.1 est désermais considéré comme obselete ! (la documentation de la 0.3 reste valide pour la 0.4 mais est moins étendu)
+<br>--> 0.4 est abandonné car il n'y a pas de pile de script.
+<br>--> actuellement 21884 lignes de code C !
+
+<br><h2>nouveauté et optimisation :</h2><br>
+
+<h3>dernière mise à jour :</h3>
+
++ corectif d'erreur sur les conditions (fin des valeurs de conditions sur les [/n] [/t] [/r] finaux dans les fichiers).
++ les variables locales sont complêtement séparer entre thread avec threading().
+
+<h3>le mois dernier :</h3>
 
 + <strong>gain de vitesse important au niveau de la lecture des fichiers comptenant le code (1 milions de block exécuté en boucle gagne désormais un temps divisé par 2 par rapport au fichier 0.4.1 précédent !peut dépendre des instructions et de la performance de vôtre ordinateur! ). 
 + L'utilisation de l'appliquation élêve désormais automatiquement l'accès au processeur en priorité si possible.</strong>
+
+<h3>Les mois précédents</h3>
 
 les nombres on désormais des virgules jusqu'à 14 de manière stable (! sans entier), un mode normal et scientifique pour l'affichage des nombres<br>
 <code>pow(v1;v2)</code> permet de faire des nombres avec des puissances<br>
@@ -54,6 +66,7 @@ exemple 3 : <code>table|a|=**"momo"+[[1;3;67;[[34;"f";"kkk";4;[[34]]]];17;"c"]]<
 <code>time_delay()</code> sans argument renvoie jourheureminuteseconde.miliseconde (en temps que nombre) seul, <code>time_delay(arg)</code> avec <code>arg</code> un ancien <code>time_delay()</code> renvoie le temps écoulé sous le même format jourheureminuteseconde.miliseconde écoulé.
 <br>
 <br>
+<h3>Il y a très longtemps :</h3>
 <br>
 dernière version stable : fr-simplecode0.3 (actuellement 12866 lignes de code C) <br> --> dernière ajout :<br><code>--arg:</code> sur la commande d'exécution permet de fournir un argument récupérable dans le code grâce à <code>[main_arg]</code>,<br>modification des règles d'appel à <code>[input]</code> fournit par <code>use_script(;)</code> sous la même forme que <code>[main_arg]</code>.
 <br>
@@ -84,11 +97,13 @@ nano start frc "nom_du_fichier" démarre le script init (on peut rajouté le nom
 + ajout de var_local||
 
 + ajout de commentaire grâce à <code>$//</code> puis <code>//$</code> pour fermé
-
+<br>
+<br>
+<h3>Autres :</h3>
 <br>
 pour plus d'info : <a href="https://github.com/argentrocher/fr-simplecode/wiki">(voir wiki)</a>
 <br><br>
-commande de test 0.3 : <br><br>
+<strong>commande de test 0.3 :</strong><br><br>
 
 <code>[[[{print("text(text_letter("atext(text_letter("abc";3))";2))")}]]]</code>
 
@@ -103,7 +118,7 @@ commande de test 0.3 : <br><br>
 <code>[[[{print(text_find("arg arg 234";"a";-1))}]]]</code>
 
 <br>
-commande test 0.4 : <br><br>
+<strong>commande de test 0.4 :</strong><br><br>
 <code>[[[{print("num(hash("bdkfbbrvdjvrjbvjerbvberbrejbrjebzejvjbvjebvbevbhbhbvvvecvgzcyzazgcfjzebchezvchezchzvchcvchvecvehvcvhevcvechevchevcvcvhdschzeejzvbbvhbevhbhhscjbvhvbjzbvhbzvebhfvjsbchvuevhvfevzefbufbuzgecuebczbvezvezvezjhfbezgfugefygezgfezfyfceugeycuegcyzgicheugcyehuefugyuezgezgfeyfezfezxgeygxuyzgcchjegcececcezyegfygfuyezgyuegcyevxvexezvxexvejbverhrvhrevbryvgyrgyrgfyergfyergfyegfygfyhfuiezgfuzheihcuegcyuejhegczgcyuechjezgeygcegcgeucgecehckehqskhcuidgcyegchjgcsqgcyuegcuyegcyuezgcuygcugckjsqhsgcuz_675654534486879896655465766745644463435454454546465456JHUGYGYGTFTYFTFTFTFTFTFRDRTUGUKTTFFJHGJFFJGJYFYJFTFDTRHGHJJKUGYFRERT4534336467HGGHVGHFGFDFGDGHFHFHFGDTDRTDTRDGHJVHVGFDGDbdhvbhbvjvdbdjhbvjhdvyugchdgjvsddvjsdjvsjdhvgsddsgfdsjgfjfdshggcjcgjdsgcdcgdscvdscvyusdcsydgcjhgchjsgyugeyegcjhgcjssyucsycfyshchjqscyucgezychsgchgcyuegchjscfhcgcfyueycgyefcyuegcezvebehvejbhjvzexvvezsxuyevcjecyuegcyuehcuceygcegciuehcyuegcgcegcuegcuycezihfuehfugfyugetyfteyfdyuezfdyuafzdtyfefcuegctyfecegcgezeiuhfhzgyuegfegyuehxuggdygezyygexcdae"))")}]]]</code> = hash à .1000 charactères (corespond au nombre décimaux) et 11 chiffres de hashage maximum pour respecter le format du double (15 chiffres max); résultat : <code>37805820906.10</code><br><br>
 
 <code>[[[{var_local|char|="mon char !"}{print("text(text_letters("text(var_local|char|)";text_len("text(var_local|char|)");text_find("text(var_local|char|)";"c";text_count("text(var_local|char|)";"c"))))")}]]]</code> affiche char ! (du dernier 'c' jusqu'à la fin)<br><br>
@@ -118,4 +133,4 @@ exemple de moyenne d'une table par rapport à des oppérations random : <code>[[
 <br>
 comment récupérer la version de mon application ?
 <br>
-<code>[[[{if||version()||?=||0||{print("version : fr-simplecode0.2 ou précédente")}}{if||version()||?=||0.3||{print("version : fr-simplecode0.3")}}{if||version()||?=||0.4||{print("version : fr-simplecode0.4")}}]]]</code>
+<code>[[[{if||version()||?=||0||{print("version : fr-simplecode0.2 ou précédente")}}{if||version()||?=||0.3||{print("version : fr-simplecode0.3")}}{if||version()||?=||0.4||{print("version : fr-simplecode0.4")}}]]]</code><br>
