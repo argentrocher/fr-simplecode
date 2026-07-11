@@ -20,6 +20,8 @@ INFO : <strong>frc_notepad.xml</strong> permet d'avoir un bon rendu du code (hor
 
 + corectif d'erreur sur les conditions (fin des valeurs de conditions sur les [/n] [/t] [/r] finaux dans les fichiers).
 + les variables locales sont complêtement séparer entre thread avec threading().
++ les variables globales sont plus rapide d'accès sur le fichier var.txt.
++ Les erreurs machines de fr-simplecode affiche un message avant crash pour le debuggage <a href="https://github.com/argentrocher/fr-simplecode/wiki">(voir wiki)</a>.
 
 <h3>le mois dernier :</h3>
 
