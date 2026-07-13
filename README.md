@@ -12,13 +12,13 @@ INFO : <strong>frc_notepad.xml</strong> permet d'avoir un bon rendu du code (hor
 
 <br>--> fr-simplecode version inférieur à 0.4.1 est désermais considéré comme obselete ! (la documentation de la 0.3 reste valide pour la 0.4 mais est moins étendu)
 <br>--> 0.4 est abandonné car il n'y a pas de pile de script.
-<br>--> actuellement 22410 lignes de code C !
+<br>--> actuellement 22658 lignes de code C !
 
 <br><h2>nouveauté et optimisation :</h2><br>
 
 <h3>dernière mise à jour :</h3>
 
-+ corectif d'erreur sur les conditions (fin des valeurs de conditions sur les [/n] [/t] [/r] finaux dans les fichiers).
++ corectif d'erreur sur les conditions et modification de gestion de la pile au lieu du tas.
 + les variables locales sont complêtement séparer entre thread avec threading().
 + les variables globales sont plus rapide d'accès sur le fichier var.txt.
 + Les erreurs machines de fr-simplecode affiche un message avant crash pour le debuggage <a href="https://github.com/argentrocher/fr-simplecode/wiki/fr%E2%80%90simplecode0.4-(0.4.1-actuel)#les-messages-dexception-syst%C3%A8me-">(voir wiki)</a>.
