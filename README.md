@@ -6,18 +6,19 @@
 
 INFO : <strong>frc_notepad.xml</strong> permet d'avoir un bon rendu du code (hormis pour les chaînes entre " car l'imbrication des fonctions internes text() et num() qui posèdent également des " internes ne peuvent pas être ignorés.) <br><br>
 
-<h1><strong>fr-simplecode0.4.1 est considérer comme stable depuis la dernière mise à jour</strong></h1><br>
+<h1><strong>fr-simplecode0.4.1 est considéré comme stable et terminé depuis la dernière mise à jour !<br>La nouvelle version 0.5 est en cours de construction !</strong></h1><br>
 
 
 
 <br>--> fr-simplecode version inférieur à 0.4.1 est désermais considéré comme obselete ! (la documentation de la 0.3 reste valide pour la 0.4 mais est moins étendu)
 <br>--> 0.4 est abandonné car il n'y a pas de pile de script.
-<br>--> actuellement 22658 lignes de code C !
+<br>--> actuellement terminé avec 23166 lignes de code C !
 
 <br><h2>nouveauté et optimisation :</h2><br>
 
-<h3>dernière mise à jour :</h3>
+<h3>dernière mise à jour de la 0.4.1 :</h3>
 
++ <code>threading()</code> gagne en stabilité et en fonctionalité.
 + corectif d'erreur sur les conditions et modification de gestion de la pile au lieu du tas.
 + les variables locales sont complêtement séparer entre thread avec threading().
 + les variables globales sont plus rapide d'accès sur le fichier var.txt.
