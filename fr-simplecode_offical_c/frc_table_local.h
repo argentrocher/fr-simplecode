@@ -96,11 +96,11 @@ int suppr_save_table_local(const char *input_line) {
     // Supprimer la table de l’environnement
     int res = suppr_table_env(env_name, table_name);
     if (!res) {
-        if (!error_in_stderr)
-            printf("Erreur : table %s inexistante dans l'environnement %s\n", table_name, env_name), fflush(stdout);
-        else
-            fprintf(stderr, "Erreur : table %s inexistante dans l'environnement %s\n", table_name, env_name), fflush(stderr);
-        if (error_lock_program) var_script_exit = 1;
+        char error_msg_fr[2048];
+        char error_msg_en[2048];
+        sprintf(error_msg_fr,"Erreur : table local '%s' inexistante dans l'environnement '%s'.\n", table_name, env_name);
+        sprintf(error_msg_en,"Error: local table '%s' does not exist in the '%s' environment.\n", table_name, env_name);
+        error_handler(error_msg_fr, error_msg_en, ERROR_MODE_DEFAULT);
         return 0;
     }
 
@@ -142,11 +142,11 @@ int add_sub_save_table_local(const char *input_line) {
             set_table_env(env_name, table_name, new_table);
             return 1;
         } else {
-            if (!error_in_stderr)
-                printf("Erreur : la table local %s n'existe pas dans %s\n", table_name, env_name), fflush(stdout);
-            else
-                fprintf(stderr, "Erreur : la table local %s n'existe pas dans %s\n", table_name, env_name), fflush(stderr);
-            if (error_lock_program) var_script_exit = 1;
+            char error_msg_fr[2048];
+            char error_msg_en[2048];
+            sprintf(error_msg_fr,"Erreur : table local '%s' inexistante dans l'environnement '%s'.\n", table_name, env_name);
+            sprintf(error_msg_en,"Error: local table '%s' does not exist in the '%s' environment.\n", table_name, env_name);
+            error_handler(error_msg_fr, error_msg_en, ERROR_MODE_DEFAULT);
             return 0;
         }
     }
@@ -166,11 +166,11 @@ int add_sub_save_table_local(const char *input_line) {
     }
 
     if (!val_start || !val_end) {
-        if (!error_in_stderr)
-            printf("Erreur : format de table local invalide pour %s\n", table_name), fflush(stdout);
-        else
-            fprintf(stderr, "Erreur : format de table local invalide pour %s\n", table_name), fflush(stderr);
-        if (error_lock_program) var_script_exit = 1;
+        char error_msg_fr[2048];
+        char error_msg_en[2048];
+        sprintf(error_msg_fr,"Erreur : format de table local invalide pour '%s'.\n", table_name);
+        sprintf(error_msg_en,"Error: invalid local table format for '%s'.\n", table_name);
+        error_handler(error_msg_fr, error_msg_en, ERROR_MODE_DEFAULT);
         return 0;
     }
 
@@ -243,16 +243,7 @@ int parse_and_save_table_local(const char *input_line, const char *save_env_name
     table_name[sep - start] = '\0';
 
     if (strpbrk(table_name, "[]={}\"")) {
-        if (error_in_stderr==false){
-            printf("Erreur : le nom de la table local contient un caractère interdit : [ ] = { } \"\n");
-            fflush(stdout);
-        } else {
-            fprintf(stderr,"Erreur : le nom de la table local contient un caractère interdit : [ ] = { } \"\n");
-            fflush(stderr);
-        }
-        if (error_lock_program==true){
-            var_script_exit=1;
-        }
+        error_handler("Erreur : le nom de la table local contient un caractère interdit : [ ] = { } \".\n", "Error: the local table name contains a forbidden character: [ ] = { } \".\n", ERROR_MODE_DEFAULT);
         return 0;
     }
 
@@ -291,12 +282,11 @@ int parse_and_save_table_local(const char *input_line, const char *save_env_name
     char computed_inner[MAX_ORDER_SCRIPT_LEN] = {0};
     if (!compute_values_part_from_rhs(raw_values, computed_inner, sizeof(computed_inner))) {
         // erreur lors du parsing/eval : retourner 0 (ou laisser inchangé)
-        if (error_in_stderr==false){
-            printf("Erreur : impossible d'évaluer la partie droite : %s\n", raw_values); fflush(stdout);
-        } else {
-            fprintf(stderr,"Erreur : impossible d'évaluer la partie droite : %s\n", raw_values); fflush(stderr);
-        }
-        if (error_lock_program==true) var_script_exit=1;
+        char error_msg_fr[2048];
+        char error_msg_en[2048];
+        sprintf(error_msg_fr,"Erreur : impossible d'évaluer la partie droite de table local : '%s'.\n", raw_values);
+        sprintf(error_msg_en,"Error: unable to evaluate the right side of local table: '%s'.\n", raw_values);
+        error_handler(error_msg_fr, error_msg_en, ERROR_MODE_DEFAULT);
         return 0;
     }
 
@@ -312,14 +302,11 @@ int parse_and_save_table_local(const char *input_line, const char *save_env_name
     //vérif applique :
     const char* verification_table = get_table_env(current_env_object(),table_name);
     if (!verification_table || strcmp(verification_table, "Table non trouvée.") == 0 || strcmp(verification_table,"Environnement non trouvé.") == 0){
-        if (error_in_stderr == false) {
-            printf("Erreur : la pile d'environnement ne fonctionne pas, impossible de créer table_local|%s| !\n", table_name);
-            fflush(stdout);
-        } else {
-            fprintf(stderr, "Erreur : la pile d'environnement ne fonctionne pas, impossible de créer table_local|%s| !\n", table_name);
-            fflush(stderr);
-        }
-        if (error_lock_program == true) var_script_exit = 1;
+        char error_msg_fr[2048];
+        char error_msg_en[2048];
+        sprintf(error_msg_fr,"Erreur : la pile d'environnement ne fonctionne pas, impossible de créer 'table_local|%s|'.\n", table_name);
+        sprintf(error_msg_en,"Error: the environment stack is not working, unable to create 'table_local|%s|'.\n", table_name);
+        error_handler(error_msg_fr, error_msg_en, ERROR_MODE_DEFAULT);
         return 0;
     }
 
@@ -331,7 +318,7 @@ char* get_table_block_local(const char *recup) {
     static char result[MAX_ORDER_SCRIPT_LEN] = "0.00";
 
     if (strncmp(recup, "table_local|", 12) != 0) {
-        printf("Erreur : la chaîne ne commence pas par 'table|'\n");
+        printf("Erreur : la chaîne ne commence pas par 'table_local|'\n");
         fflush(stdout);
         return result;
     }
@@ -340,16 +327,7 @@ char* get_table_block_local(const char *recup) {
     const char *name_start = recup + 12;
     const char *sep = strchr(name_start, '|');
     if (!sep) {
-        if (error_in_stderr==false){
-            printf("Erreur : séparateur '|' non trouvé après le nom de la table.\n");
-            fflush(stdout);
-        } else {
-            fprintf(stderr,"Erreur : séparateur '|' non trouvé après le nom de la table.\n");
-            fflush(stderr);
-        }
-        if (error_lock_program==true){
-            var_script_exit=1;
-        }
+        error_handler("Erreur : séparateur '|' introuvable après le nom de la table local.\n", "Error: separator '|' not found after the local table name.\n", ERROR_MODE_DEFAULT);
         strcpy(result, "0.00");
         return result;
     }
@@ -381,39 +359,28 @@ char* get_table_block_local(const char *recup) {
             }
 
             if (bracket_depth != 0) {
-                if (error_in_stderr==false){
-                    printf("Erreur : crochet non fermé dans table|...|![]\n");
-                    fflush(stdout);
-                } else {
-                    fprintf(stderr,"Erreur : crochet non fermé dans table|...|![]\n");
-                    fflush(stderr);
-                }
-                if (error_lock_program==true){
-                    var_script_exit=1;
-                }
+                error_handler("Erreur : crochet non fermé dans table||![...].\n", "Error: hook not closed in table||![...].\n", ERROR_MODE_DEFAULT);
                 strcpy(result, "0.00");
                 return result;
             }
 
             expr[i] = '\0';
             double dval = condition_script_order(expr);
-            int idx = (int)dval - 1;
-            indexes[index_count++] = idx;
+            int idx = (int)dval;
+            idx--;
+            indexes[index_count] = idx;
+            index_count++;
         } else p++;
     }
 
+    //printf("view : index[0] %d index_count %d\n",indexes[0],index_count);
 
     if (!found || !strstr(found, "[[")) {
-        if (error_in_stderr==false){
-            printf("Erreur : table local '%s' introuvable ou format incorrect.\n", table_name);
-            fflush(stdout);
-        } else {
-            fprintf(stderr,"Erreur : table local '%s' introuvable ou format incorrect.\n", table_name);
-            fflush(stderr);
-        }
-        if (error_lock_program==true){
-            var_script_exit=1;
-        }
+        char error_msg_fr[2048];
+        char error_msg_en[2048];
+        sprintf(error_msg_fr,"Erreur : format de table local invalide pour '%s'.\n", table_name);
+        sprintf(error_msg_en,"Error: invalid local table format for '%s'.\n", table_name);
+        error_handler(error_msg_fr, error_msg_en, ERROR_MODE_DEFAULT);
         strcpy(result, "0.00");
         return result;
     }
@@ -492,26 +459,16 @@ char* get_table_block_local(const char *recup) {
 
         // Erreur : index hors limite
         if (current_index != target_index && *scan == '\0') {
+            char error_msg_fr[2048];
+            char error_msg_en[2048];
             if (target_index+1<=0){
-                if (error_in_stderr==false){
-                    printf("Erreur : index %s , case %d impossible pour table local '%s' (la valeur minimum d'une case est 1)\n", list_index_see, target_index+1, table_name);
-                    fflush(stdout);
-                } else {
-                    printf("Erreur : index %s , case %d impossible pour table local '%s' (la valeur minimum d'une case est 1)\n", list_index_see, target_index+1, table_name);
-                    fflush(stderr);
-                }
+                sprintf(error_msg_fr,"Erreur : index %s , case %d impossible pour table local '%s' (la valeur minimum d'une case est 1).\n", list_index_see, target_index+1, table_name);
+                sprintf(error_msg_en,"Error: index %s, %d box impossible for local table '%s' (minimum value of a box is 1).\n", list_index_see, target_index+1, table_name);
             } else {
-                if (error_in_stderr==false){
-                    printf("Erreur : index %s hors limites pour table local '%s'\n", list_index_see, table_name);
-                    fflush(stdout);
-                } else {
-                    fprintf(stderr,"Erreur : index %s hors limites pour table local '%s'\n", list_index_see, table_name);
-                    fflush(stderr);
-                }
+                sprintf(error_msg_fr,"Erreur : index %s hors limites pour table local '%s'.\n", list_index_see, table_name);
+                sprintf(error_msg_en,"Error: index %s out of bounds for local table '%s'.\n", list_index_see, table_name);
             }
-            if (error_lock_program==true){
-                var_script_exit=1;
-            }
+            error_handler(error_msg_fr, error_msg_en, ERROR_MODE_DEFAULT);
             strcpy(result, "0.00");
             return result;
         }
@@ -565,16 +522,11 @@ char* get_table_block_local(const char *recup) {
             // Si la valeur suivante est un sous-tableau, on avance le pointeur
             char *inner = strstr(result, "[[");
             if (!inner) {
-                if (error_in_stderr==false){
-                    printf("Erreur : index %s , la case %d de la table local '%s' n’est pas un sous-tableau.\n", list_index_see, target_index + 1, table_name);
-                    fflush(stdout);
-                } else {
-                    fprintf(stderr,"Erreur : index %s , la case %d de la table local '%s' n’est pas un sous-tableau.\n", list_index_see, target_index + 1, table_name);
-                    fflush(stderr);
-                }
-                if (error_lock_program==true){
-                    var_script_exit=1;
-                }
+                char error_msg_fr[2048];
+                char error_msg_en[2048];
+                sprintf(error_msg_fr,"Erreur : index %s, la case %d de la table local '%s' n’est pas un sous-tableau.\n", list_index_see, target_index + 1, table_name);
+                sprintf(error_msg_en,"Error: index %s, the %d box in the local table '%s' is not a subtable.\n", list_index_see, target_index + 1, table_name);
+                error_handler(error_msg_fr, error_msg_en, ERROR_MODE_DEFAULT);
                 strcpy(result, "0.00");
                 return result;
             }
@@ -599,16 +551,7 @@ char* get_table_value_local(const char *recup) {
     const char *name_start = recup + 12;
     const char *sep = strchr(name_start, '|');
     if (!sep) {
-        if (error_in_stderr==false){
-            printf("Erreur : séparateur '|' non trouvé après le nom de la table.\n");
-            fflush(stdout);
-        } else {
-            fprintf(stderr,"Erreur : séparateur '|' non trouvé après le nom de la table.\n");
-            fflush(stderr);
-        }
-        if (error_lock_program==true){
-            var_script_exit=1;
-        }
+        error_handler("Erreur : séparateur '|' introuvable après le nom de la table local.\n", "Error: separator '|' not found after the local table name.\n", ERROR_MODE_DEFAULT);
         return result;
     }
 
@@ -639,16 +582,7 @@ char* get_table_value_local(const char *recup) {
             }
 
             if (bracket_depth != 0) {
-                if (error_in_stderr==false){
-                    printf("Erreur : crochet fermant manquant dans les indices sur table.\n");
-                    fflush(stdout);
-                } else {
-                    fprintf(stderr,"Erreur : crochet fermant manquant dans les indices sur table.\n");
-                    fflush(stderr);
-                }
-                if (error_lock_program==true){
-                    var_script_exit=1;
-                }
+                error_handler("Erreur : crochet fermant manquant dans les indices sur table local.\n", "Error: closing hook missing from the local table clues.\n", ERROR_MODE_DEFAULT);
                 strcpy(result, "0.00");
                 return result;
             }
@@ -659,16 +593,11 @@ char* get_table_value_local(const char *recup) {
             int idx = (int)dval-1;
 
             if (idx < 0) {
-                if (error_in_stderr==false){
-                    printf("Erreur : index calculé négatif (%d) pour l'expression [%s]\n", idx, expr);
-                    fflush(stdout);
-                } else {
-                    fprintf(stderr,"Erreur : index calculé négatif (%d) pour l'expression [%s]\n", idx, expr);
-                    fflush(stderr);
-                }
-                if (error_lock_program==true){
-                    var_script_exit=1;
-                }
+                char error_msg_fr[2048];
+                char error_msg_en[2048];
+                sprintf(error_msg_fr,"Erreur : index calculé négatif %d pour l'expression [%s] dans table local.\n", idx, expr);
+                sprintf(error_msg_en,"Error: negative calculated index %d for expression [%s] in local table.\n", idx, expr);
+                error_handler(error_msg_fr, error_msg_en, ERROR_MODE_DEFAULT);
                 strcpy(result, "0.00");
                 return result;
             }
@@ -681,16 +610,11 @@ char* get_table_value_local(const char *recup) {
 
 
     if (!found || !strstr(found, "[[")) {
-        if (error_in_stderr==false){
-            printf("Erreur : table '%s' introuvable ou format incorrect.\n", table_name);
-            fflush(stdout);
-        } else {
-            fprintf(stderr,"Erreur : table '%s' introuvable ou format incorrect.\n", table_name);
-            fflush(stderr);
-        }
-        if (error_lock_program==true){
-            var_script_exit=1;
-        }
+        char error_msg_fr[2048];
+        char error_msg_en[2048];
+        sprintf(error_msg_fr,"Erreur : format de table local invalide pour '%s'.\n", table_name);
+        sprintf(error_msg_en,"Error: invalid local table format for '%s'.\n", table_name);
+        error_handler(error_msg_fr, error_msg_en, ERROR_MODE_DEFAULT);
         strcpy(result, "0.00");
         return result;
     }
@@ -759,16 +683,11 @@ char* get_table_value_local(const char *recup) {
     }
 
     if (open_count != 0) {
-        if (error_in_stderr==false){
-            printf("Erreur : la table local '%s' est mal formée (déséquilibre [[ et ]]).\n", table_name);
-            fflush(stdout);
-        } else {
-            fprintf(stderr,"Erreur : la table local '%s' est mal formée (déséquilibre [[ et ]]).\n", table_name);
-            fflush(stderr);
-        }
-        if (error_lock_program==true){
-            var_script_exit=1;
-        }
+        char error_msg_fr[2048];
+        char error_msg_en[2048];
+        sprintf(error_msg_fr,"Erreur : la table local '%s' est mal formée (déséquilibre [[ et ]]).\n", table_name);
+        sprintf(error_msg_en,"Error: the local table '%s' is malformed (imbalance [[ and ]]).\n", table_name);
+        error_handler(error_msg_fr, error_msg_en, ERROR_MODE_DEFAULT);
         strcpy(result, "0.00");
         return result;
     }
@@ -839,16 +758,11 @@ char* get_table_value_local(const char *recup) {
 }
 
         if (current_index != indexes[i] && *scan == '\0') {
-            if (error_in_stderr==false){
-                printf("Erreur : index %d hors limites dans la table local '%s'.\n", indexes[i] + 1, table_name);
-                fflush(stdout);
-            } else {
-                fprintf(stderr,"Erreur : index %d hors limites dans la table local '%s'.\n", indexes[i] + 1, table_name);
-                fflush(stderr);
-            }
-            if (error_lock_program==true){
-                var_script_exit=1;
-            }
+            char error_msg_fr[2048];
+            char error_msg_en[2048];
+            sprintf(error_msg_fr,"Erreur : index %d hors limites dans la table local '%s'.\n", indexes[i] + 1, table_name);
+            sprintf(error_msg_en,"Error: index %d out of bounds in local table '%s'.\n", indexes[i] + 1, table_name);
+            error_handler(error_msg_fr, error_msg_en, ERROR_MODE_DEFAULT);
             strcpy(result, "0.00");
             return result;
         }
@@ -1007,16 +921,11 @@ char* for_get_table_value_local(char *arg) {
         }
 
         if (bracket_depth != 0) {
-            if (error_in_stderr==false){
-                printf("Erreur : déséquilibre de crochets dans : %s\n", start);
-                fflush(stdout);
-            } else {
-                fprintf(stderr,"Erreur : déséquilibre de crochets dans : %s\n", start);
-                fflush(stderr);
-            }
-            if (error_lock_program==true){
-                var_script_exit=1;
-            }
+            char error_msg_fr[2048];
+            char error_msg_en[2048];
+            sprintf(error_msg_fr,"Erreur : déséquilibre de crochets dans : '%s'.\n", start);
+            sprintf(error_msg_en,"Error: imbalance of brackets in '%s'.\n", start);
+            error_handler(error_msg_fr, error_msg_en, ERROR_MODE_DEFAULT);
             strcpy(out, p);
             return output;
         }
@@ -1139,28 +1048,22 @@ void table_sea_local(const char *recup) {
     // Récupérer le contenu de la table locale depuis l'environnement
     const char *table_content = get_table_env(current_env_object(), table_name);
     if (!table_content || strcmp(table_content, "Table non trouvée.") == 0 || strcmp(table_content,"Environnement non trouvé.") == 0) {
-        if (error_in_stderr == false) {
-            printf("Erreur : la table locale '%s' n'existe pas !\n", table_name);
-            fflush(stdout);
-        } else {
-            fprintf(stderr, "Erreur : la table locale '%s' n'existe pas !\n", table_name);
-            fflush(stderr);
-        }
-        if (error_lock_program == true) var_script_exit = 1;
+        char error_msg_fr[2048];
+        char error_msg_en[2048];
+        sprintf(error_msg_fr,"Erreur : table local '%s' n'existe pas.\n", table_name);
+        sprintf(error_msg_en,"Error: local table '%s' does not exist.\n", table_name);
+        error_handler(error_msg_fr, error_msg_en, ERROR_MODE_DEFAULT);
         return;
     }
 
     // Chercher le premier [[
     const char *start_block = strstr(table_content, "[[");
     if (!start_block) {
-        if (error_in_stderr == false) {
-            printf("Erreur : la table locale '%s' est mal formée !\n", table_name);
-            fflush(stdout);
-        } else {
-            fprintf(stderr, "Erreur : la table locale '%s' est mal formée !\n", table_name);
-            fflush(stderr);
-        }
-        if (error_lock_program == true) var_script_exit = 1;
+        char error_msg_fr[2048];
+        char error_msg_en[2048];
+        sprintf(error_msg_fr,"Erreur : la table local '%s' est mal formée.\n", table_name);
+        sprintf(error_msg_en,"Error: the local table '%s' is malformed.\n", table_name);
+        error_handler(error_msg_fr, error_msg_en, ERROR_MODE_DEFAULT);
         return;
     }
 
@@ -1213,16 +1116,7 @@ int process_table_edit_local(const char *recuperer) {
     }
 
     if (depth != 0) {
-        if (error_in_stderr==false){
-                printf("Erreur : parenthèses non équilibrées dans .edit(...)\n");
-                fflush(stdout);
-        } else {
-                fprintf(stderr,"Erreur : parenthèses non équilibrées dans .edit(...)\n");
-                fflush(stderr);
-        }
-        if (error_lock_program==true){
-                var_script_exit=1;
-        }
+        error_handler("Erreur : parenthèses déséquilibrées dans table_local||.edit(...)(...).\n", "Error: unbalanced parentheses in table_local||.edit(...)(...).\n", ERROR_MODE_DEFAULT);
         return 0;
     }
 
@@ -1230,16 +1124,7 @@ int process_table_edit_local(const char *recuperer) {
 
     // Ensuite on a (valeur)
     if (*p != '(') {
-        if (error_in_stderr==false){
-                printf("Erreur : valeur manquante dans .edit(...)(valeur)\n");
-                fflush(stdout);
-        } else {
-                fprintf(stderr,"Erreur : valeur manquante dans .edit(...)(valeur)\n");
-                fflush(stderr);
-        }
-        if (error_lock_program==true){
-                var_script_exit=1;
-        }
+        error_handler("Erreur : valeur manquante dans table_local||.edit(...)(valeur).\n", "Error: missing value in table_local||.edit(...)(value).\n", ERROR_MODE_DEFAULT);
         return 0;
     }
 
@@ -1254,16 +1139,8 @@ int process_table_edit_local(const char *recuperer) {
     }
 
     if (val_paren_depth != 0) {
-        if (error_in_stderr==false){
-                printf("Erreur : parenthèses déséquilibrées dans la valeur à insérer sur table edit.\n");
-                fflush(stdout);
-        } else {
-                fprintf(stderr,"Erreur : parenthèses déséquilibrées dans la valeur à insérer sur table edit.\n");
-                fflush(stderr);
-        }
-        if (error_lock_program==true){
-                var_script_exit=1;
-        }
+        //fprintf(stderr,"Erreur : parenthèses déséquilibrées dans la valeur à insérer sur table edit.\n");
+        error_handler("Erreur : parenthèses déséquilibrées dans table_local||.edit(...)(...).\n", "Error: unbalanced parentheses in table_local||.edit(...)(...).\n", ERROR_MODE_DEFAULT);
         return 0;
     }
 
@@ -1350,14 +1227,11 @@ int process_table_edit_local(const char *recuperer) {
     // Charger le contenu de la table locale
     const char* table_inner = get_table_env(current_env_object(),table_name);
     if (!table_inner || strcmp(table_inner, "Table non trouvée.") == 0 || strcmp(table_inner,"Environnement non trouvé.") == 0) {
-        if (error_in_stderr == false) {
-            printf("Erreur : la table locale '%s' n'existe pas !\n", table_name);
-            fflush(stdout);
-        } else {
-            fprintf(stderr, "Erreur : la table locale '%s' n'existe pas !\n", table_name);
-            fflush(stderr);
-        }
-        if (error_lock_program == true) var_script_exit = 1;
+        char error_msg_fr[2048];
+        char error_msg_en[2048];
+        sprintf(error_msg_fr,"Erreur : table local '%s' n'existe pas.\n", table_name);
+        sprintf(error_msg_en,"Error: local table '%s' does not exist.\n", table_name);
+        error_handler(error_msg_fr, error_msg_en, ERROR_MODE_DEFAULT);
         return 0;
     }
 
@@ -1421,16 +1295,7 @@ int process_table_del_local(const char *recup) {
     }
 
     if (depth != 0) {
-        if (error_in_stderr==false){
-                printf("Erreur : parenthèses non équilibrées dans .del(...)\n");
-                fflush(stdout);
-        } else {
-                fprintf(stderr,"Erreur : parenthèses non équilibrées dans .del(...)\n");
-                fflush(stderr);
-        }
-        if (error_lock_program==true){
-                var_script_exit=1;
-        }
+        error_handler("Erreur : parenthèses déséquilibrées dans table_local||.del(...).\n", "Error: unbalanced parentheses in table_local||.del(...).\n", ERROR_MODE_DEFAULT);
         return 0;
     }
 
@@ -1450,14 +1315,11 @@ int process_table_del_local(const char *recup) {
     // Charger le contenu de la table locale
     const char* table_inner = get_table_env(current_env_object(),table_name);
     if (!table_inner || strcmp(table_inner, "Table non trouvée.") == 0 || strcmp(table_inner,"Environnement non trouvé.") == 0) {
-        if (error_in_stderr == false) {
-            printf("Erreur : la table locale '%s' n'existe pas !\n", table_name);
-            fflush(stdout);
-        } else {
-            fprintf(stderr, "Erreur : la table locale '%s' n'existe pas !\n", table_name);
-            fflush(stderr);
-        }
-        if (error_lock_program == true) var_script_exit = 1;
+        char error_msg_fr[2048];
+        char error_msg_en[2048];
+        sprintf(error_msg_fr,"Erreur : table local '%s' n'existe pas.\n", table_name);
+        sprintf(error_msg_en,"Error: local table '%s' does not exist.\n", table_name);
+        error_handler(error_msg_fr, error_msg_en, ERROR_MODE_DEFAULT);
         return 0;
     }
 
@@ -1508,16 +1370,7 @@ int add_table_local(const char *input_line) {
     table_name[add_pos - (input_line + 12)] = '\0';
 
     if (strpbrk(table_name, "[]=|{}\"")) {
-        if (error_in_stderr==false){
-                printf("Erreur : le nom de la table local contient un ou plusieurs caractères interdits : [ ] = { } | \"\n");
-                fflush(stdout);
-        } else {
-                fprintf(stderr,"Erreur : le nom de la table local contient un ou plusieurs caractères interdits : [ ] = { } | \"\n");
-                fflush(stderr);
-        }
-        if (error_lock_program==true){
-                var_script_exit=1;
-        }
+        error_handler("Erreur : le nom de la table local contient un ou plusieurs caractères interdits : [ ] = { } | \".\n", "Error: the local table name contains one or more forbidden characters: [ ] = { } | \".\n", ERROR_MODE_DEFAULT);
         return 0;
     }
 
@@ -1589,14 +1442,11 @@ int add_table_local(const char *input_line) {
     // Charger le contenu de la table locale
     const char* table_inner = get_table_env(current_env_object(),table_name);
     if (!table_inner) {
-        if (error_in_stderr == false) {
-            printf("Erreur : la table locale '%s' n'existe pas !\n", table_name);
-            fflush(stdout);
-        } else {
-            fprintf(stderr, "Erreur : la table locale '%s' n'existe pas !\n", table_name);
-            fflush(stderr);
-        }
-        if (error_lock_program == true) var_script_exit = 1;
+        char error_msg_fr[2048];
+        char error_msg_en[2048];
+        sprintf(error_msg_fr,"Erreur : table local '%s' n'existe pas.\n", table_name);
+        sprintf(error_msg_en,"Error: local table '%s' does not exist.\n", table_name);
+        error_handler(error_msg_fr, error_msg_en, ERROR_MODE_DEFAULT);
         return 0;
     }
 
@@ -1610,14 +1460,11 @@ int add_table_local(const char *input_line) {
         //vérif applique :
         const char* verification_table = get_table_env(current_env_object(),table_name);
         if (!verification_table || strcmp(verification_table, "Table non trouvée.") == 0 || strcmp(verification_table,"Environnement non trouvé.") == 0){
-            if (error_in_stderr == false) {
-                printf("Erreur : la pile d'environnement ne fonctionne pas, impossible de créer table_local|%s| !\n", table_name);
-                fflush(stdout);
-            } else {
-                fprintf(stderr, "Erreur : la pile d'environnement ne fonctionne pas, impossible de créer table_local|%s| !\n", table_name);
-                fflush(stderr);
-            }
-            if (error_lock_program == true) var_script_exit = 1;
+            char error_msg_fr[2048];
+            char error_msg_en[2048];
+            sprintf(error_msg_fr,"Erreur : la pile d'environnement ne fonctionne pas, impossible de créer 'table_local|%s|'.\n", table_name);
+            sprintf(error_msg_en,"Error: the environment stack is not working, unable to create 'table_local|%s|'.\n", table_name);
+            error_handler(error_msg_fr, error_msg_en, ERROR_MODE_DEFAULT);
             return 0;
         }
         return 1;
@@ -1664,14 +1511,11 @@ char* extract_table_len_local(char *val) {
     // Charger le contenu de la table locale
     const char* table_inner = get_table_env(current_env_object(),table_name);
     if (!table_inner || strcmp(table_inner, "Table non trouvée.") == 0 || strcmp(table_inner,"Environnement non trouvé.") == 0) {
-        if (error_in_stderr == false) {
-            printf("Erreur : la table locale '%s' n'existe pas !\n", table_name);
-            fflush(stdout);
-        } else {
-            fprintf(stderr, "Erreur : la table locale '%s' n'existe pas !\n", table_name);
-            fflush(stderr);
-        }
-        if (error_lock_program == true) var_script_exit = 1;
+        char error_msg_fr[2048];
+        char error_msg_en[2048];
+        sprintf(error_msg_fr,"Erreur : table local '%s' n'existe pas.\n", table_name);
+        sprintf(error_msg_en,"Error: local table '%s' does not exist.\n", table_name);
+        error_handler(error_msg_fr, error_msg_en, ERROR_MODE_DEFAULT);
         return "0"; //"0" permet de ne pas affiché l'autre msg d'erreur de len_table_local et retourne 0.00
     }
 
@@ -1847,14 +1691,11 @@ char* len_table_local(char *val) {
 
     char *table = extract_table_len_local(val);
     if (!table) {
-        if (error_in_stderr==false){
-            printf("Erreur : %s à échouée.\n",val);
-            fflush(stdout);
-        } else {
-            fprintf(stderr,"Erreur : %s à échouée.\n",val);
-            fflush(stderr);
-        }
-        if (error_lock_program) var_script_exit = 1;
+        char error_msg_fr[2048];
+        char error_msg_en[2048];
+        snprintf(error_msg_fr, sizeof(error_msg_fr), "Erreur : '%s' à échouée.\n", val);
+        snprintf(error_msg_en, sizeof(error_msg_en), "Error: '%s' failed.\n", val);
+        error_handler(error_msg_fr, error_msg_en, ERROR_MODE_DEFAULT);
         return result;
     }
 
@@ -1961,16 +1802,7 @@ char* for_len_table_local(char *arg) {
             }
 
             if (paren != 0) {
-                if (error_in_stderr==false){
-                    printf("Erreur : parenthèse non fermée dans .len()\n");
-                    fflush(stdout);
-                } else {
-                    fprintf(stderr,"Erreur : parenthèse non fermée dans .len()\n");
-                    fflush(stderr);
-                }
-                if (error_lock_program==true){
-                    var_script_exit=1;
-                }
+                error_handler("Erreur : parenthèses déséquilibrées dans table_local||.len(...).\n", "Error: unbalanced parentheses in table_local||.len(...).\n", ERROR_MODE_DEFAULT);
                 strcpy(out, p);
                 break;
             }
