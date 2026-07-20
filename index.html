@@ -19,7 +19,15 @@
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 50px;
+			color: white;
+			background:linear-gradient(135deg,#9b77d5,#592a9f);
+			background-attachment: fixed;
+			background-repeat: no-repeat;
+			background-size: cover;
         }
+		button:hover{
+			transform:translateY(3px);
+		}
         button.github-link {
             display: inline-block;
             padding: 15px 25px;
@@ -31,6 +39,18 @@
         }
         button.github-link:hover {
             background-color: #744c56;
+        }
+		button.wiki-link {
+            display: inline-block;
+            padding: 15px 35px;
+            background-color: white;
+            color: #24292e;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+        button.wiki-link:hover {
+            background-color: #c4ccf6;
         }
 		button.download-btn {
             display: inline-block;
@@ -44,19 +64,166 @@
 		button.download-btn:hover {
             background-color: #447c56;
         }
+		button.cancel-btn {
+            display: inline-block;
+            padding: 15px 25px;
+            background-color: #24292e;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+		button.cancel-btn:hover {
+            background-color: #f2ae33;
+        }
+		@keyframes fade{
+			from{
+				opacity:0;
+				transform:translateY(-20px);
+			}
+			to{
+				opacity:1;
+				transform:translateY(0);
+			}
+		}
+		#downloadModal{
+			display: none;
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 40%;
+			min-width: 450px;
+			height: 70%;
+			min-height: 550px;
+			background-color: white;
+			color: black;
+			border-radius:18px;
+			text-align:center;
+		}
+		#downloadModalOption{
+			text-align:left;
+			padding: 8px 17px;
+		}
     </style>
 </head>
 <body>
-    <h1>Bienvenue sur mon site fr-simplecode GitHub Pages</h1>
+    <img src="https://argentrocher.github.io/fr-simplecode/frc.png" width="240" style="animation:fade 1s;">
+    <h1>Bienvenue sur le site fr-simplecode GitHub Pages</h1>
 	<br><br>
-    <p style="font-size: 20px;"><strong>Vous pouvez accéder à mon dépôt GitHub ou télécharger la dernière version ici :</strong></p>
-    <button class="github-link" onclick="window.location.href='https://github.com/argentrocher/fr-simplecode'" target="_blank">Accéder au dépôt GitHub</button>
+    <p style="font-size: 25px;"><strong>Vous pouvez accéder à mon dépôt GitHub ou télécharger la dernière version ici :</strong></p>
+    <button class="github-link" onclick="window.location.href='https://github.com/argentrocher/fr-simplecode'" target="_blank">💻 Accéder au dépôt GitHub</button>
 	
-	<button class="download-btn" onclick="downloadZip()">Télécharger la dernière version (ZIP)</button>
+	<button class="download-btn" onclick="openDownloadWindow()">📦 Télécharger la dernière version (ZIP)</button>
+	
+	<br><br><br><br><br><br><br>
+	<h1>Pour plus d'information :</h1>
+	<button class="wiki-link" onclick="window.location.href='https://github.com/argentrocher/fr-simplecode/wiki'" target="_blank"><strong> 📝 Wiki </strong></button>
 
 	<label style="position: fixed; bottom: 10px; left: 10px; font-size: 15px;">Par argentropcher, asigné au compte Google argentropcher, tous droits réservés</label>
 	<label style="position: fixed; bottom: 10px; right: 10px; font-size: 15px;">Windows System only</label>
+	
+	<div id="downloadModal">
+	<h1 style="font-size: clamp(14px,1.3vw,20px);">Télécharger fr-simplecode</h1>
+	<div id="downloadModalOption">
+	<h2>Options :</h2>
+	
+	<label style="font-size: clamp(14px,1.3vw,20px);">
+	<input type="checkbox" id="math" style="transform: scale(1.8);" checked>
+	Bibliothèque math+timelibrairy.frc
+	<br>
+	<small>
+	Fonctions mathématiques, temps...
+	</small>
+	</label>
+	
+	<br><br>
+	
+	<label style="font-size: clamp(14px,1.3vw,20px);">
+	<input type="checkbox" id="frc_utilitaire" style="transform: scale(1.8);" checked>
+	Bibliothèque frc_utilitaire
+	<br>
+	<small>
+	Fonctions de lecture fichier, couleur du cmd, appel système Windows ...
+	</small>
+	</label>
+	
+	<ul>
+	<li>
+	<label style="font-size: clamp(14px,1.3vw,20px);">
+	<input type="checkbox" id="os" style="transform: scale(1.8);" checked>
+	Bibliothèque os.frc
+	<br>
+	<small>
+	Fonctions de lecture écriture de fichier texte.
+	</small>
+	</label>
+	</li>
+	
+	<li>
+	<label style="font-size: clamp(14px,1.3vw,20px);">
+	<input type="checkbox" id="cmd_color" style="transform: scale(1.8);" checked>
+	Bibliothèque cmd_color.frc
+	<br>
+	<small>
+	Fonctions de manipulation des couleurs du cmd Windows.
+	</small>
+	</label>
+	</li>
+	
+	<li>
+	<label style="font-size: clamp(14px,1.3vw,20px);">
+	<input type="checkbox" id="service" style="transform: scale(1.8);" checked>
+	Bibliothèque service.frc
+	<br>
+	<small>
+	Les appels systèmes à toutes les fonctions de microsofts sont possible<br>(ne pas utiliser en ligne).
+	</small>
+	</label>
+	</li>
+	
+	</ul>
+	
+	<label style="font-size: clamp(14px,1.3vw,20px);">
+	<input type="checkbox" id="exemple" style="transform: scale(1.8);" checked>
+	Ficher d'exemple de script
+	<br>
+	<small>
+	Exemple de script fr-simplecode.
+	</small>
+	</label>
+	
+	</div>
+	
+	<br>
+	
+	<button style="font-size: clamp(15px,1.2vw,20px);" class="cancel-btn" onclick="closeDownloadWindow()">Annuler</button>
+	<button style="font-size: clamp(15px,1.2vw,20px);" class="download-btn" onclick="downloadZip()">Télécharger</button>
+	</div>
+	
     <script>
+		const utilitaire = document.getElementById("frc_utilitaire");
+
+		const enfants = [
+			document.getElementById("os"),
+			document.getElementById("cmd_color"),
+			document.getElementById("service")
+		];
+
+		utilitaire.addEventListener("change", function () {
+			enfants.forEach(c => {
+				c.checked = utilitaire.checked;
+			});
+		});
+		
+		enfants.forEach(c => {
+			c.addEventListener("change", function () {
+				utilitaire.checked = enfants.every(x => x.checked);
+			});
+
+		});
+	
+	
         async function downloadZip() {
             const zip = new JSZip();
 
@@ -92,30 +259,37 @@
 				{
                     name: "libwinpthread-1.dll",
                     url: "https://argentrocher.github.io/fr-simplecode/libwinpthread-1.dll"
-                },
-				{
-                    name: "expemple__de_commande_fr-simplecode.txt",
-                    url: "https://argentrocher.github.io/fr-simplecode/expemple__de_commande_fr-simplecode.txt"
-                },
-                {
+                }];
+				
+			if(document.getElementById("exemple").checked){
+				filesToInclude.push({
+					name: "expemple__de_commande_fr-simplecode.txt",
+					url: "https://argentrocher.github.io/fr-simplecode/expemple__de_commande_fr-simplecode.txt"
+				});
+			}
+			
+            filesToInclude.push({
                     name: "lib_frc/",
                     files: [
                         {
                             name: "register_web_frc.txt",
-                            content: ""
+                            content: "\n"
                         }
                     ]
                 },
-                {
+				{
                     name: "lib_frc/web_include/",
                     files: [
                         {
                             name: "web_ressource.info",
-                            content: ""
+                            content: "\n"
                         }
                     ]
-                },
-                {
+                });
+				
+				
+            if(document.getElementById("exemple").checked){
+				filesToInclude.push({
                     name: "lib_frc/lib/",
                     files: [
                         {
@@ -123,37 +297,49 @@
                             url: "https://argentrocher.github.io/fr-simplecode/exemple_script_0.4/math+timelibrairy.frc"
                         }
                     ]
-                },
-                {
-                    name: "lib_frc/lib/frc_utilitaire",
-                    files: [
-                        {
+                });
+			}
+            if(document.getElementById("os").checked ||
+				document.getElementById("cmd_color").checked ||
+				document.getElementById("service").checked){
+
+				const dossier={
+					name:"lib_frc/lib/frc_utilitaire",
+					files:[ ]
+				};    
+				
+				if(document.getElementById("os").checked){
+					dossier.files.push({
                             name: "os.frc",
                             url: "https://argentrocher.github.io/fr-simplecode/exemple_script_0.4/frc_utilitaire/os.frc"
                         },
 						{
 							name: "frc_os.dll",
 							url: "https://argentrocher.github.io/fr-simplecode/exemple_script_0.4/frc_utilitaire/frc_os.dll"
-						},
-						{
+						});
+				}
+				if(document.getElementById("cmd_color").checked){
+					dossier.files.push({
 							name: "cmd_color.frc",
 							url: "https://argentrocher.github.io/fr-simplecode/exemple_script_0.4/frc_utilitaire/cmd_color.frc"
 						},
 						{
 							name: "cmd_color.param",
 							url: "https://argentrocher.github.io/fr-simplecode/exemple_script_0.4/frc_utilitaire/cmd_color.param"
-						},
-						{
+						});
+				}
+				if(document.getElementById("service").checked){
+					dossier.files.push({
                             name: "service.frc",
                             url: "https://argentrocher.github.io/fr-simplecode/exemple_script_0.4/frc_utilitaire/service.frc"
                         },
 						{
 							name: "frc_service.dll",
 							url: "https://argentrocher.github.io/fr-simplecode/exemple_script_0.4/frc_utilitaire/frc_service.dll"
-						}
-                    ]
+						});
                 }
-            ];
+				filesToInclude.push(dossier);
+			}
 
             // --- Fonction pour ajouter un fichier au ZIP ---
             async function addFileToZip(zip, filePath, fileData) {
@@ -198,7 +384,17 @@
                     console.error("Erreur lors de la génération du ZIP :", error);
                     alert("Une erreur est survenue. Voir la console pour plus de détails.");
                 });
+			//fermée
+			closeDownloadWindow();
         }
+		
+		function openDownloadWindow(){
+			document.getElementById("downloadModal").style.display="block";
+		}
+
+		function closeDownloadWindow(){
+			document.getElementById("downloadModal").style.display="none";
+		}
     </script>
 </body>
 </html>
