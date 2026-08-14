@@ -1,0 +1,48 @@
+<script>
+const urlParams = new URLSearchParams(window.location.search);
+const color = urlParams.get('color') || '000000'; // Couleur par défaut : noir
+const content = urlParams.get('content') || 'Contenu par défaut';
+const size = urlParams.get('size') || '400'; // Taille par défaut : 400
+const textsize = urlParams.get('textsize') || '24'; // Taille du texte par défaut : 24
+
+// Échapper les caractères spéciaux pour le SVG
+const escapeSvg = (text) => {
+  return text.replace(/[<>&'"]/g, (char) => {
+  const escapeMap = {
+    '<': '&lt;',
+    '>': '&gt;',
+    '&': '&amp;',
+    "'": '&apos;',
+    '"': '&quot;'
+  };
+  return escapeMap[char];
+  });
+};
+
+const escapedContent = escapeSvg(content);
+
+// Générer le SVG directement dans le body
+let svg = `
+<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size / 2}" viewBox="0 0 ${size} ${size / 2}">
+  <rect width="100%" height="100%" fill="white" />
+    <text
+      x="50%"
+      y="50%"
+      dominant-baseline="middle"
+      text-anchor="middle"
+      font-family="Arial, sans-serif"
+      font-size="${textsize}"
+      fill="#${color}"
+      >
+  ${escapedContent}
+   </text>
+</svg>
+`
+
+// Encoder le SVG pour une Data URL
+const svgEncoded = encodeURIComponent(svg);
+const dataUrl = `data:image/svg+xml,${svgEncoded}`;
+
+// Rediriger vers la Data URL
+window.location.href = dataUrl;
+</script>
