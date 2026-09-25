@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="UTF-8">
+<title>Mon application</title>
+<style>
+body {
+    background: #202020;
+    color: white;
+    font-family: Arial;
+    text-align: center;
+    padding: 40px;
+}
+
+.box {
+    background: #303030;
+    padding: 30px;
+    border-radius: 15px;
+    width: 400px;
+    margin: auto;
+}
+
+button {
+    padding: 10px 25px;
+    font-size: 16px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+    <h1>Bonjour !</h1>
+
+    <p>Cette fenêtre utilise MSHTML.</p>
+
+    <button onclick="ret()">
+        Cliquer
+    </button>
+</div>
+<script>
+var data = window.dialogArguments;
+alert(data);
+function ret() {
+	window.returnValue = "Bonjour depuis HTML"; 
+	window.close();
+}
+</script>
+</body>
+</html>
