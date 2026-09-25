@@ -1,7 +1,7 @@
 FRC-SERVER[auto];
 "0.1";
 "0x1";
-"0x404";
+"0x1F43";
 publiched{
 "argentropcher";
 };
