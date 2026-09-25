@@ -1,7 +1,7 @@
 FRC-SERVER[auto];
 "0.1";
 "0x1";
-"0x1F43";
+"0x1F44";
 publiched{
 "argentropcher";
 };
@@ -32,7 +32,7 @@ pilot-require{
 "fr-simplecode_instal_frc.ps1";
 "https://raw.githubusercontent.com/argentrocher/fr-simplecode/refs/heads/main/file_built_by_fr-simplecode/fr-simplecode.conf";
 "fr-simplecode.conf";
-}
+};
 pilot{
 "https://raw.githubusercontent.com/argentrocher/fr-simplecode/refs/heads/main/fr-simplecode.exe";
 "fr-simplecode.exe";
