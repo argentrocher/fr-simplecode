@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<h1>Server frc</h1>
+
+<frc>[[[
+{print("
+<h2>hello</h2>
+<h2>GET : <${GET!}$><br>
+POST : <${POST!}$></h2>
+<h2>GET KEYS : <${GET.KEYS!}$><br>
+POST KEYS : <${POST.KEYS!}$><br>
+GET VALUES : <${GET.VALUES!}$><br>
+POST VALUES : <${POST.VALUES!}$></h2>
+<br>
+<h2>RESQUEST :<br><${INFO:WEB}$></h2>
+<h2>TIME : <${INFO:TIME}$></h2>
+<h2>IP : <${INFO:IP}$>:<${INFO:PORT}$></h2>
+<h2>SERVER IP : <${SERVER-IP!}$></h2>
+<h2>SERVER LOCALISATION : <${INFO:LOCALISATION}$></h2>
+<h2>SERVER PROCESS : <${INFO:PROCESS}$></h2>
+")}
+{<${GET#FREE}$>}{<${POST#FREE}$>}
+$//commentaire : var|tokens| est globales donc partagés entre tout les clients, et indique donc chaques connexions.//$
+{print("<h2>TOKENS : "var|tokens|"</h2>")}
+{var|tokens|=++}
+]]]</frc>
+
+</body>
+</html>

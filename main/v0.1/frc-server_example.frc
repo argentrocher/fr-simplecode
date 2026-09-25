@@ -1,0 +1,39 @@
+FRC
+
+$//This is an example for frc-server
+by argentropcher//$
+
+#init[[[
+{var|path_serveur|="<PATH::SERVER>"}
+{var|file|="<FILE::server_frc_test.html>"}
+{var_local|r|=dll|text(var|path_serveur|\http_serveur_dll2.dll)|[start_http_server("8080;text(var|path_serveur|)\text(var|file|)")]}
+{if!||var_local|r|||
+	{print("erreur d'ouverture du serveur sur la page par defaut !")}
+	{exit}
+}
+{var_local|r|=dll|text(var|path_serveur|\http_serveur_dll2.dll)|[configure_base_directory("text(var|path_serveur|)\")]}
+{if!||var_local|r|||
+	{print("erreur de définition du répertoire par defaut pour les données webs !")}
+	{exit}
+}
+{var_local|r|=dll|text(var|path_serveur|\http_serveur_dll2.dll)|[configure_server_name("FRC/0.5 (Windows)")]}
+{if!||var_local|r|||
+	{print("erreur de définition du nom du serveur !")}
+	{exit}
+}
+{repeat||endless||
+{sleep(100)}
+}
+]]]
+
+
+$//code with not real server//$
+#init2[[[
+{var|path_serveur|="<PATH::SERVER>"}
+{var|file|="<FILE::server_frc_test.html>"}
+{var_local|r|=dll|text(var|path_serveur|\http_serveur_dll2.dll)|[start_web_page("text(var|path_serveur|)\text(var|file|)")]}
+{if!||var_local|r|||
+	{print("erreur d'ouverture du serveur sur la page par defaut !")}
+	{exit}
+}
+]]]
